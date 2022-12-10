@@ -1,6 +1,14 @@
-# IWEB-ERP
-Proyecto ERP - Apartado de RRHH
+# IWEB-ERP-RRHH
+# Proyecto ERP - Apartado de RRHH
 
-## Tutorial donde se creó la applicación
+- Autores:
+    - `Adrián Berenguer Agulló`
+    - `Rosa María Rodríguez Lledó`
+    - `Javier Rodríguez Juan`
+    - `Ilya Slyusarchuk Dimitrouchkina`
 
-- Carpeta rrhh-admin, sacado de https://github.com/aleckrh/laravel-sb-admin-2
+## Plantilla instalada
+- https://themeselection.com/item/materio-free-vuetify-vuejs-laravel-admin-template/
+
+## Instalación de plantilla
+- https://demos.themeselection.com/materio-vuetify-vuejs-admin-template-vue2/documentation/guide/laravel-integration/installation.html#guide
