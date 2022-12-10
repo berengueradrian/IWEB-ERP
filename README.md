@@ -1,5 +1,5 @@
 # IWEB-ERP-RRHH
-# Proyecto ERP - Apartado de RRHH
+## Proyecto ERP - Apartado de RRHH
 
 - Autores:
     - `Adrián Berenguer Agulló`
