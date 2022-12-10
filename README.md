@@ -11,7 +11,8 @@
 - https://themeselection.com/item/materio-free-vuetify-vuejs-laravel-admin-template/
 
 ## Instalación de plantilla
-- https://demos.themeselection.com/materio-vuetify-vuejs-admin-template-vue2/documentation/guide/laravel-integration/installation.html#guide
+-  Mirad este enlace para ver los comandos que tenéis que ejecutar por si tenéis dudas_
+    - https://demos.themeselection.com/materio-vuetify-vuejs-admin-template-vue2/documentation/guide/laravel-integration/installation.html#guide
 
 ## BBDD
 - Pasos para crear la Base de datos:
