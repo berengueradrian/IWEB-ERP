@@ -7,6 +7,9 @@
     - `Javier Rodríguez Juan`
     - `Ilya Slyusarchuk Dimitrouchkina`
 
+## Mockups
+- https://app.moqups.com/iYPyM8jmZRTvMapOayHeBzq0XNaNuJeP/edit/page/a81dd62ef
+
 ## Plantilla instalada
 - https://themeselection.com/item/materio-free-vuetify-vuejs-laravel-admin-template/
 
@@ -15,7 +18,7 @@
     - https://demos.themeselection.com/materio-vuetify-vuejs-admin-template-vue2/documentation/guide/laravel-integration/installation.html#guide
 
 ## BBDD
-- Draw.io con la estructura de la BBDD: https://app.diagrams.net/#G1Zdn3UXGbnQ15xSQ_08hQ3R2FfHNFtsm5
+- Draw.io con la **estructura de la BBDD**: https://app.diagrams.net/#G1Zdn3UXGbnQ15xSQ_08hQ3R2FfHNFtsm5
 - Pasos para crear la Base de datos:
     - Tener instalado mysql y alguna aplicación que nos sirva como servidor de bases de datos (en mi caso uso DataGrip, también se puede usar Adminer).
     - Después el proceso sería (en una terminal):
