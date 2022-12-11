@@ -7,6 +7,14 @@
     - `Javier Rodríguez Juan`
     - `Ilya Slyusarchuk Dimitrouchkina`
 
+## En la carpeta doc/ adjuntaremos la memoria junto con las historias de usuario y especificación inicial.
+
+## Repositorio
+- https://github.com/berengueradrian/IWEB-ERP
+
+## Trello
+- https://trello.com/b/7CCXLxRA/iweb-rrhh
+
 ## Mockups
 - https://app.moqups.com/iYPyM8jmZRTvMapOayHeBzq0XNaNuJeP/edit/page/a81dd62ef
 
