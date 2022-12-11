@@ -17,7 +17,7 @@
 ## BBDD
 - Pasos para crear la Base de datos:
     - Tener instalado mysql y alguna aplicación que nos sirva como servidor de bases de datos (en mi caso uso DataGrip, también se puede usar Adminer).
-    - Después el proceso sería:
+    - Después el proceso sería (en una terminal):
         - `sudo mysql -p -u root`
         - mysql> `CREATE DATABASE erp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
         - mysql> `CREATE USER 'usuario'@'localhost' IDENTIFIED BY 'contraseña';`
