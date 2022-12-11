@@ -36,3 +36,16 @@
     - `npm run watch`, ejecutamos el front-end. Con este comando no necesitamos volver a ejecutar el programa si realizamos cambios.
     - También podríamos ejecutar `npm run dev`, pero en este caso cuando realizásemos cambios, tendríamos que reiniciarlo.
     - Por último, cuando queramos subir la aplicación a producción, ejecutamos `npm run prod`.
+
+## Estructura del proyecto
+- Las carpetas relevantes del proyecto son las siguientes:
+    - *app/*: Donde tenemos el back-end de la aplicación. Aquí encontramos diversas carpetas:
+        - *Http/*: aquí tenemos los controllers en *Controllers/* y la capa intermedia para hacer comprobaciones en *Middleware/*.
+        - *Models/*: la capa de acceso a la bbdd.
+        - *Providers/* y *Console/*, son dos carpetas que no usaremos en principio.
+
+    - *database/*: aquí tenemos las migraciones/tablas de la bbdd *migrations/* y los datos de prueba en la bbdd *seeders/*.
+
+    - *public/*: aquí encontramos la carpeta *images/*, donde introduciremos una nueva llamada *users/* y meteremos las imágenes de perfil de los usuarios. Esta carpeta no se subirá a git por lo que la creamos todos y nos pasamos las fotos.
+
+    - *resources/*, por último, esta carpeta contiene las vistas en *js/src/views*, también *js/src/components* y *js/src/*. También encontramos las rutas *js/src/router*. Otras como el *js/src/store* (manejo del estado de la aplicación) o *js/src/plugins*.

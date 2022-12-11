@@ -13,6 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(CategoriesTableSeeder::class);
+        $this->command->info('Category table seeded!');
+        $this->call(UsersTableSeeder::class);
+        $this->command->info('User table seeded!');
+        $this->call(ConvenioTableSeeder::class);
+        $this->command->info('Convenio table seeded!');
+        $this->call(DirectionsTableSeeder::class);
+        $this->command->info('Direction table seeded!');
+        $this->call(JornadaTableSeeder::class);
+        $this->command->info('Jornada table seeded!');
+        $this->call(NominaTableSeeder::class);
+        $this->command->info('Nomina table seeded!');
+        $this->call(SolicitudTableSeeder::class);
+        $this->command->info('Solicitud table seeded!');
+        $this->call(DirectionUserTableSeeder::class);
+        $this->command->info('DirectionUser table seeded!');
     }
 }
