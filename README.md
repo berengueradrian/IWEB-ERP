@@ -29,3 +29,10 @@
         - Finalmente, revisas el servidor de BBDD para comprobar que se ha instalado correctamente y tienes las tablas.
 
     - El **phpunit.xml**, ha sido modificado con el nombre de la BBDD y el servidor de BBDD, en este caso, **mysql**. Por esto mismo y por si acaso, lo mejor es tener el mismo nombre de BBDD.
+
+## Puesta en marcha del proyecto
+- Después de haber inicializado el proyecto instalando sus dependencias y, después de realizar la instalación de la BBDD, abrimos dos terminales y ejecutamos:
+    - `php artisan serve`, ejecutamos el back-end.
+    - `npm run watch`, ejecutamos el front-end. Con este comando no necesitamos volver a ejecutar el programa si realizamos cambios.
+    - También podríamos ejecutar `npm run dev`, pero en este caso cuando realizásemos cambios, tendríamos que reiniciarlo.
+    - Por último, cuando queramos subir la aplicación a producción, ejecutamos `npm run prod`.
