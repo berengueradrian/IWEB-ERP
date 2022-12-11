@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -20,19 +21,21 @@ class UsersTableSeeder extends Seeder
         // Delete the table data   
         DB::table('users')->delete();
 
-        $usersId = DB::table('users')->pluck('id');
-        
         DB::table('users')->insert(
         [
             'name' => 'admin',
             'email' => 'admin@ua.es',
             'password' => Hash::make('123'),
-            'admin' => false,
+            'admin' => true,
             'supervisor' => false,
-            'imgage_url' => 'default.jpg',
-            'supervisado' => ,
+            'fecha_nacimiento' => Carbon::parse('1985-07-24'),
+            'formacion' => 'Grado en la universidad de la vida',
+            'image_url' => 'default.jpg',
+            'supervisado' => NULL,
             'category_id' => $categoriesId[0]
         ]);
+
+        $usersId = DB::table('users')->pluck('id');
 
         DB::table('users')->insert(
         [
@@ -40,9 +43,11 @@ class UsersTableSeeder extends Seeder
             'email' => 'super1@ua.es',
             'password' => Hash::make('123'),
             'admin' => false,
-            'supervisor' => false,
-            'imgage_url' => 'default.jpg',
-            'supervisado' => ,
+            'supervisor' => true,
+            'fecha_nacimiento' => Carbon::parse('1992-05-29'),
+            'formacion' => 'Grado en ingeniería informática',
+            'image_url' => 'default.jpg',
+            'supervisado' => $usersId[0],
             'category_id' => $categoriesId[1]
         ]);
 
@@ -52,11 +57,15 @@ class UsersTableSeeder extends Seeder
             'email' => 'super2@ua.es',
             'password' => Hash::make('123'),
             'admin' => false,
-            'supervisor' => false,
-            'imgage_url' => 'default.jpg',
-            'supervisado' => ,
+            'supervisor' => true,
+            'fecha_nacimiento' => Carbon::parse('1995-11-03'),
+            'formacion' => 'Máster en product managemet',
+            'image_url' => 'default.jpg',
+            'supervisado' => $usersId[0],
             'category_id' => $categoriesId[2]
         ]);
+
+        $usersId2 = DB::table('users')->pluck('id');
 
         // Add a new entry to the table 
         DB::table('users')->insert(
@@ -66,8 +75,10 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,
-            'imgage_url' => 'default.jpg',
-            'supervisado' => ,
+            'fecha_nacimiento' => Carbon::parse('2001-01-11'),
+            'formacion' => 'Grado en ingeniería informática',
+            'image_url' => 'default.jpg',
+            'supervisado' => $usersId2[1],
             'category_id' => $categoriesId[3]
         ]);
 
@@ -78,10 +89,14 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,
-            'imgage_url' => 'default.jpg',
-            'supervisado' => ,
+            'fecha_nacimiento' => Carbon::parse('2001-11-17'),
+            'formacion' => 'Grado en ingeniería informática',
+            'image_url' => 'default.jpg',
+            'supervisado' => $usersId2[1],
             'category_id' => $categoriesId[3]
         ]);
+
+        $usersId3 = DB::table('users')->pluck('id');
 
         DB::table('users')->insert(
         [
@@ -90,8 +105,10 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,
-            'imgage_url' => 'default.jpg',
-            'supervisado' => ,
+            'fecha_nacimiento' => Carbon::parse('2001-01-10'),
+            'formacion' => 'Grado en ingeniería informática',
+            'image_url' => 'default.jpg',
+            'supervisado' => $usersId3[2],
             'category_id' => $categoriesId[4]
         ]);
 
@@ -102,8 +119,10 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,
-            'imgage_url' => 'default.jpg',
-            'supervisado' => ,
+            'fecha_nacimiento' => Carbon::parse('2001-10-15'),
+            'formacion' => 'Grado en ingeniería informática',
+            'image_url' => 'default.jpg',
+            'supervisado' => $usersId3[2],
             'category_id' => $categoriesId[4]
         ]);
 

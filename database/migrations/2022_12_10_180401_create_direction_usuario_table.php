@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDirectionsTable extends Migration
+class CreateDirectionUsuarioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateDirectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('directions', function (Blueprint $table) {
+        Schema::create('direction_usuario', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             // Añadido
-            $table->string('name');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('directions_id')->constrained('directions')->onDelete('cascade');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateDirectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('directions');
+        Schema::dropIfExists('direccion_usuario');
     }
 }

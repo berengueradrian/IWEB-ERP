@@ -112,7 +112,7 @@ class JornadaTableSeeder extends Seeder
         [
             'hora_entrada' => 8,
             'hora_salida' => 16,
-            'fecha' => Carbon::parse('2022-012-12'),
+            'fecha' => Carbon::parse('2022-12-12'),
             'user' => $usersId[6]
         ]);
     }
