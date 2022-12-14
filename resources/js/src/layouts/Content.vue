@@ -27,7 +27,7 @@
           <v-spacer></v-spacer>
 
           <!-- Right Content -->
-          <a
+          <!-- <a
             href="https://github.com/themeselection/materio-vuetify-vuejs-laravel-admin-template-free"
             target="_blank"
             rel="nofollow"
@@ -35,9 +35,9 @@
             <v-icon class="ms-6 me-4">
               {{ icons.mdiGithub }}
             </v-icon>
-          </a>
+          </a> -->
           <theme-switcher></theme-switcher>
-          <v-btn
+          <!-- <v-btn
             icon
             small
             class="ms-3"
@@ -45,7 +45,7 @@
             <v-icon>
               {{ icons.mdiBellOutline }}
             </v-icon>
-          </v-btn>
+          </v-btn> -->
           <app-bar-user-menu></app-bar-user-menu>
         </div>
       </div>
