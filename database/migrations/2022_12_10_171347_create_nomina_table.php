@@ -22,6 +22,7 @@ class CreateNominaTable extends Migration
             $table->integer('horas');
             $table->integer('horas_extra')->nullable();
             $table->integer('dias_baja')->nullable();
+            $table->boolean('estado')->default(false);
             // Relaciones
             $table->foreignId('user')->constrained('users')->onDelete('cascade');
         });

@@ -13,13 +13,15 @@ class CreateDirectionUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('direction_usuario', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            // Añadido
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('directions_id')->constrained('directions')->onDelete('cascade');
-        });
+        if(!Schema::hasTable('direction_usuario')){
+            Schema::create('direction_usuario', function (Blueprint $table) {
+                $table->id();
+                $table->timestamps();
+                // Añadido
+                $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+                $table->foreignId('directions_id')->constrained('directions')->onDelete('cascade');
+            });
+        }
     }
 
     /**
