@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class NominaTableSeeder extends Seeder
+class NominasTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,76 +17,76 @@ class NominaTableSeeder extends Seeder
         $usersId = DB::table('users')->pluck('id');
 
         // Delete the table data   
-        DB::table('nomina')->delete();
+        DB::table('nominas')->delete();
 
-        DB::table('nomina')->insert(
+        DB::table('nominas')->insert(
         [
             'sueldo' => 1500.99,
             'mes' => 'Enero',
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user' => $usersId[0]
+            'user_id' => $usersId[0]
         ]);
 
-        DB::table('nomina')->insert(
+        DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
             'mes' => 'Enero',
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user' => $usersId[1]
+            'user_id' => $usersId[1]
         ]);
 
-        DB::table('nomina')->insert(
+        DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
             'mes' => 'Enero',
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user' => $usersId[2]
+            'user_id' => $usersId[2]
         ]);
 
-        DB::table('nomina')->insert(
+        DB::table('nominas')->insert(
         [
             'sueldo' => 1200.99,
             'mes' => 'Enero',
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user' => $usersId[3]
+            'user_id' => $usersId[3]
         ]);
 
-        DB::table('nomina')->insert(
+        DB::table('nominas')->insert(
         [
             'sueldo' => 1200.99,
             'mes' => 'Enero',
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user' => $usersId[4]
+            'user_id' => $usersId[4]
         ]);
 
-        DB::table('nomina')->insert(
+        DB::table('nominas')->insert(
         [
             'sueldo' => 1200.99,
             'mes' => 'Enero',
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user' => $usersId[5]
+            'user_id' => $usersId[5]
         ]);
 
-        DB::table('nomina')->insert(
+        DB::table('nominas')->insert(
         [
             'sueldo' => 1200.99,
             'mes' => 'Enero',
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user' => $usersId[6]
+            'user_id' => $usersId[6]
         ]);
     }
 }

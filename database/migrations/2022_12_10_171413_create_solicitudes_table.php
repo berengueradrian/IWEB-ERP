@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSolicitudTable extends Migration
+class CreateSolicitudesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSolicitudTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitud', function (Blueprint $table) {
+        Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             // Añadido
@@ -24,7 +24,7 @@ class CreateSolicitudTable extends Migration
             $table->string('justificante')->nullable();
             $table->string('tipo');
             // Relaciones
-            $table->foreignId('user')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateSolicitudTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitud');
+        Schema::dropIfExists('solicitudes');
     }
 }
