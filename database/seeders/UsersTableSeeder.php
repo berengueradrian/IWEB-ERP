@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $categoriesId = DB::table('category')->pluck('id');
+        $categoriesId = DB::table('categories')->pluck('id');
 
         // Delete the table data   
         DB::table('users')->delete();

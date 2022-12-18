@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJornadaTable extends Migration
+class CreateJornadasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateJornadaTable extends Migration
      */
     public function up()
     {
-        Schema::create('jornada', function (Blueprint $table) {
+        Schema::create('jornadas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             // Añadido
             $table->integer('hora_entrada');
             $table->integer('hora_salida');
             $table->date('fecha');
+            $table->boolean('completada')->default(false);
             // Relaciones
-            $table->foreignId('user')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateJornadaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jornada');
+        Schema::dropIfExists('jornadas');
     }
 }
