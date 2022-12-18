@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Jornada;
+use App\Models\Category;
 
 class UserController extends Controller
 {
@@ -43,6 +44,7 @@ class UserController extends Controller
         ]);
     }
 
+    // buscar una jornada activa de un usuario
     public function getJornada(Request $request) {
         $user = User::whereId($request->user)->first();
         $jornada = $user->jornadas()->where('completada', false)->first();
@@ -53,6 +55,24 @@ class UserController extends Controller
         }
         return response()->json([
             'jornada' => false,
+        ]);
+    }
+
+    // obtener el supervisor de un usuario
+    public function getSupervisor(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $supervisor = User::whereId($user->supervisado)->first();
+        return response()->json([
+            'supervisor' => $supervisor,
+        ]);
+    }
+
+    // obtener la categoria de un usuario
+    public function getCategoria(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $categoria = Category::whereId($user->category_id)->first();
+        return response()->json([
+            'categoria' => $categoria,
         ]);
     }
 }

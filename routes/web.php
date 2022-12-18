@@ -24,6 +24,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/users/{user}', [UserController::class, 'getUser']);
     // ruta para obtener si hay alguna jornada abierta
     Route::get('/jornada/{user}', [UserController::class, 'getJornada']);
+    // ruta para obtener la categoria de un usuario
+    Route::get('/categoria/{user}', [UserController::class, 'getCategoria']);
+    // ruta para obtener el supervisor de un usuario
+    Route::get('/supervisor/{user}', [UserController::class, 'getSupervisor']);
 });
 
 Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '.*');

@@ -39,7 +39,7 @@
   import store from '../../store/index.js';
 
   export default {
-    name: 'DashboardCongratulationJohn',
+    name: 'DashboardFichar',
     setup() {
       return {
         store

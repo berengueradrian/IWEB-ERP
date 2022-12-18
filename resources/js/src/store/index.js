@@ -9,7 +9,9 @@ const store = new Vuex.Store({
     return {
       user: {},
       completada: null,
-      csrfToken: null
+      csrfToken: null,
+      supervisor: {},
+      categoria: null
     }
   },
   mutations: {
@@ -21,6 +23,12 @@ const store = new Vuex.Store({
     },
     setCompletada(state, completada) {
       state.completada = completada
+    },
+    setSupervisor(state, supervisor) {
+      state.supervisor = supervisor
+    },
+    setCategoria(state, categoria) {
+      state.categoria = categoria
     }
   },
   actions: {
@@ -37,6 +45,24 @@ const store = new Vuex.Store({
       try {
         const response = await axios.get('http://localhost:8000/api/jornada/67')
         commit('setCompletada', response.data.jornada)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchSupervisor({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/supervisor/67')
+        commit('setSupervisor', response.data.supervisor)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchCategoria({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/categoria/67')
+        commit('setCategoria', response.data.categoria)
       }
       catch (error) {
         throw error
