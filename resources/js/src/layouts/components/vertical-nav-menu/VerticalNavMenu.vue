@@ -31,7 +31,7 @@
       <nav-menu-link title="Inicio" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
       <nav-menu-link
         title="Solicitudes"
-        :to="{ name: 'pages-account-settings' }"
+        :to="{ name: 'pages-solicitudes' }"
         :icon="icons.mdiAccountArrowUpOutline"
       ></nav-menu-link>
       <nav-menu-link title="Nóminas" :to="{ name: 'typography' }" :icon="icons.mdiFileChartOutline"></nav-menu-link> 

@@ -28,7 +28,7 @@ class User extends Authenticatable
         return $this->hasMany(Nomina::class);
     }
 
-    public function solicitudes() {
+    public function solicituds() {
         return $this->hasMany(Solicitud::class);
     }
 

@@ -11,7 +11,10 @@ const store = new Vuex.Store({
       completada: null,
       csrfToken: null,
       supervisor: {},
-      categoria: null
+      categoria: null,
+      jornadas: null,
+      nominas: null,
+      solicitudes: null
     }
   },
   mutations: {
@@ -29,6 +32,15 @@ const store = new Vuex.Store({
     },
     setCategoria(state, categoria) {
       state.categoria = categoria
+    },
+    setJornadas(state, jornadas) {
+      state.jornadas = jornadas
+    },
+    setNominas(state, nominas) {
+      state.nominas = nominas
+    },
+    setSolicitudes(state, solicitudes) {
+      state.solicitudes = solicitudes
     }
   },
   actions: {
@@ -63,6 +75,33 @@ const store = new Vuex.Store({
       try {
         const response = await axios.get('http://localhost:8000/api/categoria/67')
         commit('setCategoria', response.data.categoria)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchJornadas({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/jornadas/67')
+        commit('setJornadas', response.data.jornadas)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchNominas({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/nominas/67')
+        commit('setNominas', response.data.nominas)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchSolicitudes({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/solicitudes/67')
+        commit('setSolicitudes', response.data.solicitudes)
       }
       catch (error) {
         throw error

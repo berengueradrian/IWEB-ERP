@@ -28,6 +28,16 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/categoria/{user}', [UserController::class, 'getCategoria']);
     // ruta para obtener el supervisor de un usuario
     Route::get('/supervisor/{user}', [UserController::class, 'getSupervisor']);
+    // ruta para obtener las jornadas de un usuario
+    Route::get('/jornadas/{user}', [UserController::class, 'getJornadas']);
+    // ruta para obtener las nominas de un usuario
+    Route::get('/nominas/{user}', [UserController::class, 'getNominas']);
+    // ruta para obtener las solicitudes de un usuario
+    Route::get('/solicitudes/{user}', [UserController::class, 'getSolicitudes']);
+    // ruta para crear una solicitud de un usuario
+    Route::post('/solicitudes/{user}', [UserController::class, 'createSolicitud']);
+    // ruta para guardar un archivo justificante de una solicitud
+    Route::post('/solicitud/file', [UserController::class, 'saveJustificante']);
 });
 
 Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '.*');

@@ -146,9 +146,9 @@ export default {
       store
     }
   },
-  created() {
-    this.$store.dispatch('fetchUser');
-    console.log(this.$store.state)
+  async created() {
+    await this.$store.dispatch('fetchUser');
+    // console.log(this.$store.state)
   },
   computed: {
     user() {
