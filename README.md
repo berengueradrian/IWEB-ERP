@@ -58,6 +58,6 @@
 
     - *database/*: aquí tenemos las migraciones/tablas de la bbdd *migrations/* y los datos de prueba en la bbdd *seeders/*.
 
-    - *public/*: aquí encontramos la carpeta *images/*, donde introduciremos una nueva llamada *users/* y meteremos las imágenes de perfil de los usuarios. Esta carpeta no se subirá a git por lo que la creamos todos y nos pasamos las fotos.
+    - *public/*: aquí encontramos la carpeta *images/*, donde **crearemos** una nueva llamada *users/* y meteremos las imágenes de perfil de los usuarios. Esta carpeta no se subirá a git por lo que la creamos todos y nos pasamos las fotos.
 
     - *resources/*, por último, esta carpeta contiene las vistas en *js/src/views*, también *js/src/components* y *js/src/*. También encontramos las rutas *js/src/router*. Otras como el *js/src/store* (manejo del estado de la aplicación) o *js/src/plugins*.

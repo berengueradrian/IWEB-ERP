@@ -52,6 +52,16 @@ const routes = [
     },
   },
   {
+    path: '/pages/solicitudes',
+    name: 'pages-solicitudes',
+    component: () => import('@/views/pages/Solicitudes.vue'),
+  },
+  {
+    path: '/pages/solicitud/nueva',
+    name: 'pages-solicitud-nueva',
+    component: () => import('@/views/pages/NuevaSolicitud.vue'),
+  },
+  {
     path: '/pages/register',
     name: 'pages-register',
     component: () => import('@/views/pages/Register.vue'),

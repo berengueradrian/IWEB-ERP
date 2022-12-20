@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSolicitudesTable extends Migration
+class CreateSolicitudsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSolicitudesTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitudes', function (Blueprint $table) {
+        Schema::create('solicituds', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             // Añadido
             $table->date('fecha_inicio');
             $table->date('fecha_fin')->nullable();
             $table->string('descripcion')->nullable();
-            $table->boolean('aceptado')->default(false);
+            $table->integer('estado')->default(0);
             $table->string('justificante')->nullable();
             $table->string('tipo');
             // Relaciones
@@ -35,6 +35,6 @@ class CreateSolicitudesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitudes');
+        Schema::dropIfExists('solicituds');
     }
 }

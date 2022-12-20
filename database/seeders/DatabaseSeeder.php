@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Jornada table seeded!');
         $this->call(NominasTableSeeder::class);
         $this->command->info('Nomina table seeded!');
-        $this->call(SolicitudesTableSeeder::class);
+        $this->call(SolicitudsTableSeeder::class);
         $this->command->info('Solicitud table seeded!');
         $this->call(DirectionUserTableSeeder::class);
         $this->command->info('DirectionUser table seeded!');

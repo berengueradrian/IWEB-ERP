@@ -108,7 +108,8 @@ export default {
     this.$store.dispatch('fetchCompletada')
     this.$store.dispatch('fetchCategoria')
     this.$store.dispatch('fetchSupervisor')
-     console.log(this.$store.state)
+      console.log(this.$store.state)
+      console.log(this.$store.state.categoria)
   },
   computed: {
     user() {
@@ -127,9 +128,10 @@ export default {
       return this.$store.state.supervisor
     },
   },
-  data: () => ({
-    
-  }),
+  data() {
+    return {
+    }
+  },
 
 }
 </script>

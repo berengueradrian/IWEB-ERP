@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Jornada;
 use App\Models\Category;
+use Storage;
 
 class UserController extends Controller
 {
@@ -74,5 +75,74 @@ class UserController extends Controller
         return response()->json([
             'categoria' => $categoria,
         ]);
+    }
+
+    // obtener las jornadas de un usuario
+    public function getJornadas(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $jornadas = $user->jornadas()->get();
+        return response()->json([
+            'jornadas' => $jornadas,
+        ]);
+    }
+
+    // obtener las nominas de un usuario
+    public function getNominas(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $nominas = $user->nominas()->get();
+        return response()->json([
+            'nominas' => $nominas,
+        ]);
+    }
+
+    // obtener las solicitudes de un usuario
+    public function getSolicitudes(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $solicitudes = $user->solicituds()->get();
+        return response()->json([
+            'solicitudes' => $solicitudes,
+        ]);
+    }
+
+    // crear una solicitud por un usuario
+    public function createSolicitud(Request $request) {
+        $user = User::whereId($request->user)->first();
+
+        if($request->justificante_name == null) {
+            $justificante = "No consta";
+        }
+        else {
+            $justificante = $request->justificante_name;
+        }
+
+        $solicitud = $user->solicituds()->create([
+            'user_id' => $user->id,
+            'fecha_inicio' => $request->fecha_inicio,
+            'tipo' => $request->tipo,
+            'estado' => 0,
+            'fecha_fin' => $request->fecha_fin,
+            'descripcion' => $request->descripcion,
+            'justificante' => $justificante,
+        ]);
+        return response()->json([
+            'message' => 'Solicitud enviada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+    // guardar un archivo justificante de una solicitud
+    public function saveJustificante(Request $request) {
+        if($request->input('justificante')) {
+            $archivo = $request->input('justificante');
+            Storage::put('public/files/'.$request->justificante_name, $archivo[0]);
+            // $file = $request->file('justificante');
+            // $name = $request->justificante_name;
+            // $file->move(public_path().'../public/files', $name);
+
+            return response()->json([
+                'message' => 'Justificante guardado',
+                'justificante' => $request->justificante_name,
+            ]);
+        }
     }
 }

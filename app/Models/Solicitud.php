@@ -12,4 +12,19 @@ class Solicitud extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'user_id',
+        'descripcion',
+        'fecha_inicio',
+        'fecha_fin',
+        'estado',
+        'tipo',
+        'justificante'
+    ];
 }
