@@ -11,19 +11,19 @@
       <div class="pb-3 pt-2">
         <v-badge bottom color="success" overlap offset-x="12" offset-y="12" class="ms-4" dot>
           <v-avatar size="40px">
-            <v-img :src="require('@/assets/images/avatars/1.png').default"></v-img>
+            <v-img :src="'../../../../../public/images/users/' + this.$store.state.user.user.image_url"></v-img>
           </v-avatar>
         </v-badge>
         <div class="d-inline-flex flex-column justify-center ms-3" style="vertical-align: middle">
-          <span class="text--primary font-weight-semibold mb-n1"> John Doe </span>
-          <small class="text--disabled text-capitalize">Admin</small>
+          <span class="text--primary font-weight-semibold mb-n1"> {{this.$store.state.user.user.name}} </span>
+          <small class="text--disabled text-capitalize">{{this.$store.state.user.user.email}}</small>
         </div>
       </div>
 
       <v-divider></v-divider>
 
       <!-- Profile -->
-      <v-list-item link>
+      <!-- <v-list-item link>
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiAccountOutline }}
@@ -32,10 +32,10 @@
         <v-list-item-content>
           <v-list-item-title>Profile</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
       <!-- Email -->
-      <v-list-item link>
+      <!-- <v-list-item link>
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiEmailOutline }}
@@ -44,10 +44,10 @@
         <v-list-item-content>
           <v-list-item-title>Inbox</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
       <!-- Chat -->
-      <v-list-item link>
+      <!-- <v-list-item link>
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiChatOutline }}
@@ -60,12 +60,12 @@
         <v-list-item-action>
           <v-badge inline color="error" content="2"> </v-badge>
         </v-list-item-action>
-      </v-list-item>
+      </v-list-item> -->
 
-      <v-divider class="my-2"></v-divider>
+      <!-- <v-divider class="my-2"></v-divider> -->
 
       <!-- Settings -->
-      <v-list-item link>
+      <!-- <v-list-item link>
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiCogOutline }}
@@ -74,10 +74,10 @@
         <v-list-item-content>
           <v-list-item-title>Settings</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
       <!-- Pricing -->
-      <v-list-item link>
+      <!-- <v-list-item link>
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiCurrencyUsd }}
@@ -86,10 +86,10 @@
         <v-list-item-content>
           <v-list-item-title>Pricing</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
       <!-- FAQ -->
-      <v-list-item link>
+      <!-- <v-list-item link>
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiHelpCircleOutline }}
@@ -98,7 +98,7 @@
         <v-list-item-content>
           <v-list-item-title>FAQ</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
 
       <v-divider class="my-2"></v-divider>
 
@@ -128,6 +128,7 @@ import {
   mdiHelpCircleOutline,
   mdiLogoutVariant,
 } from '@mdi/js'
+import store from '../../store/index.js';
 
 export default {
   setup() {
@@ -142,7 +143,17 @@ export default {
         mdiHelpCircleOutline,
         mdiLogoutVariant,
       },
+      store
     }
+  },
+  async created() {
+    await this.$store.dispatch('fetchUser');
+    // console.log(this.$store.state)
+  },
+  computed: {
+    user() {
+      return this.$store.state.user.user
+    },
   },
 }
 </script>

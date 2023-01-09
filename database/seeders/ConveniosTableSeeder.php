@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ConvenioTableSeeder extends Seeder
+class ConveniosTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,9 +17,9 @@ class ConvenioTableSeeder extends Seeder
         $usersId = DB::table('users')->pluck('id');
 
         // Delete the table data   
-        DB::table('convenio')->delete();
+        DB::table('convenios')->delete();
 
-        DB::table('convenio')->insert(
+        DB::table('convenios')->insert(
         [
             'sueldo' => 1500.99,
             'horas_diarias' => 8,
@@ -27,10 +27,10 @@ class ConvenioTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 22.99,
             'dias_vacaciones' => 15,
-            'user' => $usersId[0]
+            'user_id' => $usersId[0]
         ]);
 
-        DB::table('convenio')->insert(
+        DB::table('convenios')->insert(
         [
             'sueldo' => 1900.99,
             'horas_diarias' => 8,
@@ -38,10 +38,10 @@ class ConvenioTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 24.99,
             'dias_vacaciones' => 15,
-            'user' => $usersId[1]
+            'user_id' => $usersId[1]
         ]);
 
-        DB::table('convenio')->insert(
+        DB::table('convenios')->insert(
         [
             'sueldo' => 1900.99,
             'horas_diarias' => 8,
@@ -49,10 +49,10 @@ class ConvenioTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 24.99,
             'dias_vacaciones' => 15,
-            'user' => $usersId[2]
+            'user_id' => $usersId[2]
         ]);
 
-        DB::table('convenio')->insert(
+        DB::table('convenios')->insert(
         [
             'sueldo' => 1200.99,
             'horas_diarias' => 8,
@@ -60,10 +60,10 @@ class ConvenioTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 20.99,
             'dias_vacaciones' => 15,
-            'user' => $usersId[3]
+            'user_id' => $usersId[3]
         ]);
 
-        DB::table('convenio')->insert(
+        DB::table('convenios')->insert(
         [
             'sueldo' => 1200.99,
             'horas_diarias' => 8,
@@ -71,10 +71,10 @@ class ConvenioTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 20.99,
             'dias_vacaciones' => 15,
-            'user' => $usersId[4]
+            'user_id' => $usersId[4]
         ]);
 
-        DB::table('convenio')->insert(
+        DB::table('convenios')->insert(
         [
             'sueldo' => 1200.99,
             'horas_diarias' => 8,
@@ -82,10 +82,10 @@ class ConvenioTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 20.99,
             'dias_vacaciones' => 15,
-            'user' => $usersId[5]
+            'user_id' => $usersId[5]
         ]);
 
-        DB::table('convenio')->insert(
+        DB::table('convenios')->insert(
         [
             'sueldo' => 1200.99,
             'horas_diarias' => 8,
@@ -93,7 +93,7 @@ class ConvenioTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 20.99,
             'dias_vacaciones' => 15,
-            'user' => $usersId[6]
+            'user_id' => $usersId[6]
         ]);
     }
 }

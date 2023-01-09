@@ -4,13 +4,13 @@
       cols="12"
       md="4"
     >
-      <dashboard-congratulation-john></dashboard-congratulation-john>
+      <dashboard-fichar></dashboard-fichar>
     </v-col>
     <v-col
       cols="12"
       md="8"
     >
-      <dashboard-statistics-card></dashboard-statistics-card>
+      <dashboard-datos-usuario></dashboard-datos-usuario>
     </v-col>
 
     <v-col
@@ -114,8 +114,8 @@ import { mdiPoll, mdiLabelVariantOutline, mdiCurrencyUsd, mdiHelpCircleOutline }
 import StatisticsCardVertical from '@/components/statistics-card/StatisticsCardVertical.vue'
 
 // demos
-import DashboardCongratulationJohn from './DashboardCongratulationJohn.vue'
-import DashboardStatisticsCard from './DashboardStatisticsCard.vue'
+import DashboardFichar from './DashboardFichar.vue'
+import DashboardDatosUsuario from './DashboardDatosUsuario.vue'
 import DashboardCardTotalEarning from './DashboardCardTotalEarning.vue'
 import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.vue'
 import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
@@ -125,8 +125,8 @@ import DashboardDatatable from './DashboardDatatable.vue'
 export default {
   components: {
     StatisticsCardVertical,
-    DashboardCongratulationJohn,
-    DashboardStatisticsCard,
+    DashboardFichar,
+    DashboardDatosUsuario,
     DashboardCardTotalEarning,
     DashboardCardDepositAndWithdraw,
     DashboardCardSalesByCountries,

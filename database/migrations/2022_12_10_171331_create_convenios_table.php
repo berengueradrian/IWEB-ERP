@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConvenioTable extends Migration
+class CreateConveniosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateConvenioTable extends Migration
      */
     public function up()
     {
-        Schema::create('convenio', function (Blueprint $table) {
+        Schema::create('convenios', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             // Añadido
@@ -24,7 +24,7 @@ class CreateConvenioTable extends Migration
             $table->float('sueldo_extraordinario');
             $table->integer('dias_vacaciones');
             // Relaciones
-            $table->foreignId('user')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateConvenioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('convenio');
+        Schema::dropIfExists('convenios');
     }
 }

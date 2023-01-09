@@ -18,8 +18,6 @@ class CreateDirectionsTable extends Migration
             $table->timestamps();
             // Añadido
             $table->string('name');
-            // Relaciones
-            $table->foreignId('user')->constrained('users')->onDelete('cascade');
         });
     }
 

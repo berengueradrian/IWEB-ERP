@@ -7,14 +7,26 @@
     - `Javier Rodríguez Juan`
     - `Ilya Slyusarchuk Dimitrouchkina`
 
+## En la carpeta doc/ adjuntaremos la memoria junto con las historias de usuario y especificación inicial.
+
+## Repositorio
+- https://github.com/berengueradrian/IWEB-ERP
+
+## Trello
+- https://trello.com/b/7CCXLxRA/iweb-rrhh
+
+## Mockups
+- https://app.moqups.com/iYPyM8jmZRTvMapOayHeBzq0XNaNuJeP/edit/page/a81dd62ef
+
 ## Plantilla instalada
 - https://themeselection.com/item/materio-free-vuetify-vuejs-laravel-admin-template/
 
 ## Instalación de plantilla
--  Mirad este enlace para ver los comandos que tenéis que ejecutar por si tenéis dudas_
+-  Mirad este enlace para ver los comandos que tenéis que ejecutar por si tenéis dudas
     - https://demos.themeselection.com/materio-vuetify-vuejs-admin-template-vue2/documentation/guide/laravel-integration/installation.html#guide
 
 ## BBDD
+- Draw.io con la **estructura de la BBDD**: https://app.diagrams.net/#G1Zdn3UXGbnQ15xSQ_08hQ3R2FfHNFtsm5
 - Pasos para crear la Base de datos:
     - Tener instalado mysql y alguna aplicación que nos sirva como servidor de bases de datos (en mi caso uso DataGrip, también se puede usar Adminer).
     - Después el proceso sería (en una terminal):
@@ -46,6 +58,6 @@
 
     - *database/*: aquí tenemos las migraciones/tablas de la bbdd *migrations/* y los datos de prueba en la bbdd *seeders/*.
 
-    - *public/*: aquí encontramos la carpeta *images/*, donde introduciremos una nueva llamada *users/* y meteremos las imágenes de perfil de los usuarios. Esta carpeta no se subirá a git por lo que la creamos todos y nos pasamos las fotos.
+    - *public/*: aquí encontramos la carpeta *images/*, donde **crearemos** una nueva llamada *users/* y meteremos las imágenes de perfil de los usuarios. Esta carpeta no se subirá a git por lo que la creamos todos y nos pasamos las fotos.
 
     - *resources/*, por último, esta carpeta contiene las vistas en *js/src/views*, también *js/src/components* y *js/src/*. También encontramos las rutas *js/src/router*. Otras como el *js/src/store* (manejo del estado de la aplicación) o *js/src/plugins*.

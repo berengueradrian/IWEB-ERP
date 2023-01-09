@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class SolicitudTableSeeder extends Seeder
+class SolicitudsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,72 +18,72 @@ class SolicitudTableSeeder extends Seeder
         $usersId = DB::table('users')->pluck('id');
 
         // Delete the table data   
-        DB::table('solicitud')->delete();
+        DB::table('solicituds')->delete();
 
-        DB::table('solicitud')->insert(
+        DB::table('solicituds')->insert(
         [
             'fecha_inicio' => Carbon::parse('2022-12-22'),
             'fecha_fin' => Carbon::parse('2023-01-01'),
             'descripcion' => 'Me voy a París',
-            'aceptado' => false,
+            'estado' => 0,
             'justificante' => NULL,
             'tipo' => 'Vacaciones',
-            'user' => $usersId[3]
+            'user_id' => $usersId[3]
         ]);
 
-        DB::table('solicitud')->insert(
+        DB::table('solicituds')->insert(
         [
             'fecha_inicio' => Carbon::parse('2022-06-12'),
             'fecha_fin' => Carbon::parse('2022-06-15'),
             'descripcion' => 'Soy bobo',
-            'aceptado' => false,
+            'estado' => 0,
             'justificante' => 'justificante.pdf',
             'tipo' => 'Baja',
-            'user' => $usersId[4]
+            'user_id' => $usersId[4]
         ]);
 
-        DB::table('solicitud')->insert(
+        DB::table('solicituds')->insert(
         [
             'fecha_inicio' => Carbon::parse('2022-06-12'),
             'fecha_fin' => NULL,
             'descripcion' => 'Quiero un aumento',
-            'aceptado' => false,
+            'estado' => 0,
             'justificante' => NULL,
             'tipo' => 'Otros',
-            'user' => $usersId[5]
+            'user_id' => $usersId[5]
         ]);
 
-        DB::table('solicitud')->insert(
+        DB::table('solicituds')->insert(
         [
             'fecha_inicio' => Carbon::parse('2022-07-12'),
             'fecha_fin' => Carbon::parse('2022-07-22'),
             'descripcion' => 'A disfrutar',
-            'aceptado' => false,
+            'estado' => 0,
             'justificante' => NULL,
             'tipo' => 'Vacaciones',
-            'user' => $usersId[6]
+            'user_id' => $usersId[6]
         ]);
 
-        DB::table('solicitud')->insert(
+        DB::table('solicituds')->insert(
         [
             'fecha_inicio' => Carbon::parse('2022-02-12'),
             'fecha_fin' => Carbon::parse('2022-02-14'),
             'descripcion' => 'Resfriado',
-            'aceptado' => false,
+            'estado' => 0,
             'justificante' => 'justificante.pdf',
             'tipo' => 'Baja',
-            'user' => $usersId[1]
+            'user_id' => $usersId[1]
         ]);
 
-        DB::table('solicitud')->insert(
+        DB::table('solicituds')->insert(
         [
             'fecha_inicio' => Carbon::parse('2022-05-05'),
             'fecha_fin' => Carbon::parse('2022-05-09'),
             'descripcion' => 'Estoy en cama',
-            'aceptado' => false,
+            'estado' => 0,
             'justificante' => 'justificante.pdf',
             'tipo' => 'Baja',
-            'user' => $usersId[2]
+            'user_id' => $usersId[2]
         ]);
     }
 }

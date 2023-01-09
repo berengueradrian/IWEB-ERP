@@ -1,7 +1,7 @@
 <template>
   <component :is="resolveLayout">
     <router-view></router-view>
-    <upgrade-to-pro></upgrade-to-pro>
+    <!-- <upgrade-to-pro></upgrade-to-pro> -->
   </component>
 </template>
 

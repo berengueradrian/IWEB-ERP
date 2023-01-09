@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class JornadaTableSeeder extends Seeder
+class JornadasTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,102 +18,114 @@ class JornadaTableSeeder extends Seeder
         $usersId = DB::table('users')->pluck('id');
 
         // Delete the table data   
-        DB::table('jornada')->delete();
+        DB::table('jornadas')->delete();
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 8,
             'hora_salida' => 16,
             'fecha' => Carbon::parse('2022-06-12'),
-            'user' => $usersId[0]
+            'user_id' => $usersId[0],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 7,
             'hora_salida' => 15,
             'fecha' => Carbon::parse('2022-07-24'),
-            'user' => $usersId[1]
+            'user_id' => $usersId[1],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 8,
             'hora_salida' => 16,
             'fecha' => Carbon::parse('2022-08-17'),
-            'user' => $usersId[1]
+            'user_id' => $usersId[1],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 7,
             'hora_salida' => 15,
             'fecha' => Carbon::parse('2022-09-15'),
-            'user' => $usersId[2]
+            'user_id' => $usersId[2],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 6,
             'hora_salida' => 14,
             'fecha' => Carbon::parse('2022-03-04'),
-            'user' => $usersId[2]
+            'user_id' => $usersId[2],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 8,
             'hora_salida' => 16,
             'fecha' => Carbon::parse('2022-02-14'),
-            'user' => $usersId[3]
+            'user_id' => $usersId[3],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 9,
             'hora_salida' => 17,
             'fecha' => Carbon::parse('2022-10-24'),
-            'user' => $usersId[3]
+            'user_id' => $usersId[3],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 6,
             'hora_salida' => 14,
             'fecha' => Carbon::parse('2022-07-19'),
-            'user' => $usersId[4]
+            'user_id' => $usersId[4],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 5,
             'hora_salida' => 13,
             'fecha' => Carbon::parse('2022-09-23'),
-            'user' => $usersId[4]
+            'user_id' => $usersId[4],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 10,
             'hora_salida' => 18,
             'fecha' => Carbon::parse('2022-03-01'),
-            'user' => $usersId[5]
+            'user_id' => $usersId[5],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 8,
             'hora_salida' => 16,
             'fecha' => Carbon::parse('2022-02-04'),
-            'user' => $usersId[5]
+            'user_id' => $usersId[5],
+            'completada' => true
         ]);
 
-        DB::table('jornada')->insert(
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 8,
             'hora_salida' => 16,
-            'fecha' => Carbon::parse('2022-012-12'),
-            'user' => $usersId[6]
+            'fecha' => Carbon::parse('2022-12-12'),
+            'user_id' => $usersId[6],
+            'completada' => true
         ]);
     }
 }

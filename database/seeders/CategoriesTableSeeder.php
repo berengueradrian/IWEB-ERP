@@ -15,30 +15,30 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         // Delete the table data   
-        DB::table('category')->delete();
+        DB::table('categories')->delete();
 
         // Add a new entry to the table 
-        DB::table('category')->insert(
+        DB::table('categories')->insert(
         [
             'name' => 'RRHH'
         ]);
 
-        DB::table('category')->insert(
+        DB::table('categories')->insert(
         [
             'name' => 'Director de desarrollo'
         ]);
 
-        DB::table('category')->insert(
+        DB::table('categories')->insert(
         [
             'name' => 'Director de producto'
         ]);
 
-        DB::table('category')->insert(
+        DB::table('categories')->insert(
         [
             'name' => 'Desarrollo'
         ]);
 
-        DB::table('category')->insert(
+        DB::table('categories')->insert(
         [
             'name' => 'Producto'
         ]);
