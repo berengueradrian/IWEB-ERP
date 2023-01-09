@@ -15,6 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CategoriesTableSeeder::class);
         $this->command->info('Category table seeded!');
+        $this->call(AdminsTableSeeder::class);
+        $this->command->info('Admin table seeded!');
+        $this->call(SupervisorsTableSeeder::class);
+        $this->command->info('Supervisor table seeded!');
         $this->call(UsersTableSeeder::class);
         $this->command->info('User table seeded!');
         $this->call(ConveniosTableSeeder::class);

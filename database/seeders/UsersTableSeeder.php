@@ -21,51 +21,7 @@ class UsersTableSeeder extends Seeder
         // Delete the table data   
         DB::table('users')->delete();
 
-        DB::table('users')->insert(
-        [
-            'name' => 'admin',
-            'email' => 'admin@ua.es',
-            'password' => Hash::make('123'),
-            'admin' => true,
-            'supervisor' => false,
-            'fecha_nacimiento' => Carbon::parse('1985-07-24'),
-            'formacion' => 'Grado en la universidad de la vida',
-            'image_url' => 'default.jpg',
-            'supervisado' => NULL,
-            'category_id' => $categoriesId[0]
-        ]);
-
-        $usersId = DB::table('users')->pluck('id');
-
-        DB::table('users')->insert(
-        [
-            'name' => 'supervisor1',
-            'email' => 'super1@ua.es',
-            'password' => Hash::make('123'),
-            'admin' => false,
-            'supervisor' => true,
-            'fecha_nacimiento' => Carbon::parse('1992-05-29'),
-            'formacion' => 'Grado en ingeniería informática',
-            'image_url' => 'default.jpg',
-            'supervisado' => $usersId[0],
-            'category_id' => $categoriesId[1]
-        ]);
-
-        DB::table('users')->insert(
-        [
-            'name' => 'supervisor2',
-            'email' => 'super2@ua.es',
-            'password' => Hash::make('123'),
-            'admin' => false,
-            'supervisor' => true,
-            'fecha_nacimiento' => Carbon::parse('1995-11-03'),
-            'formacion' => 'Máster en product managemet',
-            'image_url' => 'default.jpg',
-            'supervisado' => $usersId[0],
-            'category_id' => $categoriesId[2]
-        ]);
-
-        $usersId2 = DB::table('users')->pluck('id');
+        $usersId2 = DB::table('supervisors')->pluck('id');
 
         // Add a new entry to the table 
         DB::table('users')->insert(
@@ -73,12 +29,10 @@ class UsersTableSeeder extends Seeder
             'name' => 'adri',
             'email' => 'adri@ua.es',
             'password' => Hash::make('123'),
-            'admin' => false,
-            'supervisor' => false,
             'fecha_nacimiento' => Carbon::parse('2001-01-11'),
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
-            'supervisado' => $usersId2[1],
+            'supervisado' => $usersId2[0],
             'category_id' => $categoriesId[3]
         ]);
 
@@ -87,12 +41,10 @@ class UsersTableSeeder extends Seeder
             'name' => 'ilyan',
             'email' => 'ilyan@ua.es',
             'password' => Hash::make('123'),
-            'admin' => false,
-            'supervisor' => false,
             'fecha_nacimiento' => Carbon::parse('2001-11-17'),
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
-            'supervisado' => $usersId2[1],
+            'supervisado' => $usersId2[0],
             'category_id' => $categoriesId[3]
         ]);
 
@@ -103,12 +55,10 @@ class UsersTableSeeder extends Seeder
             'name' => 'rosa',
             'email' => 'rosa@ua.es',
             'password' => Hash::make('123'),
-            'admin' => false,
-            'supervisor' => false,
             'fecha_nacimiento' => Carbon::parse('2001-01-10'),
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
-            'supervisado' => $usersId3[2],
+            'supervisado' => $usersId3[1],
             'category_id' => $categoriesId[4]
         ]);
 
@@ -117,12 +67,10 @@ class UsersTableSeeder extends Seeder
             'name' => 'javi',
             'email' => 'javi@ua.es',
             'password' => Hash::make('123'),
-            'admin' => false,
-            'supervisor' => false,
             'fecha_nacimiento' => Carbon::parse('2001-10-15'),
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
-            'supervisado' => $usersId3[2],
+            'supervisado' => $usersId3[1],
             'category_id' => $categoriesId[4]
         ]);
 

@@ -16,6 +16,7 @@ class SolicitudsTableSeeder extends Seeder
     public function run()
     {
         $usersId = DB::table('users')->pluck('id');
+        $supervisorsId = DB::table('supervisors')->pluck('id');
 
         // Delete the table data   
         DB::table('solicituds')->delete();
@@ -28,7 +29,7 @@ class SolicitudsTableSeeder extends Seeder
             'estado' => 0,
             'justificante' => NULL,
             'tipo' => 'Vacaciones',
-            'user_id' => $usersId[3]
+            'user_id' => $usersId[0]
         ]);
 
         DB::table('solicituds')->insert(
@@ -39,7 +40,7 @@ class SolicitudsTableSeeder extends Seeder
             'estado' => 0,
             'justificante' => 'justificante.pdf',
             'tipo' => 'Baja',
-            'user_id' => $usersId[4]
+            'user_id' => $usersId[1]
         ]);
 
         DB::table('solicituds')->insert(
@@ -50,7 +51,7 @@ class SolicitudsTableSeeder extends Seeder
             'estado' => 0,
             'justificante' => NULL,
             'tipo' => 'Otros',
-            'user_id' => $usersId[5]
+            'user_id' => $usersId[2]
         ]);
 
         DB::table('solicituds')->insert(
@@ -61,7 +62,7 @@ class SolicitudsTableSeeder extends Seeder
             'estado' => 0,
             'justificante' => NULL,
             'tipo' => 'Vacaciones',
-            'user_id' => $usersId[6]
+            'user_id' => $usersId[3]
         ]);
 
         DB::table('solicituds')->insert(
@@ -72,7 +73,7 @@ class SolicitudsTableSeeder extends Seeder
             'estado' => 0,
             'justificante' => 'justificante.pdf',
             'tipo' => 'Baja',
-            'user_id' => $usersId[1]
+            'user_id' => $supervisorsId[0]
         ]);
 
         DB::table('solicituds')->insert(
@@ -83,7 +84,7 @@ class SolicitudsTableSeeder extends Seeder
             'estado' => 0,
             'justificante' => 'justificante.pdf',
             'tipo' => 'Baja',
-            'user_id' => $usersId[2]
+            'user_id' => $supervisorsId[1]
         ]);
     }
 }

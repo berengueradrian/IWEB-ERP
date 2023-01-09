@@ -15,6 +15,8 @@ class DirectionUserTableSeeder extends Seeder
     public function run()
     {
         $usersId = DB::table('users')->pluck('id');
+        $supervisorsId = DB::table('supervisors')->pluck('id');
+        $adminsId = DB::table('admins')->pluck('id');
         $directionsId = DB::table('directions')->pluck('id');
 
         // Delete the table data   
@@ -46,31 +48,31 @@ class DirectionUserTableSeeder extends Seeder
 
         DB::table('direction_usuario')->insert(
         [
-            'user_id' => $usersId[4],
+            'user_id' => $supervisorsId[0],
             'directions_id' => $directionsId[4]
         ]);
 
         DB::table('direction_usuario')->insert(
         [
-            'user_id' => $usersId[5],
+            'user_id' => $supervisorsId[1],
             'directions_id' => $directionsId[5]
         ]);
 
         DB::table('direction_usuario')->insert(
         [
-            'user_id' => $usersId[6],
+            'user_id' => $adminsId[0],
             'directions_id' => $directionsId[6]
         ]);
 
         DB::table('direction_usuario')->insert(
         [
-            'user_id' => $usersId[6],
+            'user_id' => $adminsId[0],
             'directions_id' => $directionsId[7]
         ]);
 
         DB::table('direction_usuario')->insert(
         [
-            'user_id' => $usersId[5],
+            'user_id' => $supervisorsId[1],
             'directions_id' => $directionsId[8]
         ]);
     }

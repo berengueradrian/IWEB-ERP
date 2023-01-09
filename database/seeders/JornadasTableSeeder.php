@@ -16,6 +16,8 @@ class JornadasTableSeeder extends Seeder
     public function run()
     {
         $usersId = DB::table('users')->pluck('id');
+        $supervisorsId = DB::table('supervisors')->pluck('id');
+        $adminsId = DB::table('admins')->pluck('id');
 
         // Delete the table data   
         DB::table('jornadas')->delete();
@@ -88,7 +90,7 @@ class JornadasTableSeeder extends Seeder
             'hora_entrada' => 6,
             'hora_salida' => 14,
             'fecha' => Carbon::parse('2022-07-19'),
-            'user_id' => $usersId[4],
+            'user_id' => $supervisorsId[0],
             'completada' => true
         ]);
 
@@ -97,7 +99,7 @@ class JornadasTableSeeder extends Seeder
             'hora_entrada' => 5,
             'hora_salida' => 13,
             'fecha' => Carbon::parse('2022-09-23'),
-            'user_id' => $usersId[4],
+            'user_id' => $supervisorsId[0],
             'completada' => true
         ]);
 
@@ -106,7 +108,7 @@ class JornadasTableSeeder extends Seeder
             'hora_entrada' => 10,
             'hora_salida' => 18,
             'fecha' => Carbon::parse('2022-03-01'),
-            'user_id' => $usersId[5],
+            'user_id' => $supervisorsId[1],
             'completada' => true
         ]);
 
@@ -115,7 +117,7 @@ class JornadasTableSeeder extends Seeder
             'hora_entrada' => 8,
             'hora_salida' => 16,
             'fecha' => Carbon::parse('2022-02-04'),
-            'user_id' => $usersId[5],
+            'user_id' => $supervisorsId[1],
             'completada' => true
         ]);
 
@@ -124,7 +126,7 @@ class JornadasTableSeeder extends Seeder
             'hora_entrada' => 8,
             'hora_salida' => 16,
             'fecha' => Carbon::parse('2022-12-12'),
-            'user_id' => $usersId[6],
+            'user_id' => $adminsId[0],
             'completada' => true
         ]);
     }

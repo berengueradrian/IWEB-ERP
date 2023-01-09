@@ -15,6 +15,8 @@ class NominasTableSeeder extends Seeder
     public function run()
     {
         $usersId = DB::table('users')->pluck('id');
+        $supervisorsId = DB::table('supervisors')->pluck('id');
+        $adminsId = DB::table('admins')->pluck('id');
 
         // Delete the table data   
         DB::table('nominas')->delete();
@@ -66,7 +68,7 @@ class NominasTableSeeder extends Seeder
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user_id' => $usersId[4]
+            'user_id' => $supervisorsId[0]
         ]);
 
         DB::table('nominas')->insert(
@@ -76,7 +78,7 @@ class NominasTableSeeder extends Seeder
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user_id' => $usersId[5]
+            'user_id' => $supervisorsId[1]
         ]);
 
         DB::table('nominas')->insert(
@@ -86,7 +88,7 @@ class NominasTableSeeder extends Seeder
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
-            'user_id' => $usersId[6]
+            'user_id' => $adminsId[0]
         ]);
     }
 }

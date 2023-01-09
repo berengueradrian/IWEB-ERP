@@ -15,6 +15,8 @@ class ConveniosTableSeeder extends Seeder
     public function run()
     {
         $usersId = DB::table('users')->pluck('id');
+        $supervisorsId = DB::table('supervisors')->pluck('id');
+        $adminsId = DB::table('admins')->pluck('id');
 
         // Delete the table data   
         DB::table('convenios')->delete();
@@ -54,7 +56,7 @@ class ConveniosTableSeeder extends Seeder
 
         DB::table('convenios')->insert(
         [
-            'sueldo' => 1200.99,
+            'sueldo' => 12000.99,
             'horas_diarias' => 8,
             'sueldo_horas_extra' => 14.99,
             'tope_horas_extra' => 15,
@@ -71,7 +73,7 @@ class ConveniosTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 20.99,
             'dias_vacaciones' => 15,
-            'user_id' => $usersId[4]
+            'user_id' => $supervisorsId[0]
         ]);
 
         DB::table('convenios')->insert(
@@ -82,7 +84,7 @@ class ConveniosTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 20.99,
             'dias_vacaciones' => 15,
-            'user_id' => $usersId[5]
+            'user_id' => $supervisorsId[1]
         ]);
 
         DB::table('convenios')->insert(
@@ -93,7 +95,7 @@ class ConveniosTableSeeder extends Seeder
             'tope_horas_extra' => 15,
             'sueldo_extraordinario' => 20.99,
             'dias_vacaciones' => 15,
-            'user_id' => $usersId[6]
+            'user_id' => $adminsId[0]
         ]);
     }
 }
