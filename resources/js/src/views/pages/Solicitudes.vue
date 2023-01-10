@@ -4,6 +4,17 @@
       <v-btn :to="{name: 'pages-solicitud-nueva'}" small color="primary"> Nueva solicitud </v-btn>
     </div>
     <v-card>
+      <v-card-title>
+          <h2 style="margin-bottom: 10px;">Solicitudes realizadas</h2>
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            label="Buscar"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-icon style="margin-top: 15px;">{{ mdiMagnify }}</v-icon>
+      </v-card-title>
       <v-data-table
         :headers="headers"
         :items="usreList"
@@ -36,6 +47,7 @@
   
 <script>
   import store from '../../store/index.js';
+  import { mdiMagnify } from '@mdi/js';
   
   export default {
     async created() {
@@ -46,6 +58,8 @@
     },
     data() {
       return {
+        mdiMagnify,
+        search: '',
         headers: [
           { text: 'Tipo', value: 'tipo' },
           { text: 'Descripción', value: 'descripcion' },

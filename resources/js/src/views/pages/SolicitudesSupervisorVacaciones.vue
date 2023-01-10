@@ -1,10 +1,21 @@
 <template>
     <div>
-      <h2 style="margin-bottom: 10px;">Solicitudes de vacaciones</h2>
       <v-card>
+        <v-card-title>
+          <h2 style="margin-bottom: 10px;">Solicitudes de vacaciones</h2>
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            label="Buscar"
+            single-line
+            hide-details
+          ></v-text-field>
+          <v-icon style="margin-top: 15px;">{{ mdiMagnify }}</v-icon>
+        </v-card-title>
         <v-data-table
           :headers="headers"
           :items="usreList"
+          :search="search"
           item-key="descripcion"
           class="table-rounded"
           hide-default-footer
@@ -55,6 +66,7 @@
 <script>
     import store from '../../store/index.js';
     import axios from 'axios';
+    import { mdiMagnify } from '@mdi/js';
 
     export default {
       async created() {
@@ -66,6 +78,7 @@
       },
       data() {
           return {
+              search: '',
               headers: [
               { text: 'Trabajador', value: 'user_id' },
               { text: 'Descripción', value: 'descripcion' },
@@ -95,6 +108,7 @@
           return {
             store,
             statusColor,
+            mdiMagnify,
           }
       },
       computed:  {
