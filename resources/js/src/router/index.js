@@ -3,6 +3,14 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+const isAuth = (to, from, next) => {
+  if (!localStorage.getItem('isLoggedIn')) {
+    next({path: '/pages/login'})
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -22,6 +30,7 @@ const routes = [
     path: '/icons',
     name: 'icons',
     component: () => import('@/views/icons/Icons.vue'),
+    meta: { auth: true }
   },
   {
     path: '/cards',
@@ -87,6 +96,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+})
+
+import store from '../store'
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.auth)) {
+    if (store.state.user !== {}) {
+      next({
+        name: "pages-login"
+      })
+    }
+    next()
+  }
+  next()
 })
 
 export default router
