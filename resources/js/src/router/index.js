@@ -62,6 +62,11 @@ const routes = [
     component: () => import('@/views/pages/NuevaSolicitud.vue'),
   },
   {
+    path: '/pages/solicitudes/vacaciones',
+    name: 'pages-solicitudes-vacaciones',
+    component: () => import('@/views/pages/SolicitudesSupervisorVacaciones.vue'),
+  },
+  {
     path: '/pages/register',
     name: 'pages-register',
     component: () => import('@/views/pages/Register.vue'),

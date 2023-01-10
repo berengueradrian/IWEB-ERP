@@ -38,6 +38,12 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/solicitudes/{user}', [UserController::class, 'createSolicitud']);
     // ruta para guardar un archivo justificante de una solicitud
     Route::post('/solicitud/file', [UserController::class, 'saveJustificante']);
+    // ruta para obtener las solicitudes de vacaciones de los usuarios supervisados
+    Route::get('/solicitudesVacaciones/{user}', [UserController::class, 'getSolicitudesVacaciones']);
+    // ruta para aprobar una solicitud de vacaciones
+    Route::post('/solicitudes/{solicitud}/aprobar', [UserController::class, 'aprobarSolicitudVacaciones']);
+    // ruta para rechazar una solicitud de vacaciones
+    Route::post('/solicitudes/{solicitud}/denegar', [UserController::class, 'denegarSolicitudVacaciones']);
 });
 
 Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '.*');

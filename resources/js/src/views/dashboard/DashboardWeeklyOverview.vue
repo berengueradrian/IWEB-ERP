@@ -70,6 +70,7 @@ export default {
   async created() {
     await this.$store.dispatch('fetchJornadas')
     console.log(this.$store.state)
+    // this.chartData.data = JSON.parse(JSON.stringify(this.$store.state.jornadas))
     // console.log(this.$store.state.jornadas)
   },
   data() {
