@@ -69,7 +69,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch('fetchJornadas')
-    console.log(this.$store.state)
+    //console.log(this.$store.state)
     // console.log(this.$store.state.jornadas)
   },
   data() {

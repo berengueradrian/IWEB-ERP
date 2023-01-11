@@ -3,14 +3,6 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const isAuth = (to, from, next) => {
-  if (!localStorage.getItem('isLoggedIn')) {
-    next({path: '/pages/login'})
-  } else {
-    next()
-  }
-}
-
 const routes = [
   {
     path: '/',
@@ -25,12 +17,12 @@ const routes = [
     path: '/typography',
     name: 'typography',
     component: () => import('@/views/typography/Typography.vue'),
+    meta: { auth: true }
   },
   {
     path: '/icons',
     name: 'icons',
     component: () => import('@/views/icons/Icons.vue'),
-    meta: { auth: true }
   },
   {
     path: '/cards',
@@ -100,16 +92,20 @@ const router = new VueRouter({
 
 import store from '../store'
 
-router.beforeEach((to, from, next) => {
+/* router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.auth)) {
-    if (store.state.user !== {}) {
+    if (store.state.user.user === null && store.state.user.email === undefined && to.name !== 'pages-login') {
       next({
         name: "pages-login"
-      })
+      });
     }
-    next()
+    else {
+      next();
+    }
   }
-  next()
-})
+  else {
+    next();
+  }
+}) */
 
 export default router

@@ -4,10 +4,11 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+var store = new Vuex.Store({
   state() {
     return {
-      user: {},
+      //user: JSON.parse(localStorage.getItem('user')),
+      user: null,
       completada: null,
       csrfToken: null,
       supervisor: {},
@@ -20,6 +21,11 @@ const store = new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    initialiseStore(state) {
+      if (localStorage.getItem('user') !== null) {
+        state.user = JSON.parse(localStorage.getItem('user'))
+      }
     },
     setToken(state) {
       state.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -44,6 +50,10 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    actualiseUser({commit}, user) {
+      commit('setUser', user)
+      //localStorage.setItem('user', JSON.stringify(user))
+    },
     async fetchUser({commit}) {
       try {
         const response = await axios.get('http://localhost:8000/api/users/67')

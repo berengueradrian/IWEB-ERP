@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/solicitudes/{user}', [UserController::class, 'createSolicitud']);
     // ruta para guardar un archivo justificante de una solicitud
     Route::post('/solicitud/file', [UserController::class, 'saveJustificante']);
+    // ruta para loguearse
+    Route::post('/login', [LoginController::class, 'authenticate']);
 });
 
 Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '.*');

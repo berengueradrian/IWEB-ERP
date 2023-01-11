@@ -107,8 +107,6 @@ export default {
     this.$store.dispatch('fetchCompletada')
     this.$store.dispatch('fetchCategoria')
     this.$store.dispatch('fetchSupervisor')
-      console.log(this.$store.state)
-      console.log(this.$store.state.categoria)
   },
   computed: {
     user() {

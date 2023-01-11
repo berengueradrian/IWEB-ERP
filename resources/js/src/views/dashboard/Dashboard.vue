@@ -121,6 +121,7 @@ import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.v
 import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
 import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
 import DashboardDatatable from './DashboardDatatable.vue'
+import store from '../../store'
 
 export default {
   components: {
@@ -132,6 +133,10 @@ export default {
     DashboardCardSalesByCountries,
     DashboardWeeklyOverview,
     DashboardDatatable,
+  },
+  created() {
+    console.log(this.$store.state)
+    console.log(this.$store.state.user)
   },
   setup() {
     const totalProfit = {
