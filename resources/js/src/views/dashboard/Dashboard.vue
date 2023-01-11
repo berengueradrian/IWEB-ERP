@@ -134,10 +134,6 @@ export default {
     DashboardWeeklyOverview,
     DashboardDatatable,
   },
-  created() {
-    console.log(this.$store.state)
-    console.log(this.$store.state.user)
-  },
   setup() {
     const totalProfit = {
       statTitle: 'Total Profit',

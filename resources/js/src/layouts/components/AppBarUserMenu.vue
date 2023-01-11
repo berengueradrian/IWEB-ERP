@@ -147,7 +147,7 @@ export default {
     }
   },
   async created() {
-    await this.$store.dispatch('fetchUser');
+    //await this.$store.dispatch('fetchUser');
     // console.log(this.$store.state)
   },
   computed: {

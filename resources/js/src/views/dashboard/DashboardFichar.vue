@@ -49,7 +49,7 @@
 
     }),
     created() {
-      this.$store.dispatch('fetchUser')
+      //this.$store.dispatch('fetchUser')
       this.$store.commit('setToken')
       this.$store.dispatch('fetchCompletada')
       // console.log(this.$store.state)

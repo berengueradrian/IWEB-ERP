@@ -102,7 +102,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('fetchUser')
+    //this.$store.dispatch('fetchUser')
     this.$store.commit('setToken')
     this.$store.dispatch('fetchCompletada')
     this.$store.dispatch('fetchCategoria')

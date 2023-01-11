@@ -92,9 +92,9 @@ const router = new VueRouter({
 
 import store from '../store'
 
-/* router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.auth)) {
-    if (store.state.user.user === null && store.state.user.email === undefined && to.name !== 'pages-login') {
+    if (store.state.user === null && to.name !== 'pages-login') {
       next({
         name: "pages-login"
       });
@@ -106,6 +106,6 @@ import store from '../store'
   else {
     next();
   }
-}) */
+})
 
 export default router

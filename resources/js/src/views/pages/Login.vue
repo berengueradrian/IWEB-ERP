@@ -166,7 +166,7 @@ export default {
       }).then(res => {
         const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}
         store.dispatch('actualiseUser', user)
-        //localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}))
+        localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}))
         this.$router.push('/pages/solicitudes')
       }).catch(error => {
         this.error_shown = true;
