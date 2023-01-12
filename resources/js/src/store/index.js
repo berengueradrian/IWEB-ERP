@@ -4,10 +4,11 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+var store = new Vuex.Store({
   state() {
     return {
-      user: {},
+      user: JSON.parse(localStorage.getItem('user')),
+      //user: null,
       completada: null,
       csrfToken: null,
       supervisor: {},
@@ -48,10 +49,14 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    actualiseUser({commit}, user) {
+      commit('setUser', user)
+      //localStorage.setItem('user', JSON.stringify(user))
+    },
     async fetchUser({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/users/67')
-        commit('setUser', response.data)
+        /* const response = await axios.get('http://localhost:8000/api/users/1')
+        commit('setUser', response.data) */
       }
       catch (error) {
         throw error
@@ -59,8 +64,8 @@ const store = new Vuex.Store({
     },
     async fetchCompletada({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/jornada/67')
-        commit('setCompletada', response.data.jornada)
+        /* const response = await axios.get('http://localhost:8000/api/jornada/1')
+        commit('setCompletada', response.data.jornada) */
       }
       catch (error) {
         throw error
@@ -68,8 +73,8 @@ const store = new Vuex.Store({
     },
     async fetchSupervisor({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/supervisor/67')
-        commit('setSupervisor', response.data.supervisor)
+        /* const response = await axios.get('http://localhost:8000/api/supervisor/1')
+        commit('setSupervisor', response.data.supervisor) */
       }
       catch (error) {
         throw error
@@ -77,8 +82,8 @@ const store = new Vuex.Store({
     },
     async fetchCategoria({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/categoria/67')
-        commit('setCategoria', response.data.categoria)
+        /* const response = await axios.get('http://localhost:8000/api/categoria/1')
+        commit('setCategoria', response.data.categoria) */
       }
       catch (error) {
         throw error
@@ -86,8 +91,8 @@ const store = new Vuex.Store({
     },
     async fetchJornadas({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/jornadas/67')
-        commit('setJornadas', response.data.jornadas)
+        /* const response = await axios.get('http://localhost:8000/api/jornadas/1')
+        commit('setJornadas', response.data.jornadas) */
       }
       catch (error) {
         throw error
@@ -95,8 +100,8 @@ const store = new Vuex.Store({
     },
     async fetchNominas({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/nominas/67')
-        commit('setNominas', response.data.nominas)
+        /* const response = await axios.get('http://localhost:8000/api/nominas/1')
+        commit('setNominas', response.data.nominas) */
       }
       catch (error) {
         throw error
@@ -104,8 +109,8 @@ const store = new Vuex.Store({
     },
     async fetchSolicitudes({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/solicitudes/67')
-        commit('setSolicitudes', response.data.solicitudes)
+        /* const response = await axios.get('http://localhost:8000/api/solicitudes/1')
+        commit('setSolicitudes', response.data.solicitudes) */
       }
       catch (error) {
         throw error

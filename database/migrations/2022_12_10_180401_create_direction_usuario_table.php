@@ -31,6 +31,6 @@ class CreateDirectionUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('direccion_usuario');
+        Schema::dropIfExists('direction_usuario');
     }
 }
