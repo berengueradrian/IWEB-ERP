@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Jornada;
+use App\Models\Solicitud;
 use App\Models\Category;
 use Storage;
 
@@ -145,4 +145,54 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function getSolicitudesVacaciones(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $supervisados = User::where('supervisado', $user->id)->get();
+        
+        $solicitudes = [];
+        foreach($supervisados as $supervisado) {
+            $solicituds = $supervisado->solicituds()->where('tipo', 'vacaciones')->get();
+            $size = count($solicituds);
+            if($solicituds != null) {
+                if($size > 1) {
+                    for($i = 0; $i < $size; $i++) {
+                        array_push($solicitudes, $solicituds[$i]);
+                    }
+                }
+                else {
+                    array_push($solicitudes, $solicituds[0]);
+                }
+            }
+        }
+
+        return response()->json([
+            'solicitudesVacaciones' => $solicitudes,
+        ]);
+    }
+
+    // aprobar una solicitud de vacaciones
+    public function aprobarSolicitudVacaciones(Request $request) {
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 1;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud aprobada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+    // denegar una solicitud de vacaciones
+    public function denegarSolicitudVacaciones(Request $request) {
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 2;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud denegada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
 }

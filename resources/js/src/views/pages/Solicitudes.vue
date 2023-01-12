@@ -1,37 +1,37 @@
 <template>
-    <div>
-        <div style="margin-bottom: 10px; margin-left: 10px;">
-            <v-btn :to="{name: 'pages-solicitud-nueva'}" small color="primary"> Nueva solicitud </v-btn>
-        </div>
-        <v-card>
-            <v-data-table
-                :headers="headers"
-                :items="usreList"
-                item-key="descripcion"
-                class="table-rounded"
-                hide-default-footer
-                disable-sort
-            >
-                <template #[`item.tipo`]="{item}">
-                <div class="d-flex flex-column">
-                    <span class="d-block font-weight-semibold text--primary text-truncate">{{ item.tipo }}</span>
-                </div>
-                </template>
-                <template #[`item.descripcion`]="{item}">
-                {{ `${item.descripcion}` }}
-                </template>
-                <template #[`item.estado`]="{item}">
-                <v-chip
-                    small
-                    :color="statusColor[status[item.estado]]"
-                    class="font-weight-medium"
-                >
-                    {{ status[item.estado] }}
-                </v-chip>
-                </template>
-            </v-data-table>
-        </v-card>
+  <div>
+    <div style="margin-bottom: 10px; margin-left: 10px;">
+      <v-btn :to="{name: 'pages-solicitud-nueva'}" small color="primary"> Nueva solicitud </v-btn>
     </div>
+    <v-card>
+      <v-data-table
+        :headers="headers"
+        :items="usreList"
+        item-key="descripcion"
+        class="table-rounded"
+        hide-default-footer
+        disable-sort
+      >
+        <template #[`item.tipo`]="{item}">
+          <div class="d-flex flex-column">
+            <span class="d-block font-weight-semibold text--primary text-truncate">{{ item.tipo }}</span>
+          </div>
+          </template>
+          <template #[`item.descripcion`]="{item}">
+          {{ `${item.descripcion}` }}
+          </template>
+          <template #[`item.estado`]="{item}">
+          <v-chip
+            small
+            :color="statusColor[status[item.estado]]"
+            class="font-weight-medium"
+          >
+            {{ status[item.estado] }}
+          </v-chip>
+        </template>
+      </v-data-table>
+    </v-card>
+  </div>
 </template>
   
 <script>
@@ -41,9 +41,10 @@
     async created() {
       //console.log(this.$store.state.user)
         await this.$store.dispatch('fetchSolicitudes')
+        await this.$store.dispatch('fetchSolicitudesVacaciones')
         //console.log(this.$store.state)
         // console.log(this.$store.state.solicitudes)
-        this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudes))
+        this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudesVacaciones))
     },
     data() {
       return {
@@ -79,4 +80,3 @@
     },
   }
 </script>
-  

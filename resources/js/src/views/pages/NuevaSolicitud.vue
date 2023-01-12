@@ -188,6 +188,9 @@
                             justificante_name: this.justificante[0].name,
                         }).then(response => {
                             // console.log(response);
+                            // if(this.user.supervisor == true) {
+                            //     this.$router.push({ name: 'dashboard' })
+                            // }
                             this.$router.push({ name: 'pages-solicitudes' })
                         })
                     })
