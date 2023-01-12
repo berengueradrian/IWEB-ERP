@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <!-- <v-card>
     <v-card-title class="align-start">
       <span>Weekly Overview</span>
 
@@ -10,14 +10,10 @@
         small
         class="mt-n2 me-n3"
       >
-        <!-- <v-icon size="22">
-          {{ icons.mdiDotsVertical }}
-        </v-icon> -->
       </v-btn>
     </v-card-title>
 
     <v-card-text>
-      <!-- Chart -->
       <vue-apex-charts
         :options="chartOptions"
         :series="chartData"
@@ -39,6 +35,34 @@
       >
         Details
       </v-btn>
+    </v-card-text>
+  </v-card> -->
+  <v-card
+    class="mx-auto text-center"
+    color="green"
+    max-width="600"
+  >
+    <v-card-text>
+      <v-sheet color="rgba(0, 0, 0, .12)">
+        <v-sparkline
+          :value="datos"
+          color="rgba(255, 255, 255, .7)"
+          height="100"
+          padding="24"
+          stroke-linecap="round"
+          smooth
+        >
+          <template v-slot:label="item">
+            ${{ item.id }}
+          </template>
+        </v-sparkline>
+      </v-sheet>
+    </v-card-text>
+
+    <v-card-text>
+      <div class="text-h4 font-weight-thin">
+        Sales Last 24h
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -70,15 +94,17 @@ export default {
   async created() {
     await this.$store.dispatch('fetchJornadas')
     console.log(this.$store.state)
+    this.datos = JSON.parse(JSON.stringify(this.$store.state.jornadas))
     // this.chartData.data = JSON.parse(JSON.stringify(this.$store.state.jornadas))
-    // console.log(this.$store.state.jornadas)
+    console.log(JSON.parse(JSON.stringify(this.$store.state.jornadas)))
+    console.log(this.datos)
   },
   data() {
     return {
       // ins: getCurrentInstance()?.proxy,
       // $vuetify: ins && ins.$vuetify ? ins.$vuetify : null,
       // customChartColor: $vuetify.theme.isDark ? '#3b3559' : '#f5f5f5',
-
+      datos: [],
       chartOptions: {
         colors: [
           'primary',

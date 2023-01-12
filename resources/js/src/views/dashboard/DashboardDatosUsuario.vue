@@ -108,23 +108,23 @@ export default {
     this.$store.dispatch('fetchCompletada')
     this.$store.dispatch('fetchCategoria')
     this.$store.dispatch('fetchSupervisor')
-      console.log(this.$store.state)
-      console.log(this.$store.state.categoria)
+    console.log(this.$store.state)
+    console.log(this.$store.state.categoria)
   },
   computed: {
     user() {
       return this.$store.state.user.user
     },
     completada() {
-      this.$store.dispatch('fetchCompletada')
+      //this.$store.dispatch('fetchCompletada')
       return this.$store.state.completada
     },
     categoria() {
-      this.$store.dispatch('fetchCategoria')
+      //this.$store.dispatch('fetchCategoria')
       return this.$store.state.categoria
     },
     supervisor() {
-      this.$store.dispatch('fetchSupervisor')
+      //this.$store.dispatch('fetchSupervisor')
       return this.$store.state.supervisor
     },
   },
