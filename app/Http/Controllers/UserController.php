@@ -81,6 +81,11 @@ class UserController extends Controller
     public function getJornadas(Request $request) {
         $user = User::whereId($request->user)->first();
         $jornadas = $user->jornadas()->get();
+        // $jornadas = [];
+        // for($i = 0; $i < count($jornadas1) && $i <= 5; $i++) {
+        //     array_push($jornadas, $jornadas1[$i]->hora_salida - $jornadas1[$i]->hora_entrada);
+        // }
+
         return response()->json([
             'jornadas' => $jornadas,
         ]);
