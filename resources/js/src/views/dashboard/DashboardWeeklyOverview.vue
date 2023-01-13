@@ -69,11 +69,11 @@ export default {
     await this.$store.dispatch('fetchCompletada')
     await this.$store.dispatch('fetchJornadas')
     this.datos = JSON.parse(JSON.stringify(this.$store.state.jornadas))
-    console.log(JSON.parse(JSON.stringify(this.$store.state.jornadas)))
-    console.log(this.datos)
-    console.log(this.$store.state.jornadas)
+    // console.log(JSON.parse(JSON.stringify(this.$store.state.jornadas)))
+    // console.log(this.datos)
+    // console.log(this.$store.state.jornadas)
     this.calculoHoras()
-    console.log(this.data)
+    // console.log(this.data)
     
   },
   data() {
@@ -97,8 +97,8 @@ export default {
     calculoHoras() {
       var caso = this.$store.state.jornadas
       this.data = []
-      console.log("hola")
-      console.log(caso[0])
+      // console.log("hola")
+      // console.log(caso[0])
       for (let i = 0; i < caso.length && i <= 5; i++) {
         this.data.push(caso[i].hora_salida - caso[i].hora_entrada)
       }

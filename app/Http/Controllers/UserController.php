@@ -80,7 +80,8 @@ class UserController extends Controller
     // obtener las jornadas de un usuario
     public function getJornadas(Request $request) {
         $user = User::whereId($request->user)->first();
-        $jornadas = $user->jornadas()->get();
+        $jornadas = $user->jornadas()->orderBy('id', 'desc')->take(5)->get();
+        // $jornadas = $user->jornadas()->get();
         // $jornadas = [];
         // for($i = 0; $i < count($jornadas1) && $i <= 5; $i++) {
         //     array_push($jornadas, $jornadas1[$i]->hora_salida - $jornadas1[$i]->hora_entrada);
@@ -197,6 +198,31 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Solicitud denegada',
             'solicitud' => $solicitud,
+        ]);
+    }
+
+    // obtener el número de horas totales trabajadas por un usuario
+    public function getNumeroHoras(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $jornadas = $user->jornadas()->get();
+        $numeroHoras = 0;
+        foreach($jornadas as $jornada) {
+            $numeroHoras += $jornada->hora_salida - $jornada->hora_entrada;
+        }
+
+        return response()->json([
+            'numeroHoras' => $numeroHoras,
+        ]);
+    }
+
+    // obtener el número de compañeros de equipo de un usuario
+    public function getNumeroCompaneros(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $companeros = User::where('supervisado', $user->supervisado)->get();
+        $numeroCompaneros = count($companeros) - 1;
+
+        return response()->json([
+            'numeroCompaneros' => $numeroCompaneros,
         ]);
     }
 

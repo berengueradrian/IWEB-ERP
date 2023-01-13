@@ -44,6 +44,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/solicitudes/{solicitud}/aprobar', [UserController::class, 'aprobarSolicitudVacaciones']);
     // ruta para rechazar una solicitud de vacaciones
     Route::post('/solicitudes/{solicitud}/denegar', [UserController::class, 'denegarSolicitudVacaciones']);
+    // ruta para obtener las horas trabajadas de un usuario
+    Route::get('/horas/count/{user}', [UserController::class, 'getNumeroHoras']);
+    // ruta para obtener el numero de compañeros de un usuario
+    Route::get('/companeros/count/{user}', [UserController::class, 'getNumeroCompaneros']);
 });
 
 Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '.*');

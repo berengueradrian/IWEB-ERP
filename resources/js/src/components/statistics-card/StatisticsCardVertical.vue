@@ -15,16 +15,6 @@
         </v-icon>
       </v-avatar>
       <v-spacer></v-spacer>
-
-      <v-btn
-        small
-        icon
-        class="me-n3 mt-n1"
-      >
-        <v-icon>
-          {{ mdiDotsVertical }}
-        </v-icon>
-      </v-btn>
     </v-card-title>
 
     <v-card-text class="text-no-wrap text--primary mt-3">
@@ -34,10 +24,6 @@
 
       <div class="d-flex align-end flex-wrap">
         <span class="font-weight-semibold text-2xl me-1 mb-2">{{ statistics }}</span>
-        <span
-          class="percentage text-xs mb-2"
-          :class="checkChange(change) ? 'success--text':'error--text'"
-        > {{ change }}</span>
       </div>
       <p class="text-xs text--secondary mb-0">
         {{ subtitle }}

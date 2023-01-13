@@ -83,7 +83,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line object-curly-newline
 import { mdiAccountOutline, mdiLabelOutline, mdiCalendarBlank, mdiFolderAccountOutline, mdiAccountEyeOutline, mdiAccountTieOutline } from '@mdi/js'
 import store from '../../store/index.js';
 
@@ -102,12 +101,11 @@ export default {
       },
     }
   },
-  created() {
-    this.$store.dispatch('fetchUser')
-    this.$store.commit('setToken')
-    this.$store.dispatch('fetchCompletada')
-    this.$store.dispatch('fetchCategoria')
-    this.$store.dispatch('fetchSupervisor')
+  async created() {
+    await this.$store.dispatch('fetchUser')
+    await this.$store.dispatch('fetchCompletada')
+    await this.$store.dispatch('fetchCategoria')
+    await this.$store.dispatch('fetchSupervisor')
     console.log(this.$store.state)
     console.log(this.$store.state.categoria)
   },

@@ -9,21 +9,21 @@ const store = new Vuex.Store({
     return {
       user: {},
       completada: null,
-      csrfToken: null,
       supervisor: {},
       categoria: null,
       jornadas: null,
       nominas: null,
       solicitudes: null,
       solicitudesVacaciones: null,
+      numeroCompaneros: null,
+      horasTotales: null,
+      numeroSolicitudes: null,
+      numeroNominas: null,
     }
   },
   mutations: {
     setUser(state, user) {
       state.user = user
-    },
-    setToken(state) {
-      state.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     },
     setCompletada(state, completada) {
       state.completada = completada
@@ -45,6 +45,12 @@ const store = new Vuex.Store({
     },
     setSolicitudesVacaciones(state, solicitudesVacaciones) {
       state.solicitudesVacaciones = solicitudesVacaciones
+    },
+    setHorasTotales(state, horasTotales) {
+      state.horasTotales = horasTotales
+    },
+    setNumeroCompaneros(state, numeroCompaneros) {
+      state.numeroCompaneros = numeroCompaneros
     }
   },
   actions: {
@@ -119,7 +125,25 @@ const store = new Vuex.Store({
       catch (error) {
         throw error
       }
-    }
+    },
+    async fetchHorasTotales({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/horas/count/67')
+        commit('setHorasTotales', response.data.numeroHoras)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchNumeroCompaneros({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/companeros/count/67')
+        commit('setNumeroCompaneros', response.data.numeroCompaneros)
+      }
+      catch (error) {
+        throw error
+      }
+    },
   },
   modules: {},
 })
