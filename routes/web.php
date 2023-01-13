@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +22,16 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/startJornada/{user}', [UserController::class, 'startJornada']);
     // ruta para finalizar una jornada
     Route::post('/endJornada/{user}', [UserController::class, 'endJornada']);
+    // ruta para obtener todos los usuarios
+    Route::get('/users', [UserController::class, 'getUsers']);
     // ruta para obtener un usuario
     Route::get('/users/{user}', [UserController::class, 'getUser']);
     // ruta para obtener si hay alguna jornada abierta
     Route::get('/jornada/{user}', [UserController::class, 'getJornada']);
     // ruta para obtener la categoria de un usuario
     Route::get('/categoria/{user}', [UserController::class, 'getCategoria']);
+    // ruta para obtener todas categorias
+    Route::get('/categoria', [CategoryController::class, 'getCategorias']);
     // ruta para obtener el supervisor de un usuario
     Route::get('/supervisor/{user}', [UserController::class, 'getSupervisor']);
     // ruta para obtener las jornadas de un usuario

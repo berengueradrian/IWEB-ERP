@@ -34,5 +34,9 @@ export default {
       resolveLayout,
     }
   },
+  created() {
+    this.$store.dispatch('fetchEmpleados')
+    this.$store.dispatch('fetchCategorias')
+  }
 }
 </script>

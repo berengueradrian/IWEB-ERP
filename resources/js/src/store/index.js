@@ -17,6 +17,8 @@ var store = new Vuex.Store({
       nominas: null,
       solicitudes: null,
       solicitudesVacaciones: null,
+      empleados: [],
+      categorias: [],
     }
   },
   mutations: {
@@ -46,12 +48,17 @@ var store = new Vuex.Store({
     },
     setSolicitudesVacaciones(state, solicitudesVacaciones) {
       state.solicitudesVacaciones = solicitudesVacaciones
+    },
+    setEmpleados(state, empleados) {
+      state.empleados = empleados
+    },
+    setCategorias(state, categorias) {
+      state.categorias = categorias
     }
   },
   actions: {
     actualiseUser({commit}, user) {
       commit('setUser', user)
-      //localStorage.setItem('user', JSON.stringify(user))
     },
     async fetchUser({commit}) {
       try {
@@ -124,6 +131,26 @@ var store = new Vuex.Store({
       catch (error) {
         throw error
       }
+    },
+    async fetchEmpleados({commit}) {
+      const response = await axios.get('/api/users');
+      let empleados = response.data.data
+      for (let idx in empleados) {
+        if (empleados[idx].admin) {
+          empleados[idx].role = 'Admin'
+        }
+        else if (empleados[idx].supervisor) {
+          empleados[idx].role = 'Supervisor'
+        }
+        else {
+          empleados[idx].role = 'Empleado'
+        }
+      }
+      commit('setEmpleados', empleados)
+    },
+    async fetchCategorias({commit}) {
+      const response = await axios.get('/api/categoria');
+      commit('setCategorias', response.data.data)
     }
   },
   modules: {},

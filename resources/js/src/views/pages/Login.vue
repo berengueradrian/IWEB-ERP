@@ -111,12 +111,22 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
+import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline, mdiConsoleNetworkOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 import axios from 'axios'
 import store from '@/store'
+import router from '@/router'
 export default {
   setup() {
+    if (store.state.user !== null) {
+      if (store.state.user.admin || store.state.user.supervisor) {
+        router.push('/superole/dashboard')
+      }
+      else {
+        router.push('/empleado/dashboard')
+      }
+    }
+    
     const isPasswordVisible = ref(false)
     const error_shown = ref(false)
     const email = ref('')
@@ -167,7 +177,8 @@ export default {
         const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}
         store.dispatch('actualiseUser', user)
         localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}))
-        this.$router.push('/pages/solicitudes')
+        
+        this.$router.push('/')
       }).catch(error => {
         this.error_shown = true;
       })

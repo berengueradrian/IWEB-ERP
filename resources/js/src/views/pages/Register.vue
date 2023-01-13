@@ -71,7 +71,7 @@
         <!-- create new account  -->
         <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
           <span class="me-2"> Already have an account? </span>
-          <router-link :to="{ name: 'pages-login' }"> Sign in instead </router-link>
+          <router-link :to="{ name: 'login' }"> Sign in instead </router-link>
         </v-card-text>
 
         <!-- divider -->

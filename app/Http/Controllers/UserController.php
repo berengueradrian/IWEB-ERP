@@ -10,6 +10,14 @@ use Storage;
 
 class UserController extends Controller
 {
+    public function getUsers() {
+        $users = User::select('users.id', 'users.name', 'users.email', 'users.admin', 'users.supervisor', 'categories.name as category')
+        ->join('categories', 'users.category_id', '=', 'categories.id')
+        ->get();
+        return response()->json([
+            'data' => $users
+        ]);
+    }
 
     public function getUser(Request $request) {
         $newUser = User::whereId($request->user)->first();
