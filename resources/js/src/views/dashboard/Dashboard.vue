@@ -6,27 +6,12 @@
     >
       <dashboard-fichar></dashboard-fichar>
     </v-col>
+
     <v-col
       cols="12"
       md="8"
     >
       <dashboard-datos-usuario></dashboard-datos-usuario>
-    </v-col>
-
-    <v-col
-      cols="12"
-      sm="6"
-      md="4"
-    >
-      <dashboard-weekly-overview></dashboard-weekly-overview>
-    </v-col>
-
-    <v-col
-      cols="12"
-      md="4"
-      sm="6"
-    >
-      <dashboard-card-total-earning></dashboard-card-total-earning>
     </v-col>
 
     <v-col
@@ -38,65 +23,175 @@
           cols="12"
           sm="6"
         >
-          <statistics-card-vertical
-            :change="totalProfit.change"
-            :color="totalProfit.color"
-            :icon="totalProfit.icon"
-            :statistics="totalProfit.statistics"
-            :stat-title="totalProfit.statTitle"
-            :subtitle="totalProfit.subtitle"
-          ></statistics-card-vertical>
+          <v-card>
+            <v-card-title class="align-start">
+              <v-avatar
+                color="error"
+                size="38"
+                class="elevation-3"
+              >
+                <v-icon
+                  size="24"
+                  color="white"
+                  class="rounded-0"
+                >
+                  {{ mdiCalendarClockOutline }}
+                </v-icon>
+              </v-avatar>
+              <v-spacer></v-spacer>
+            </v-card-title>
+
+            <v-card-text class="text-no-wrap text--primary mt-3">
+              <p class="font-weight-semibold text-sm mb-1">
+                Horas totales
+              </p>
+              <p class="font-weight-semibold text-sm mb-1">
+                trabajadas 
+              </p>
+
+              <div class="d-flex align-end flex-wrap">
+                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.horasTotales }}</span>
+              </div>
+            </v-card-text>
+          </v-card>
         </v-col>
         <v-col
           cols="12"
           sm="6"
         >
-          <statistics-card-vertical
-            :change="totalSales.change"
-            :color="totalSales.color"
-            :icon="totalSales.icon"
-            :statistics="totalSales.statistics"
-            :stat-title="totalSales.statTitle"
-            :subtitle="totalSales.subtitle"
-          ></statistics-card-vertical>
+          <v-card>
+            <v-card-title class="align-start">
+              <v-avatar
+                color="success"
+                size="38"
+                class="elevation-3"
+              >
+                <v-icon
+                  size="24"
+                  color="white"
+                  class="rounded-0"
+                >
+                  {{ mdiAccountCashOutline }}
+                </v-icon>
+              </v-avatar>
+              <v-spacer></v-spacer>
+            </v-card-title>
+
+            <v-card-text class="text-no-wrap text--primary mt-3">
+              <p class="font-weight-semibold text-sm mb-1">
+                Nóminas
+              </p>
+              <p class="font-weight-semibold text-sm mb-1">
+                recibidas 
+              </p>
+
+              <div class="d-flex align-end flex-wrap">
+                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.nominas.length }}</span>
+              </div>
+            </v-card-text>
+          </v-card>
         </v-col>
+        
         <v-col
           cols="12"
           sm="6"
         >
-          <statistics-card-vertical
-            :change="newProject.change"
-            :color="newProject.color"
-            :icon="newProject.icon"
-            :statistics="newProject.statistics"
-            :stat-title="newProject.statTitle"
-            :subtitle="newProject.subtitle"
-          ></statistics-card-vertical>
+          <v-card>
+            <v-card-title class="align-start">
+              <v-avatar
+                color="primary"
+                size="38"
+                class="elevation-3"
+              >
+                <v-icon
+                  size="24"
+                  color="white"
+                  class="rounded-0"
+                >
+                  {{ mdiBookArrowUpOutline }}
+                </v-icon>
+              </v-avatar>
+              <v-spacer></v-spacer>
+            </v-card-title>
+
+            <v-card-text class="text-no-wrap text--primary mt-3">
+              <p class="font-weight-semibold text-sm mb-1">
+                Solicitudes
+              </p>
+              <p class="font-weight-semibold text-sm mb-1">
+                realizadas 
+              </p>
+
+              <div class="d-flex align-end flex-wrap">
+                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.solicitudes.length }}</span>
+              </div>
+            </v-card-text>
+          </v-card>
         </v-col>
 
         <v-col
           cols="12"
           sm="6"
         >
-          <statistics-card-vertical
-            :change="salesQueries.change"
-            :color="salesQueries.color"
-            :icon="salesQueries.icon"
-            :statistics="salesQueries.statistics"
-            :stat-title="salesQueries.statTitle"
-            :subtitle="salesQueries.subtitle"
-          ></statistics-card-vertical>
+          <v-card>
+            <v-card-title class="align-start">
+              <v-avatar
+                color="success"
+                size="38"
+                class="elevation-3"
+              >
+                <v-icon
+                  size="24"
+                  color="white"
+                  class="rounded-0"
+                >
+                  {{ mdiAccountGroupOutline }}
+                </v-icon>
+              </v-avatar>
+              <v-spacer></v-spacer>
+            </v-card-title>
+
+            <v-card-text class="text-no-wrap text--primary mt-3">
+              <p class="font-weight-semibold text-sm mb-1">
+                Compañeros 
+              </p>
+              <p class="font-weight-semibold text-sm mb-1">
+                de equipo 
+              </p>
+
+              <div class="d-flex align-end flex-wrap">
+                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.numeroCompaneros }}</span>
+              </div>
+            </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
     </v-col>
 
     <v-col
       cols="12"
+      md="8"
+    >
+      <dashboard-jornadas></dashboard-jornadas>
+    </v-col>
+
+
+    <!-- <v-col
+      cols="12"
+      sm="6"
       md="4"
     >
-      <dashboard-card-sales-by-countries></dashboard-card-sales-by-countries>
-    </v-col>
-    <v-col
+      <dashboard-weekly-overview></dashboard-weekly-overview>
+    </v-col> -->
+
+    <!-- <v-col
+      cols="12"
+      md="4"
+      sm="6"
+    >
+      <dashboard-card-total-earning></dashboard-card-total-earning>
+    </v-col> -->
+    <!--<v-col
       cols="12"
       md="8"
     >
@@ -104,79 +199,37 @@
     </v-col>
     <v-col cols="12">
       <dashboard-datatable></dashboard-datatable>
-    </v-col>
+    </v-col> -->
   </v-row>
 </template>
 
 <script>
-// eslint-disable-next-line object-curly-newline
-import { mdiPoll, mdiLabelVariantOutline, mdiCurrencyUsd, mdiHelpCircleOutline } from '@mdi/js'
-import StatisticsCardVertical from '@/components/statistics-card/StatisticsCardVertical.vue'
-
+import store from '../../store/index.js';
+import { mdiAccountGroupOutline, mdiBookArrowUpOutline, mdiAccountCashOutline, mdiCalendarClockOutline } from '@mdi/js';
 // demos
 import DashboardFichar from './DashboardFichar.vue'
 import DashboardDatosUsuario from './DashboardDatosUsuario.vue'
-import DashboardCardTotalEarning from './DashboardCardTotalEarning.vue'
-import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.vue'
-import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
-import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
-import DashboardDatatable from './DashboardDatatable.vue'
-import store from '../../store'
+import DashboardJornadas from './DashboardJornadas.vue'
 
 export default {
   components: {
-    StatisticsCardVertical,
     DashboardFichar,
     DashboardDatosUsuario,
-    DashboardCardTotalEarning,
-    DashboardCardDepositAndWithdraw,
-    DashboardCardSalesByCountries,
-    DashboardWeeklyOverview,
-    DashboardDatatable,
+    DashboardJornadas,
+  },
+  async created() {
+    await this.$store.dispatch('fetchHorasTotales')
+    await this.$store.dispatch('fetchNumeroCompaneros')
+    await this.$store.dispatch('fetchSolicitudes')
+    await this.$store.dispatch('fetchNominas')
   },
   setup() {
-    const totalProfit = {
-      statTitle: 'Total Profit',
-      icon: mdiPoll,
-      color: 'success',
-      subtitle: 'Weekly Project',
-      statistics: '$25.6k',
-      change: '+42%',
-    }
-
-    const totalSales = {
-      statTitle: 'Refunds',
-      icon: mdiCurrencyUsd,
-      color: 'secondary',
-      subtitle: 'Past Month',
-      statistics: '$78',
-      change: '-15%',
-    }
-
-    // vertical card options
-    const newProject = {
-      statTitle: 'New Project',
-      icon: mdiLabelVariantOutline,
-      color: 'primary',
-      subtitle: 'Yearly Project',
-      statistics: '862',
-      change: '-18%',
-    }
-
-    const salesQueries = {
-      statTitle: 'Sales Quries',
-      icon: mdiHelpCircleOutline,
-      color: 'warning',
-      subtitle: 'Last week',
-      statistics: '15',
-      change: '-18%',
-    }
-
     return {
-      totalProfit,
-      totalSales,
-      newProject,
-      salesQueries,
+      store,
+      mdiAccountGroupOutline,
+      mdiAccountCashOutline,
+      mdiCalendarClockOutline,
+      mdiBookArrowUpOutline
     }
   },
 }

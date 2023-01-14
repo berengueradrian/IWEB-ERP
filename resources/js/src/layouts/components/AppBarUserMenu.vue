@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-badge bottom color="success" overlap offset-x="12" offset-y="12" class="ms-4" dot>
         <v-avatar size="40px" v-bind="attrs" v-on="on">
-          <v-img :src="require('@/assets/images/avatars/1.png').default"></v-img>
+          <v-img :src="require('@/assets/images/avatars/1.png')"></v-img>
         </v-avatar>
       </v-badge>
     </template>
@@ -147,8 +147,7 @@ export default {
     }
   },
   async created() {
-    //await this.$store.dispatch('fetchUser');
-    // console.log(this.$store.state)
+    await this.$store.dispatch('fetchUser');
   },
   computed: {
     user() {

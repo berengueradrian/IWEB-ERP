@@ -10,21 +10,20 @@ var store = new Vuex.Store({
       user: JSON.parse(localStorage.getItem('user')),
       //user: null,
       completada: null,
-      csrfToken: null,
       supervisor: {},
       categoria: null,
       jornadas: null,
       nominas: null,
       solicitudes: null,
       solicitudesVacaciones: null,
+      usuariosSolicitudes: null,
+      numeroCompaneros: null,
+      horasTotales: null,
     }
   },
   mutations: {
     setUser(state, user) {
       state.user = user
-    },
-    setToken(state) {
-      state.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     },
     setCompletada(state, completada) {
       state.completada = completada
@@ -46,6 +45,15 @@ var store = new Vuex.Store({
     },
     setSolicitudesVacaciones(state, solicitudesVacaciones) {
       state.solicitudesVacaciones = solicitudesVacaciones
+    },
+    setUsuariosSolicitudes(state, usuariosSolicitudes) {
+      state.usuariosSolicitudes = usuariosSolicitudes
+    },
+    setHorasTotales(state, horasTotales) {
+      state.horasTotales = horasTotales
+    },
+    setNumeroCompaneros(state, numeroCompaneros) {
+      state.numeroCompaneros = numeroCompaneros
     }
   },
   actions: {
@@ -116,15 +124,35 @@ var store = new Vuex.Store({
         throw error
       }
     },
+    // sólo para admins
     async fetchSolicitudesVacaciones({commit}) {
       try {
         const response = await axios.get('http://localhost:8000/api/solicitudesVacaciones/65')
         commit('setSolicitudesVacaciones', response.data.solicitudesVacaciones)
+        commit('setUsuariosSolicitudes', response.data.usuariosSolicitudes)
       }
       catch (error) {
         throw error
       }
-    }
+    },
+    async fetchHorasTotales({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/horas/count/67')
+        commit('setHorasTotales', response.data.numeroHoras)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchNumeroCompaneros({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/companeros/count/67')
+        commit('setNumeroCompaneros', response.data.numeroCompaneros)
+      }
+      catch (error) {
+        throw error
+      }
+    },
   },
   modules: {},
 })

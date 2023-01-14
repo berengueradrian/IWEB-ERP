@@ -32,7 +32,7 @@
       <nav-menu-link
         title="Solicitudes"
         :to="{ name: 'pages-solicitudes' }"
-        :icon="icons.mdiAccountArrowUpOutline"
+        :icon="icons.mdiBookArrowUpOutline"
       ></nav-menu-link>
       <nav-menu-link title="Nóminas" :to="{ name: 'typography' }" :icon="icons.mdiFileChartOutline"></nav-menu-link> 
       <!-- <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">
@@ -73,7 +73,10 @@ import {
   mdiFileOutline,
   mdiFormSelect,
   mdiAccountCogOutline,
-  mdiFileChartOutline
+  mdiFileChartOutline,
+  mdiCalendarImportOutline,
+  mdiAccountArrowUpOutline,
+  mdiBookArrowUpOutline
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -102,7 +105,10 @@ export default {
         mdiFileOutline,
         mdiFormSelect,
         mdiAccountCogOutline,
-        mdiFileChartOutline
+        mdiFileChartOutline,
+        mdiCalendarImportOutline,
+        mdiAccountArrowUpOutline,
+        mdiBookArrowUpOutline
       },
     }
   },
