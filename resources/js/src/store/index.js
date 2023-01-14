@@ -15,10 +15,9 @@ const store = new Vuex.Store({
       nominas: null,
       solicitudes: null,
       solicitudesVacaciones: null,
+      usuariosSolicitudes: null,
       numeroCompaneros: null,
       horasTotales: null,
-      numeroSolicitudes: null,
-      numeroNominas: null,
     }
   },
   mutations: {
@@ -45,6 +44,9 @@ const store = new Vuex.Store({
     },
     setSolicitudesVacaciones(state, solicitudesVacaciones) {
       state.solicitudesVacaciones = solicitudesVacaciones
+    },
+    setUsuariosSolicitudes(state, usuariosSolicitudes) {
+      state.usuariosSolicitudes = usuariosSolicitudes
     },
     setHorasTotales(state, horasTotales) {
       state.horasTotales = horasTotales
@@ -117,10 +119,12 @@ const store = new Vuex.Store({
         throw error
       }
     },
+    // sólo para admins
     async fetchSolicitudesVacaciones({commit}) {
       try {
         const response = await axios.get('http://localhost:8000/api/solicitudesVacaciones/65')
         commit('setSolicitudesVacaciones', response.data.solicitudesVacaciones)
+        commit('setUsuariosSolicitudes', response.data.usuariosSolicitudes)
       }
       catch (error) {
         throw error

@@ -157,8 +157,10 @@ class UserController extends Controller
         $supervisados = User::where('supervisado', $user->id)->get();
         
         $solicitudes = [];
+        $usuarios = [];
         foreach($supervisados as $supervisado) {
             $solicituds = $supervisado->solicituds()->where('tipo', 'vacaciones')->get();
+            $usuarios[$supervisado->id] = $supervisado->name;
             $size = count($solicituds);
             if($solicituds != null) {
                 if($size > 1) {
@@ -174,6 +176,7 @@ class UserController extends Controller
 
         return response()->json([
             'solicitudesVacaciones' => $solicitudes,
+            'usuariosSolicitudes' => $usuarios,
         ]);
     }
 
