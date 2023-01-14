@@ -17,6 +17,7 @@ const routes = [
     path: '/typography',
     name: 'typography',
     component: () => import('@/views/typography/Typography.vue'),
+    meta: { auth: true, admin: true }
   },
   {
     path: '/icons',
@@ -92,6 +93,29 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+})
+
+import store from '../store'
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.auth) && store.state.user === null && to.name !== 'pages-login') {
+    next({
+      name: "pages-login"
+    });
+  }
+  if (to.matched.some(record => record.meta.admin) && store.state.user !== null && !store.state.user.admin) {
+    next({
+      name: "error-404"
+    })
+  }
+  if (to.matched.some(record => record.meta.supervisor) && store.state.user !== null && !store.state.user.supervisor) {
+    next({
+      name: "error-404"
+    })
+  }
+  else {
+    next();
+  }
 })
 
 export default router

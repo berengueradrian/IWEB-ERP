@@ -6,7 +6,7 @@
         <v-card-title class="d-flex align-center justify-center py-7">
           <router-link to="/" class="d-flex align-center">
             <v-img
-              :src="require('@/assets/images/logos/logo.svg').default"
+              :src="require('@/assets/images/logos/logo.svg')"
               max-height="30px"
               max-width="30px"
               alt="logo"
@@ -47,38 +47,45 @@
               @click:append="isPasswordVisible = !isPasswordVisible"
             ></v-text-field>
 
-            <div class="d-flex align-center justify-space-between flex-wrap">
+            <!--<div class="d-flex align-center justify-space-between flex-wrap">
               <v-checkbox label="Remember Me" hide-details class="me-3 mt-1"> </v-checkbox>
 
-              <!-- forgot link -->
+              forgot link
               <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
-            </div>
+            </div>-->
 
-            <v-btn block color="primary" class="mt-6"> Login </v-btn>
+            <v-btn block color="primary" class="mt-6" @click="attemptLogin" > Login </v-btn>
           </v-form>
+          <v-alert
+            text
+            outlined
+            type="error"
+            class="mt-3"
+            v-if="error_shown"
+          >Login fallido. Vuelve a intentarlo</v-alert>
         </v-card-text>
 
         <!-- create new account  -->
-        <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
+        <!--<v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
           <span class="me-2"> New on our platform? </span>
           <router-link :to="{ name: 'pages-register' }"> Create an account </router-link>
-        </v-card-text>
+        </v-card-text>-->
 
         <!-- divider -->
-        <v-card-text class="d-flex align-center mt-2">
+        <!--<v-card-text class="d-flex align-center mt-2">
           <v-divider></v-divider>
           <span class="mx-5">or</span>
           <v-divider></v-divider>
-        </v-card-text>
+        </v-card-text>-->
 
         <!-- social links -->
-        <v-card-actions class="d-flex justify-center">
+        <!--<v-card-actions class="d-flex justify-center">
           <v-btn v-for="link in socialLink" :key="link.icon" icon class="ms-1">
             <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
               {{ link.icon }}
             </v-icon>
           </v-btn>
-        </v-card-actions>
+        </v-card-actions>-->
       </v-card>
     </div>
 
@@ -86,18 +93,18 @@
     <img
       class="auth-mask-bg"
       height="173"
-      :src="require(`@/assets/images/misc/mask-${$vuetify.theme.dark ? 'dark' : 'light'}.png`).default"
+      :src="require(`@/assets/images/misc/mask-${$vuetify.theme.dark ? 'dark' : 'light'}.png`)"
     />
 
     <!-- tree -->
-    <v-img class="auth-tree" width="247" height="185" :src="require('@/assets/images/misc/tree.png').default"></v-img>
+    <v-img class="auth-tree" width="247" height="185" :src="require('@/assets/images/misc/tree.png')"></v-img>
 
     <!-- tree  -->
     <v-img
       class="auth-tree-3"
       width="377"
       height="289"
-      :src="require('@/assets/images/misc/tree-3.png').default"
+      :src="require('@/assets/images/misc/tree-3.png')"
     ></v-img>
   </div>
 </template>
@@ -106,10 +113,12 @@
 // eslint-disable-next-line object-curly-newline
 import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
-
+import axios from 'axios'
+import store from '@/store'
 export default {
   setup() {
     const isPasswordVisible = ref(false)
+    const error_shown = ref(false)
     const email = ref('')
     const password = ref('')
     const socialLink = [
@@ -140,11 +149,28 @@ export default {
       email,
       password,
       socialLink,
+      error_shown,
 
       icons: {
         mdiEyeOutline,
         mdiEyeOffOutline,
       },
+    }
+  },
+
+  methods: {
+    attemptLogin() {
+      axios.post('/api/login', {
+        email: this.email,
+        password: this.password
+      }).then(res => {
+        const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}
+        store.dispatch('actualiseUser', user)
+        localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}))
+        this.$router.push('/pages/solicitudes')
+      }).catch(error => {
+        this.error_shown = true;
+      })
     }
   },
 }

@@ -124,7 +124,7 @@
             }
         },
         created() {
-            this.$store.dispatch('fetchUser')
+            //this.$store.dispatch('fetchUser')
         },
         data: () => ({
             valid: true,

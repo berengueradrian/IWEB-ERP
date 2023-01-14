@@ -11,12 +11,12 @@
       <div class="pb-3 pt-2">
         <v-badge bottom color="success" overlap offset-x="12" offset-y="12" class="ms-4" dot>
           <v-avatar size="40px">
-            <v-img :src="'../../../../../public/images/users/' + this.$store.state.user.user.image_url"></v-img>
+            <!-- <v-img :src="'../../../../../public/images/users/' + this.$store.state.user.user.image_url"></v-img> --> <!-- TODO -->
           </v-avatar>
         </v-badge>
         <div class="d-inline-flex flex-column justify-center ms-3" style="vertical-align: middle">
-          <span class="text--primary font-weight-semibold mb-n1"> {{this.$store.state.user.user.name}} </span>
-          <small class="text--disabled text-capitalize">{{this.$store.state.user.user.email}}</small>
+          <!-- <span class="text--primary font-weight-semibold mb-n1"> {{this.$store.state.user.user.name}} </span> --> <!-- TODO -->
+          <!-- <small class="text--disabled text-capitalize">{{this.$store.state.user.user.email}}</small> --> <!-- TODO -->
         </div>
       </div>
 

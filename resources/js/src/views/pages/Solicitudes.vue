@@ -51,6 +51,8 @@
   
   export default {
     async created() {
+      //console.log(this.$store.state.user)
+        await this.$store.dispatch('fetchSolicitudes')
         await this.$store.dispatch('fetchSolicitudesVacaciones')
         //console.log(this.$store.state)
         // console.log(this.$store.state.solicitudes)
