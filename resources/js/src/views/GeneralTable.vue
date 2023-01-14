@@ -44,7 +44,10 @@ import { mdiMagnify } from '@mdi/js'
 
 export default {
   components: { EmpleadosTable },
-  props: ['title'],
+  props: [
+    'title', 
+    'supervisor'
+  ],
 
   setup() {
     return {
@@ -55,6 +58,7 @@ export default {
     this.categories = this.$store.state.categorias.map(category => category.name)
     this.categories.push('Elige uno')
     this.employees = this.$store.state.empleados
+    this.filterTeam()    
   },
   data() {
     return {
@@ -65,6 +69,11 @@ export default {
     }
   },
   methods: {
+    filterTeam() {
+      if (this.supervisor) {
+        this.employees = this.employees.filter(employee => employee.supervisado === this.$store.state.user.id)
+      }
+    },
     filterMail() {
       this.employees = this.$store.state.empleados.filter(employee => employee.email.includes(this.filters[0]))
       if (this.filters[1] !== 'Elige uno') {
@@ -73,7 +82,7 @@ export default {
       if (this.filters[2] !== 'Elige uno') {
         this.employees = this.employees.filter(employee => employee.role === this.filters[2])
       }
-
+      this.filterTeam()
     },
     filterCategory() {
       if (this.filters[1] === 'Elige uno') {
@@ -88,6 +97,7 @@ export default {
       if (this.filters[2] !== 'Elige uno') {
         this.employees = this.employees.filter(employee => employee.role === this.filters[2])
       }
+      this.filterTeam()
     },
     filterRole() {
       if (this.filters[2] === 'Elige uno') {
@@ -102,7 +112,7 @@ export default {
       if (this.filters[1] !== 'Elige uno') {
         this.employees = this.employees.filter(employee => employee.category === this.filters[1])
       }
-
+      this.filterTeam()
     }
   }
 }

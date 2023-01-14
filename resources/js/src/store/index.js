@@ -19,11 +19,15 @@ var store = new Vuex.Store({
       solicitudesVacaciones: null,
       empleados: [],
       categorias: [],
+      supervisores: []
     }
   },
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    setSupervisors(state, supervisors) {
+      state.supervisores = supervisors
     },
     setToken(state) {
       state.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -151,6 +155,14 @@ var store = new Vuex.Store({
     async fetchCategorias({commit}) {
       const response = await axios.get('/api/categoria');
       commit('setCategorias', response.data.data)
+    },
+    async fetchSupervisores({commit}) {
+      const response = await axios.get('/api/supervisores')
+      response.data.data.push({
+        'name': 'Sin equipo',
+        'id': null
+      })
+      commit('setSupervisors', response.data.data)
     }
   },
   modules: {},

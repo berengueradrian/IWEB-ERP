@@ -43,7 +43,12 @@ const routes = [
     meta: {
       auth: true,
       super: true
-    }
+    },
+  },
+  {
+    path: '/superole/nuevo',
+    name: 'superole-nuevo',
+    component: () => import('@/views/NuevoEmpleado.vue')
   },
   {
     path: '/typography',

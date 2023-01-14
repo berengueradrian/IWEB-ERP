@@ -174,11 +174,16 @@ export default {
         email: this.email,
         password: this.password
       }).then(res => {
-        const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}
-        store.dispatch('actualiseUser', user)
-        localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}))
-        
-        this.$router.push('/')
+        if (res.data[0] === false) {
+          this.error_shown = true
+        }
+        else {
+          this.error_shown = false
+          const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor, id: res.data[1].id}
+          store.dispatch('actualiseUser', user)
+          localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor, id: res.data[1].id}))
+          this.$router.push('/')
+        }
       }).catch(error => {
         this.error_shown = true;
       })

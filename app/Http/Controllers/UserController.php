@@ -11,9 +11,16 @@ use Storage;
 class UserController extends Controller
 {
     public function getUsers() {
-        $users = User::select('users.id', 'users.name', 'users.email', 'users.admin', 'users.supervisor', 'categories.name as category')
+        $users = User::select('users.id', 'users.name', 'users.email', 'users.admin', 'users.supervisor', 'categories.name as category', 'users.supervisado')
         ->join('categories', 'users.category_id', '=', 'categories.id')
         ->get();
+        return response()->json([
+            'data' => $users
+        ]);
+    }
+
+    public function getSupervisors() {
+        $users = User::select('id', 'name')->where('supervisor', '=', '1')->get();
         return response()->json([
             'data' => $users
         ]);
@@ -200,6 +207,26 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Solicitud denegada',
             'solicitud' => $solicitud,
+        ]);
+    }
+
+    public function createUser(Request $request) {
+        $fileName = 'image-' + time() + '.jpg'; //TODO: Finish that
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'category_id' => $request->category,
+            'supervisor' => $request->role,
+            'supervisado' => $request->supervisor,
+            'password' => $request->password,
+            'img_url' => $request->img_url,
+            'fecha_nacimiento' => $request->birthday
+        ]);
+
+        return response()->json([
+            'message' => 'Usuario creado',
+            'data' => $user
         ]);
     }
 

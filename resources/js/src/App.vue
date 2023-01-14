@@ -37,6 +37,7 @@ export default {
   created() {
     this.$store.dispatch('fetchEmpleados')
     this.$store.dispatch('fetchCategorias')
+    this.$store.dispatch('fetchSupervisores')
   }
 }
 </script>

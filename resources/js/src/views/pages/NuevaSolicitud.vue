@@ -4,6 +4,7 @@
     v-model="valid"
     lazy-validation
     >
+    <h2 class="mb-10">Nueva solicitud</h2>
         <v-select
         v-model="select"
         :items="items"

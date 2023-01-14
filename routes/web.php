@@ -24,6 +24,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/endJornada/{user}', [UserController::class, 'endJornada']);
     // ruta para obtener todos los usuarios
     Route::get('/users', [UserController::class, 'getUsers']);
+    // ruta para obtener los usuarios supervisores
+    Route::get('/supervisores', [UserController::class, 'getSupervisors']);
     // ruta para obtener un usuario
     Route::get('/users/{user}', [UserController::class, 'getUser']);
     // ruta para obtener si hay alguna jornada abierta
@@ -52,6 +54,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('/solicitudes/{solicitud}/aprobar', [UserController::class, 'aprobarSolicitudVacaciones']);
     // ruta para rechazar una solicitud de vacaciones
     Route::post('/solicitudes/{solicitud}/denegar', [UserController::class, 'denegarSolicitudVacaciones']);
+    // ruta para crear un nuevo usuario
+    Route::post('/users', [UserController::class, 'createUser']);
 });
 
 Route::get('/{any}', [ApplicationController::class, 'index'])->where('any', '.*');
