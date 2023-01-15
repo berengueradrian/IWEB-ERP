@@ -87,8 +87,8 @@ var store = new Vuex.Store({
     },
     async fetchCompletada({commit}) {
       try {
-        /* const response = await axios.get('http://localhost:8000/api/jornada/1')
-        commit('setCompletada', response.data.jornada) */
+        const response = await axios.get('http://localhost:8000/api/jornada/' + this.$store.state.user.id)
+        commit('setCompletada', response.data.jornada)
       }
       catch (error) {
         throw error
@@ -96,8 +96,8 @@ var store = new Vuex.Store({
     },
     async fetchSupervisor({commit}) {
       try {
-        /* const response = await axios.get('http://localhost:8000/api/supervisor/1')
-        commit('setSupervisor', response.data.supervisor) */
+        const response = await axios.get('http://localhost:8000/api/supervisor/' + this.$store.state.user.id)
+        commit('setSupervisor', response.data.supervisor)
       }
       catch (error) {
         throw error
@@ -105,8 +105,8 @@ var store = new Vuex.Store({
     },
     async fetchCategoria({commit}) {
       try {
-        /* const response = await axios.get('http://localhost:8000/api/categoria/1')
-        commit('setCategoria', response.data.categoria) */
+        const response = await axios.get('http://localhost:8000/api/categoria/' + this.$store.state.user.id)
+        commit('setCategoria', response.data.categoria)
       }
       catch (error) {
         throw error
@@ -114,8 +114,8 @@ var store = new Vuex.Store({
     },
     async fetchJornadas({commit}) {
       try {
-        /* const response = await axios.get('http://localhost:8000/api/jornadas/1')
-        commit('setJornadas', response.data.jornadas) */
+        const response = await axios.get('http://localhost:8000/api/jornadas/' + this.$store.state.user.id)
+        commit('setJornadas', response.data.jornadas)
       }
       catch (error) {
         throw error
@@ -123,8 +123,8 @@ var store = new Vuex.Store({
     },
     async fetchNominas({commit}) {
       try {
-        /* const response = await axios.get('http://localhost:8000/api/nominas/1')
-        commit('setNominas', response.data.nominas) */
+        const response = await axios.get('http://localhost:8000/api/nominas/' + this.$store.state.user.id)
+        commit('setNominas', response.data.nominas)
       }
       catch (error) {
         throw error
@@ -132,8 +132,8 @@ var store = new Vuex.Store({
     },
     async fetchSolicitudes({commit}) {
       try {
-        /* const response = await axios.get('http://localhost:8000/api/solicitudes/1')
-        commit('setSolicitudes', response.data.solicitudes) */
+        const response = await axios.get('http://localhost:8000/api/solicitudes/' + this.$store.state.user.id)
+        commit('setSolicitudes', response.data.solicitudes)
       }
       catch (error) {
         throw error
@@ -142,7 +142,7 @@ var store = new Vuex.Store({
     // sólo para admins
     async fetchSolicitudesVacaciones({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/solicitudesVacaciones/65')
+        const response = await axios.get('http://localhost:8000/api/solicitudesVacaciones/' + this.$store.state.user.id)
         commit('setSolicitudesVacaciones', response.data.solicitudesVacaciones)
         commit('setUsuariosSolicitudes', response.data.usuariosSolicitudes)
       }
@@ -180,7 +180,7 @@ var store = new Vuex.Store({
     },
     async fetchHorasTotales({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/horas/count/67')
+        const response = await axios.get('http://localhost:8000/api/horas/count/' + this.$store.state.user.id)
         commit('setHorasTotales', response.data.numeroHoras)
       }
       catch (error) {
@@ -189,7 +189,7 @@ var store = new Vuex.Store({
     },
     async fetchNumeroCompaneros({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/companeros/count/67')
+        const response = await axios.get('http://localhost:8000/api/companeros/count/' + this.$store.state.user.id)
         commit('setNumeroCompaneros', response.data.numeroCompaneros)
       }
       catch (error) {

@@ -77,8 +77,6 @@ import {
   mdiFormSelect,
   mdiAccountCogOutline,
   mdiFileChartOutline,
-  mdiCalendarImportOutline,
-  mdiAccountArrowUpOutline,
   mdiBookArrowUpOutline
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
@@ -109,8 +107,6 @@ export default {
         mdiFormSelect,
         mdiAccountCogOutline,
         mdiFileChartOutline,
-        mdiCalendarImportOutline,
-        mdiAccountArrowUpOutline,
         mdiBookArrowUpOutline
       },
     }
