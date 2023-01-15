@@ -65,13 +65,14 @@ var store = new Vuex.Store({
       commit('setUser', user)
     },
     async fetchUser({commit}) {
-      try {
-        /* const response = await axios.get('http://localhost:8000/api/users/1')
-        commit('setUser', response.data) */
+      /* try {
+         const response = await axios.get('http://localhost:8000/api/users/1')
+        commit('setUser', response.data) 
       }
       catch (error) {
         throw error
-      }
+      } */
+      return this.$store.state.user
     },
     async fetchCompletada({commit}) {
       try {

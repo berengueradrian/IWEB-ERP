@@ -4,7 +4,7 @@
       cols="12"
       md="4"
     >
-      <dashboard-fichar></dashboard-fichar>
+      <!-- <dashboard-fichar></dashboard-fichar> -->
     </v-col>
     <v-col
       cols="12"
@@ -121,7 +121,6 @@ import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.v
 import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
 import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
 import DashboardDatatable from './DashboardDatatable.vue'
-import store from '../../store'
 
 export default {
   components: {

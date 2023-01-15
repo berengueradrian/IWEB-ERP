@@ -122,7 +122,7 @@
         <v-btn
         color="error"
         class="mr-4"
-        :to="{ name: 'pages-solicitudes' }"
+        :to="{ name: 'superole-dashboard' }"
         @click="reset"
         >
             Cancelar
@@ -174,7 +174,7 @@ export default {
         .catch(error => console.log('ERROR: ' + error))
     },
     reset() {
-
+      this.$refs.form.reset()
     },
     save (date) {
       this.$refs.menu.save(date)

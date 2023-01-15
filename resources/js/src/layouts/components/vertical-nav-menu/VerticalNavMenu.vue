@@ -21,7 +21,9 @@
           class="app-logo me-3"
         ></v-img>
         <v-slide-x-transition>
-          <h2 class="app-title text--primary">Empleado</h2>
+          <h2 v-if="!$store.state.user.admin && !$store.state.user.supervisor" class="app-title text--primary">Empleado</h2>
+          <h2 v-if="$store.state.user.supervisor" class="app-title text--primary">Supervisor</h2>
+          <h2 v-if="$store.state.user.admin" class="app-title text--primary">Administrador</h2>
         </v-slide-x-transition>
       </router-link>
     </div>

@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-badge bottom color="success" overlap offset-x="12" offset-y="12" class="ms-4" dot>
         <v-avatar size="40px" v-bind="attrs" v-on="on">
-          <v-img :src="require('@/assets/images/avatars/1.png')"></v-img>
+          <v-img :src="profileImage"></v-img>
         </v-avatar>
       </v-badge>
     </template>
@@ -11,12 +11,12 @@
       <div class="pb-3 pt-2">
         <v-badge bottom color="success" overlap offset-x="12" offset-y="12" class="ms-4" dot>
           <v-avatar size="40px">
-            <!-- <v-img :src="'../../../../../public/images/users/' + this.$store.state.user.user.image_url"></v-img> --> <!-- TODO -->
+            <v-img :src="profileImage"></v-img>
           </v-avatar>
         </v-badge>
         <div class="d-inline-flex flex-column justify-center ms-3" style="vertical-align: middle">
-          <!-- <span class="text--primary font-weight-semibold mb-n1"> {{this.$store.state.user.user.name}} </span> --> <!-- TODO -->
-          <!-- <small class="text--disabled text-capitalize">{{this.$store.state.user.user.email}}</small> --> <!-- TODO -->
+          <span class="text--primary font-weight-semibold mb-n1"> {{this.$store.state.user.name}} </span>
+          <small class="text--disabled text-capitalize">{{this.$store.state.user.email}}</small>
         </div>
       </div>
 
@@ -100,10 +100,10 @@
         </v-list-item-content>
       </v-list-item> -->
 
-      <v-divider class="my-2"></v-divider>
+      
 
       <!-- Logout -->
-      <v-list-item link>
+      <v-list-item link @click="logout">
         <v-list-item-icon class="me-2">
           <v-icon size="22">
             {{ icons.mdiLogoutVariant }}
@@ -151,10 +151,16 @@ export default {
     // console.log(this.$store.state)
   },
   computed: {
-    user() {
-      return this.$store.state.user.user
+    profileImage() {
+      return '/storage/' + this.$store.state.user.profileImage
     },
   },
+  methods: {
+    logout() {
+      localStorage.removeItem('user')
+      location.reload()
+    }
+  }
 }
 </script>
 

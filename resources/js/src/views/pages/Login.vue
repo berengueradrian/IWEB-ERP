@@ -167,7 +167,6 @@ export default {
       },
     }
   },
-
   methods: {
     attemptLogin() {
       axios.post('/api/login', {
@@ -179,9 +178,9 @@ export default {
         }
         else {
           this.error_shown = false
-          const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor, id: res.data[1].id}
+          const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor, id: res.data[1].id, name: res.data[1].name, formacion: res.data[1].formacion, fechaNacimiento: res.data[1].fecha_nacimiento, supervisado: res.data[1].supervisado, categoria: res.data[1].category_id, profileImage: res.data[1].image_url}
           store.dispatch('actualiseUser', user)
-          localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor, id: res.data[1].id}))
+          localStorage.setItem('user', JSON.stringify(user))
           this.$router.push('/')
         }
       }).catch(error => {

@@ -213,7 +213,7 @@ class UserController extends Controller
 
     public function createUser(Request $request) {
         $fileName = 'image-' . time();
-        $path = $request->file('img_url')->storeAs('uploads', $fileName);
+        $path = $request->file('img_url')->storeAs('public', $fileName);
         
         $user = new User();
         $user->name = $request->name;
@@ -225,7 +225,7 @@ class UserController extends Controller
         }
         $user->password = Hash::make($request->password);
         $user->fecha_nacimiento = $request->birthday;
-        $user->image_url = $path;
+        $user->image_url = $fileName;
         $user->formacion = $request->formacion;
     
         $user->save();
