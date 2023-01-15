@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Solicitud;
 use App\Models\Category;
-use Storage;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -211,18 +212,23 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request) {
-        $fileName = 'image-' + time() + '.jpg'; //TODO: Finish that
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'category_id' => $request->category,
-            'supervisor' => $request->role,
-            'supervisado' => $request->supervisor,
-            'password' => $request->password,
-            'img_url' => $request->img_url,
-            'fecha_nacimiento' => $request->birthday
-        ]);
+        $fileName = 'image-' . time();
+        $path = $request->file('img_url')->storeAs('uploads', $fileName);
+        
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->category_id = $request->category;
+        $user->supervisor = $request->role;
+        if ($request->supervisor != 'null') {
+            $user->supervisado = $request->supervisor;
+        }
+        $user->password = Hash::make($request->password);
+        $user->fecha_nacimiento = $request->birthday;
+        $user->image_url = $path;
+        $user->formacion = $request->formacion;
+    
+        $user->save();
 
         return response()->json([
             'message' => 'Usuario creado',

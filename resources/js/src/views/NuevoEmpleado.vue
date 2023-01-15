@@ -20,6 +20,15 @@
         required
         class="form-text-input"
       ></v-text-field>
+      <!-- Formation -->
+      <v-textarea
+        name="formacion"
+        v-model="formation"
+        label="Describe su formación"
+        :rules="formationRules"
+        hint="El máximo son 100 carácteres"
+        class="form-text-input"
+      ></v-textarea>
       <!-- Category -->
       <v-select
         v-model="category"
@@ -75,7 +84,7 @@
           <template v-slot:activator="{ on, attrs }">
               <v-text-field class="form-text-input"
               v-model="date"
-              label="Fecha inicial"
+              label="Fecha nacimiento"
               readonly
               v-bind="attrs"
               v-on="on"
@@ -93,9 +102,11 @@
       </div>
       <!-- Foto perfil -->
       <v-file-input
+        placeholder="Foto de perfil"
         chips
         truncate-length="15"
         v-model="profile_img"
+        class="form-text-input"
       ></v-file-input>
       <!-- Botones -->
       <div class="mt-10">
@@ -146,18 +157,17 @@ export default {
       formData.append('name', this.name)
       formData.append('email', this.email)
       formData.append('category', this.category)
-      formData.append('role', () => {
-        if (this.role === 'Empleado') {
-          return false
-        }
-        else {
-          return true
-        }
-      })
+      if (this.role === 'Empleado') {
+        formData.append('role', 0)
+      }
+      else {
+        formData.append('role', 1)
+      }
       formData.append('supervisor', this.supervisor)
       formData.append('password', this.password)
       formData.append('img_url', this.profile_img)
       formData.append('birthday', this.date)
+      formData.append('formacion', this.formation)
       
       axios.post('/api/users', formData)
         .then(() => this.$router.push('/superole/dashboard'))
@@ -182,6 +192,10 @@ export default {
         v => (v && v.length <= 50) || 'Este campo debe tener menos de 50 caracteres',
         v => (v && v.includes('@')) || 'Este campo debe ser un email'
       ],
+      formationRules: [
+        v => !!v || 'Campo requerido',
+        v => (v && v.length <= 100) || 'Este campo debe tener menos de 100 caracteres',
+      ],
       name: '',
       email: '',
       category: '',
@@ -194,7 +208,8 @@ export default {
       menu: false,
       activePicker: null,
       date: null,
-      profile_img: null
+      profile_img: null,
+      formation: ''
     }
   },
   watch: {

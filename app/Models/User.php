@@ -45,6 +45,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'category_id',
+        'supervisor',
+        'fecha_nacimiento',
+        'supervisado',
+        'image_url',
+        'formacion'    
     ];
 
     /**
