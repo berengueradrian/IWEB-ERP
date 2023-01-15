@@ -71,7 +71,7 @@
         <!-- create new account  -->
         <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
           <span class="me-2"> Already have an account? </span>
-          <router-link :to="{ name: 'pages-login' }"> Sign in instead </router-link>
+          <router-link :to="{ name: 'login' }"> Sign in instead </router-link>
         </v-card-text>
 
         <!-- divider -->
@@ -96,18 +96,18 @@
     <img
       class="auth-mask-bg"
       height="190"
-      :src="require(`@/assets/images/misc/mask-${$vuetify.theme.dark ? 'dark' : 'light'}.png`).default"
+      :src="require(`@/assets/images/misc/mask-${$vuetify.theme.dark ? 'dark' : 'light'}.png`)"
     />
 
     <!-- tree -->
-    <v-img class="auth-tree" width="247" height="185" :src="require('@/assets/images/misc/tree.png').default"></v-img>
+    <v-img class="auth-tree" width="247" height="185" :src="require('@/assets/images/misc/tree.png')"></v-img>
 
     <!-- tree  -->
     <v-img
       class="auth-tree-3"
       width="377"
       height="289"
-      :src="require('@/assets/images/misc/tree-3.png').default"
+      :src="require('@/assets/images/misc/tree-3.png')"
     ></v-img>
   </div>
 </template>

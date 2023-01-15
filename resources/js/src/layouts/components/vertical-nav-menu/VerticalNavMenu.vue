@@ -21,22 +21,25 @@
           class="app-logo me-3"
         ></v-img>
         <v-slide-x-transition>
-          <h2 class="app-title text--primary">Empleado</h2>
+          <h2 v-if="!$store.state.user.admin && !$store.state.user.supervisor" class="app-title text--primary">Empleado</h2>
+          <h2 v-if="$store.state.user.supervisor" class="app-title text--primary">Supervisor</h2>
+          <h2 v-if="$store.state.user.admin" class="app-title text--primary">Administrador</h2>
         </v-slide-x-transition>
       </router-link>
     </div>
 
     <!-- Navigation Items -->
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
-      <nav-menu-link title="Inicio" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
+      <nav-menu-link v-if="!this.$store.state.user.admin && !this.$store.state.user.supervisor" title="Inicio" to="/empleado/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
+      <nav-menu-link v-if="this.$store.state.user.admin || this.$store.state.user.supervisor" title="Inicio" to="/superole/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
       <nav-menu-link
         title="Solicitudes"
         :to="{ name: 'pages-solicitudes' }"
-        :icon="icons.mdiAccountArrowUpOutline"
+        :icon="icons.mdiBookArrowUpOutline"
       ></nav-menu-link>
       <nav-menu-link title="Nóminas" :to="{ name: 'typography' }" :icon="icons.mdiFileChartOutline"></nav-menu-link> 
       <!-- <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">
-        <nav-menu-link title="Login" :to="{ name: 'pages-login' }" target="_blank"></nav-menu-link>
+        <nav-menu-link title="Login" :to="{ name: 'login' }" target="_blank"></nav-menu-link>
         <nav-menu-link title="Register" :to="{ name: 'pages-register' }" target="_blank"></nav-menu-link>
         <nav-menu-link title="Error" :to="{ name: 'error-404' }" target="_blank"></nav-menu-link>
       </nav-menu-group> -->
@@ -74,8 +77,7 @@ import {
   mdiFormSelect,
   mdiAccountCogOutline,
   mdiFileChartOutline,
-  mdiCalendarImportOutline,
-  mdiAccountArrowUpOutline
+  mdiBookArrowUpOutline
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -105,8 +107,7 @@ export default {
         mdiFormSelect,
         mdiAccountCogOutline,
         mdiFileChartOutline,
-        mdiCalendarImportOutline,
-        mdiAccountArrowUpOutline
+        mdiBookArrowUpOutline
       },
     }
   },

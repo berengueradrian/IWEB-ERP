@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="align-start">
-      <span class="font-weight-semibold">{{this.user.email}} </span>
+      <span class="font-weight-semibold">{{$store.state.user.email}} </span>
       <v-spacer></v-spacer>
       <v-btn
         icon
@@ -12,7 +12,7 @@
     </v-card-title>
 
     <v-card-subtitle class="mb-8 mt-n5">
-      <span class="font-weight-semibold text--primary me-1">{{this.user.name}}</span>
+      <span class="font-weight-semibold text--primary me-1">{{$store.state.user.name}}</span>
     </v-card-subtitle>
 
     <v-card-text>
@@ -28,7 +28,7 @@
               Fecha nacimiento
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ this.user.fecha_nacimiento }}
+              {{ $store.state.user.fechaNacimiento }}
             </h3>
           </div>
         </v-col>
@@ -43,7 +43,7 @@
               Formación
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ this.user.formacion }}
+              {{ $store.state.user.formacion }}
             </h3>
           </div>
         </v-col>
@@ -58,7 +58,7 @@
               Supervisor
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ this.supervisor.name }}
+              {{ $store.state.user.supervisado }}
             </h3>
           </div>
         </v-col>
@@ -73,7 +73,7 @@
               Sección
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ this.categoria.name }}
+              {{ $store.state.user.categoria }}
             </h3>
           </div>
         </v-col>
@@ -83,8 +83,8 @@
 </template>
 
 <script>
-// eslint-disable-next-line object-curly-newline
 import { mdiAccountOutline, mdiLabelOutline, mdiCalendarBlank, mdiFolderAccountOutline, mdiAccountEyeOutline, mdiAccountTieOutline } from '@mdi/js'
+
 import store from '../../store/index.js';
 
 export default {
@@ -97,34 +97,29 @@ export default {
         mdiLabelOutline,
         mdiCalendarBlank,
         mdiFolderAccountOutline,
-        mdiAccountEyeOutline,
         mdiAccountTieOutline
       },
     }
   },
-  created() {
-    this.$store.dispatch('fetchUser')
-    this.$store.commit('setToken')
-    this.$store.dispatch('fetchCompletada')
-    this.$store.dispatch('fetchCategoria')
-    this.$store.dispatch('fetchSupervisor')
-      console.log(this.$store.state)
-      console.log(this.$store.state.categoria)
+  async created() {
+    await this.$store.dispatch('fetchUser')
+    await this.$store.dispatch('fetchCompletada')
+    await this.$store.dispatch('fetchCategoria')
+    await this.$store.dispatch('fetchSupervisor')
+    console.log(this.$store.state)
+    console.log(this.$store.state.categoria)
   },
   computed: {
-    user() {
-      return this.$store.state.user.user
-    },
     completada() {
-      this.$store.dispatch('fetchCompletada')
+      //this.$store.dispatch('fetchCompletada')
       return this.$store.state.completada
     },
     categoria() {
-      this.$store.dispatch('fetchCategoria')
+      //this.$store.dispatch('fetchCategoria')
       return this.$store.state.categoria
     },
     supervisor() {
-      this.$store.dispatch('fetchSupervisor')
+      //this.$store.dispatch('fetchSupervisor')
       return this.$store.state.supervisor
     },
   },

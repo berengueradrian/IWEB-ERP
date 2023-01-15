@@ -4,6 +4,7 @@
     v-model="valid"
     lazy-validation
     >
+    <h2 class="mb-10">Nueva solicitud</h2>
         <v-select
         v-model="select"
         :items="items"
@@ -124,7 +125,7 @@
             }
         },
         created() {
-            this.$store.dispatch('fetchUser')
+            //this.$store.dispatch('fetchUser')
         },
         data: () => ({
             valid: true,
@@ -188,6 +189,9 @@
                             justificante_name: this.justificante[0].name,
                         }).then(response => {
                             // console.log(response);
+                            // if(this.user.supervisor == true) {
+                            //     this.$router.push({ name: 'dashboard' })
+                            // }
                             this.$router.push({ name: 'pages-solicitudes' })
                         })
                     })

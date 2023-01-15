@@ -45,19 +45,18 @@
         store
       };
     },
-    data: () => ({
-
-    }),
+    data() {
+      return {
+        user: this.$store.state.user
+      }
+    },
     created() {
-      this.$store.dispatch('fetchUser')
-      this.$store.commit('setToken')
+      //this.$store.dispatch('fetchUser')
+      //this.$store.commit('setToken')
       this.$store.dispatch('fetchCompletada')
       // console.log(this.$store.state)
     },
     computed: {
-      user() {
-        return this.$store.state.user.user
-      },
       completada() {
         this.$store.dispatch('fetchCompletada')
         return this.$store.state.completada
@@ -67,7 +66,7 @@
       async fichar() {
         try {
           const response = await axios.
-            post('http://localhost:8000/api/startJornada/' + this.user.id, {
+            post('/api/startJornada/' + this.user.id, {
               _token: this.$store.state.csrfToken
             }
             ).then(response => {
@@ -82,7 +81,7 @@
       async finalizar() {
         try {
           const response = await axios.
-            post('http://localhost:8000/api/endJornada/' + this.user.id, {
+            post('/api/endJornada/' + this.user.id, {
               _token: this.$store.state.csrfToken
             }
             ).then(response => {

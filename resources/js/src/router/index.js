@@ -1,17 +1,54 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: 'dashboard',
+    redirect: () => {
+      if (store.state.user === null) {
+        return 'login'
+      }
+      else if (store.state.user.admin || store.state.user.supervisor) {
+        return 'superole/dashboard'
+      }
+      else {
+        return 'empleado/dashboard'
+      }
+    },
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/pages/Login.vue'),
+    meta: {
+      layout: 'blank',
+    },
+  },
+  {
+    path: '/empleado/dashboard',
+    name: 'empleado-dashboard',
     component: () => import('@/views/dashboard/Dashboard.vue'),
+    meta: {
+      auth: true,
+      base: true
+    }
+  },
+  {
+    path: '/superole/dashboard',
+    name: 'superole-dashboard',
+    component: () => import('@/views/dashboard/DashboardSuper.vue'),
+    meta: {
+      auth: true,
+      super: true
+    },
+  },
+  {
+    path: '/superole/nuevo',
+    name: 'superole-nuevo',
+    component: () => import('@/views/NuevoEmpleado.vue')
   },
   {
     path: '/typography',
@@ -44,14 +81,6 @@ const routes = [
     component: () => import('@/views/pages/account-settings/AccountSettings.vue'),
   },
   {
-    path: '/pages/login',
-    name: 'pages-login',
-    component: () => import('@/views/pages/Login.vue'),
-    meta: {
-      layout: 'blank',
-    },
-  },
-  {
     path: '/pages/solicitudes',
     name: 'pages-solicitudes',
     component: () => import('@/views/pages/Solicitudes.vue'),
@@ -60,6 +89,11 @@ const routes = [
     path: '/pages/solicitud/nueva',
     name: 'pages-solicitud-nueva',
     component: () => import('@/views/pages/NuevaSolicitud.vue'),
+  },
+  {
+    path: '/pages/solicitudes/vacaciones',
+    name: 'pages-solicitudes-vacaciones',
+    component: () => import('@/views/pages/SolicitudesSupervisorVacaciones.vue'),
   },
   {
     path: '/pages/register',
@@ -77,16 +111,42 @@ const routes = [
       layout: 'blank',
     },
   },
-  {
+  /* {
     path: '*',
     redirect: 'error-404',
-  },
+  }, */
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.auth) && store.state.user === null && to.name !== 'login') {
+    next({
+      name: "login"
+    });
+  }
+  if (to.matched.some(record => record.meta.base) && store.state.user !== null && (store.state.user.admin || store.state.user.supervisor)) {
+    next({
+      name: "error-404"
+    })
+  }
+  if (to.matched.some(record => record.meta.admin) && store.state.user !== null && !store.state.user.admin) {
+    next({
+      name: "error-404"
+    })
+  }
+  if (to.matched.some(record => record.meta.super) && store.state.user !== null && !store.state.user.supervisor && !store.state.user.admin) {
+    next({
+      name: "error-404"
+    })
+  }
+  else {
+    next();
+  }
 })
 
 export default router

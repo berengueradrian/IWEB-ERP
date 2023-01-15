@@ -4,12 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Jornada;
+use App\Models\Solicitud;
 use App\Models\Category;
-use Storage;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function getUsers() {
+        $users = User::select('users.id', 'users.name', 'users.email', 'users.admin', 'users.supervisor', 'categories.name as category', 'users.supervisado')
+        ->join('categories', 'users.category_id', '=', 'categories.id')
+        ->get();
+        return response()->json([
+            'data' => $users
+        ]);
+    }
+
+    public function getSupervisors() {
+        $users = User::select('id', 'name')->where('supervisor', '=', '1')->get();
+        return response()->json([
+            'data' => $users
+        ]);
+    }
 
     public function getUser(Request $request) {
         $newUser = User::whereId($request->user)->first();
@@ -80,7 +96,13 @@ class UserController extends Controller
     // obtener las jornadas de un usuario
     public function getJornadas(Request $request) {
         $user = User::whereId($request->user)->first();
-        $jornadas = $user->jornadas()->get();
+        $jornadas = $user->jornadas()->orderBy('id', 'desc')->take(5)->get();
+        // $jornadas = $user->jornadas()->get();
+        // $jornadas = [];
+        // for($i = 0; $i < count($jornadas1) && $i <= 5; $i++) {
+        //     array_push($jornadas, $jornadas1[$i]->hora_salida - $jornadas1[$i]->hora_entrada);
+        // }
+
         return response()->json([
             'jornadas' => $jornadas,
         ]);
@@ -145,4 +167,107 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function getSolicitudesVacaciones(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $supervisados = User::where('supervisado', $user->id)->get();
+        
+        $solicitudes = [];
+        $usuarios = [];
+        foreach($supervisados as $supervisado) {
+            $solicituds = $supervisado->solicituds()->where('tipo', 'vacaciones')->get();
+            $usuarios[$supervisado->id] = $supervisado->name;
+            $size = count($solicituds);
+            if($solicituds != null) {
+                if($size > 1) {
+                    for($i = 0; $i < $size; $i++) {
+                        array_push($solicitudes, $solicituds[$i]);
+                    }
+                }
+                else {
+                    array_push($solicitudes, $solicituds[0]);
+                }
+            }
+        }
+
+        return response()->json([
+            'solicitudesVacaciones' => $solicitudes,
+            'usuariosSolicitudes' => $usuarios,
+        ]);
+    }
+
+    // aprobar una solicitud de vacaciones
+    public function aprobarSolicitudVacaciones(Request $request) {
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 1;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud aprobada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+    // denegar una solicitud de vacaciones
+    public function denegarSolicitudVacaciones(Request $request) {
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 2;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud denegada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+    public function createUser(Request $request) {
+        $fileName = 'image-' . time();
+        $path = $request->file('img_url')->storeAs('public', $fileName);
+        
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->category_id = $request->category;
+        $user->supervisor = $request->role;
+        if ($request->supervisor != 'null') {
+            $user->supervisado = $request->supervisor;
+        }
+        $user->password = Hash::make($request->password);
+        $user->fecha_nacimiento = $request->birthday;
+        $user->image_url = $fileName;
+        $user->formacion = $request->formacion;
+    
+        $user->save();
+
+        return response()->json([
+            'message' => 'Usuario creado',
+            'data' => $user
+        ]);
+    }
+    
+    // obtener el número de horas totales trabajadas por un usuario
+    public function getNumeroHoras(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $jornadas = $user->jornadas()->get();
+        $numeroHoras = 0;
+        foreach($jornadas as $jornada) {
+            $numeroHoras += $jornada->hora_salida - $jornada->hora_entrada;
+        }
+
+        return response()->json([
+            'numeroHoras' => $numeroHoras,
+        ]);
+    }
+
+    // obtener el número de compañeros de equipo de un usuario
+    public function getNumeroCompaneros(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $companeros = User::where('supervisado', $user->supervisado)->get();
+        $numeroCompaneros = count($companeros) - 1;
+
+        return response()->json([
+            'numeroCompaneros' => $numeroCompaneros,
+        ]);
+    }
+
 }

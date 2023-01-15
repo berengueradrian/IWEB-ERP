@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
                 $table->string('image_url')->default('default.jpg')->nullable();
                 // Relaciones
                 $table->foreignId('supervisado')->nullable()->constrained('users')->onDelete('cascade');
-                $table->foreignId('category_id')->constrained('category')->onDelete('cascade');
+                $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             });
         }
     }
