@@ -111,12 +111,22 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
+import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline, mdiConsoleNetworkOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
 import axios from 'axios'
 import store from '@/store'
+import router from '@/router'
 export default {
   setup() {
+    if (store.state.user !== null) {
+      if (store.state.user.admin || store.state.user.supervisor) {
+        router.push('/superole/dashboard')
+      }
+      else {
+        router.push('/empleado/dashboard')
+      }
+    }
+    
     const isPasswordVisible = ref(false)
     const error_shown = ref(false)
     const email = ref('')
@@ -157,17 +167,22 @@ export default {
       },
     }
   },
-
   methods: {
     attemptLogin() {
       axios.post('/api/login', {
         email: this.email,
         password: this.password
       }).then(res => {
-        const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}
-        store.dispatch('actualiseUser', user)
-        localStorage.setItem('user', JSON.stringify({email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor}))
-        this.$router.push('/pages/solicitudes')
+        if (res.data[0] === false) {
+          this.error_shown = true
+        }
+        else {
+          this.error_shown = false
+          const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor, id: res.data[1].id, name: res.data[1].name, formacion: res.data[1].formacion, fechaNacimiento: res.data[1].fecha_nacimiento, supervisado: res.data[1].supervisado, categoria: res.data[1].category_id, profileImage: res.data[1].image_url}
+          store.dispatch('actualiseUser', user)
+          localStorage.setItem('user', JSON.stringify(user))
+          this.$router.push('/')
+        }
       }).catch(error => {
         this.error_shown = true;
       })

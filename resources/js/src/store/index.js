@@ -16,6 +16,9 @@ var store = new Vuex.Store({
       nominas: null,
       solicitudes: null,
       solicitudesVacaciones: null,
+      empleados: [],
+      categorias: [],
+      supervisores: [],
       usuariosSolicitudes: null,
       numeroCompaneros: null,
       horasTotales: null,
@@ -24,6 +27,12 @@ var store = new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    setSupervisors(state, supervisors) {
+      state.supervisores = supervisors
+    },
+    setToken(state) {
+      state.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     },
     setCompletada(state, completada) {
       state.completada = completada
@@ -46,6 +55,12 @@ var store = new Vuex.Store({
     setSolicitudesVacaciones(state, solicitudesVacaciones) {
       state.solicitudesVacaciones = solicitudesVacaciones
     },
+    setEmpleados(state, empleados) {
+      state.empleados = empleados
+    },
+    setCategorias(state, categorias) {
+      state.categorias = categorias
+    },
     setUsuariosSolicitudes(state, usuariosSolicitudes) {
       state.usuariosSolicitudes = usuariosSolicitudes
     },
@@ -59,16 +74,16 @@ var store = new Vuex.Store({
   actions: {
     actualiseUser({commit}, user) {
       commit('setUser', user)
-      //localStorage.setItem('user', JSON.stringify(user))
     },
     async fetchUser({commit}) {
-      try {
-        /* const response = await axios.get('http://localhost:8000/api/users/1')
-        commit('setUser', response.data) */
+      /* try {
+         const response = await axios.get('http://localhost:8000/api/users/1')
+        commit('setUser', response.data) 
       }
       catch (error) {
         throw error
-      }
+      } */
+      return this.$store.state.user
     },
     async fetchCompletada({commit}) {
       try {
@@ -134,6 +149,34 @@ var store = new Vuex.Store({
       catch (error) {
         throw error
       }
+    },
+    async fetchEmpleados({commit}) {
+      const response = await axios.get('/api/users');
+      let empleados = response.data.data
+      for (let idx in empleados) {
+        if (empleados[idx].admin) {
+          empleados[idx].role = 'Admin'
+        }
+        else if (empleados[idx].supervisor) {
+          empleados[idx].role = 'Supervisor'
+        }
+        else {
+          empleados[idx].role = 'Empleado'
+        }
+      }
+      commit('setEmpleados', empleados)
+    },
+    async fetchCategorias({commit}) {
+      const response = await axios.get('/api/categoria');
+      commit('setCategorias', response.data.data)
+    },
+    async fetchSupervisores({commit}) {
+      const response = await axios.get('/api/supervisores')
+      response.data.data.push({
+        'name': 'Sin equipo',
+        'id': null
+      })
+      commit('setSupervisors', response.data.data)
     },
     async fetchHorasTotales({commit}) {
       try {

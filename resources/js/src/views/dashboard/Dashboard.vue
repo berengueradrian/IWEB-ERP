@@ -4,7 +4,7 @@
       cols="12"
       md="4"
     >
-      <dashboard-fichar></dashboard-fichar>
+      <!-- <dashboard-fichar></dashboard-fichar> -->
     </v-col>
 
     <v-col
@@ -209,6 +209,11 @@ import { mdiAccountGroupOutline, mdiBookArrowUpOutline, mdiAccountCashOutline, m
 // demos
 import DashboardFichar from './DashboardFichar.vue'
 import DashboardDatosUsuario from './DashboardDatosUsuario.vue'
+import DashboardCardTotalEarning from './DashboardCardTotalEarning.vue'
+import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.vue'
+import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
+import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
+import DashboardDatatable from './DashboardDatatable.vue'
 import DashboardJornadas from './DashboardJornadas.vue'
 
 export default {

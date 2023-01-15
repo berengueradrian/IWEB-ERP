@@ -6,10 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Solicitud;
 use App\Models\Category;
-use Storage;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function getUsers() {
+        $users = User::select('users.id', 'users.name', 'users.email', 'users.admin', 'users.supervisor', 'categories.name as category', 'users.supervisado')
+        ->join('categories', 'users.category_id', '=', 'categories.id')
+        ->get();
+        return response()->json([
+            'data' => $users
+        ]);
+    }
+
+    public function getSupervisors() {
+        $users = User::select('id', 'name')->where('supervisor', '=', '1')->get();
+        return response()->json([
+            'data' => $users
+        ]);
+    }
 
     public function getUser(Request $request) {
         $newUser = User::whereId($request->user)->first();
@@ -204,6 +220,31 @@ class UserController extends Controller
         ]);
     }
 
+    public function createUser(Request $request) {
+        $fileName = 'image-' . time();
+        $path = $request->file('img_url')->storeAs('public', $fileName);
+        
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->category_id = $request->category;
+        $user->supervisor = $request->role;
+        if ($request->supervisor != 'null') {
+            $user->supervisado = $request->supervisor;
+        }
+        $user->password = Hash::make($request->password);
+        $user->fecha_nacimiento = $request->birthday;
+        $user->image_url = $fileName;
+        $user->formacion = $request->formacion;
+    
+        $user->save();
+
+        return response()->json([
+            'message' => 'Usuario creado',
+            'data' => $user
+        ]);
+    }
+    
     // obtener el número de horas totales trabajadas por un usuario
     public function getNumeroHoras(Request $request) {
         $user = User::whereId($request->user)->first();
