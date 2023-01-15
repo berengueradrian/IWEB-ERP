@@ -146,9 +146,6 @@ export default {
       store
     }
   },
-  async created() {
-    await this.$store.dispatch('fetchUser');
-  },
   computed: {
     profileImage() {
       return '/storage/' + this.$store.state.user.profileImage

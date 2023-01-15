@@ -86,7 +86,7 @@
               </p>
 
               <div class="d-flex align-end flex-wrap">
-                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.nominas.length }}</span>
+                <!-- <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.nominas.length }}</span> -->
               </div>
             </v-card-text>
           </v-card>
@@ -123,7 +123,7 @@
               </p>
 
               <div class="d-flex align-end flex-wrap">
-                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.solicitudes.length }}</span>
+                <!-- <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.solicitudes.length }}</span> -->
               </div>
             </v-card-text>
           </v-card>
