@@ -1,54 +1,55 @@
 <template>
-  <v-card>
-    <v-card-title class="align-start">
-      <span>Weekly Overview</span>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        icon
-        small
-        class="mt-n2 me-n3"
-      >
-        <!-- <v-icon size="22">
-          {{ icons.mdiDotsVertical }}
-        </v-icon> -->
-      </v-btn>
-    </v-card-title>
+  <v-card
+    class="mx-auto text-center"
+    color="green"
+    max-width="600"
+  >
+    <v-card-text>
+      <v-sheet color="rgba(0, 0, 0, .12)">
+        <v-sparkline
+          :value="this.data"
+          color="rgba(255, 255, 255, .7)"
+          height="100"
+          padding="24"
+          stroke-linecap="round"
+          smooth
+        >
+          <template v-slot:label="item">
+            ${{ item.value }}
+          </template>
+        </v-sparkline>
+      </v-sheet>
+    </v-card-text>
 
     <v-card-text>
-      <!-- Chart -->
-      <vue-apex-charts
-        :options="chartOptions"
-        :series="chartData"
-        height="210"
-      ></vue-apex-charts>
-
-      <div class="d-flex align-center">
-        <h3 class="text-2xl font-weight-semibold me-4">
-          45%
-        </h3>
-        <span>Your sales perfomance in 45% 🤩 better compare to last month</span>
+      <div class="text-h4 font-weight-thin">
+        Últimas jornadas
       </div>
-
-      <v-btn
-        block
-        color="primary"
-        class="mt-6"
-        outlined
-      >
-        Details
-      </v-btn>
     </v-card-text>
+  <!-- <v-card
+    class="mt-4 mx-auto"
+    max-width="400"
+  >
+    <v-sheet
+      class="v-sheet--offset mx-auto"
+      color="cyan"
+      elevation="12"
+      max-width="calc(100% - 32px)"
+    >
+      <v-sparkline
+        :value="data"
+        color="white"
+        line-width="2"
+        padding="16"
+      ></v-sparkline>
+    </v-sheet> -->
   </v-card>
 </template>
 
 <script>
 import store from '../../store/index.js';
 import VueApexCharts from 'vue-apexcharts'
-// eslint-disable-next-line object-curly-newline
 import { mdiDotsVertical, mdiTrendingUp, mdiCurrencyUsd } from '@mdi/js'
-import { getCurrentInstance } from '@vue/composition-api'
 
 export default {
   components: {
@@ -57,9 +58,6 @@ export default {
   setup() {
     return {
       store,
-      // chartOptions,
-      // chartData,
-
       icons: {
         mdiDotsVertical,
         mdiTrendingUp,
@@ -68,89 +66,20 @@ export default {
     }
   },
   async created() {
+    await this.$store.dispatch('fetchCompletada')
     await this.$store.dispatch('fetchJornadas')
-    //console.log(this.$store.state)
-    // this.chartData.data = JSON.parse(JSON.stringify(this.$store.state.jornadas))
+    this.datos = JSON.parse(JSON.stringify(this.$store.state.jornadas))
+    // console.log(JSON.parse(JSON.stringify(this.$store.state.jornadas)))
+    // console.log(this.datos)
     // console.log(this.$store.state.jornadas)
+    this.calculoHoras()
+    // console.log(this.data)
+    
   },
   data() {
     return {
-      // ins: getCurrentInstance()?.proxy,
-      // $vuetify: ins && ins.$vuetify ? ins.$vuetify : null,
-      // customChartColor: $vuetify.theme.isDark ? '#3b3559' : '#f5f5f5',
-
-      chartOptions: {
-        colors: [
-          'primary',
-          'primary',
-          'primary',
-          'primary',
-          'primary',
-          'primary',
-          'primary',
-        ],
-        chart: {
-          type: 'bar',
-          toolbar: {
-            show: false,
-          },
-          offsetX: -15,
-        },
-        plotOptions: {
-          bar: {
-            columnWidth: '40%',
-            distributed: true,
-            borderRadius: 8,
-            startingShape: 'rounded',
-            endingShape: 'rounded',
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        legend: {
-          show: false,
-        },
-        xaxis: {
-          categories: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-          axisBorder: {
-            show: false,
-          },
-          axisTicks: {
-            show: false,
-          },
-          tickPlacement: 'on',
-          labels: {
-            show: false,
-            style: {
-              fontSize: '12px',
-            },
-          },
-        },
-        yaxis: {
-          show: true,
-          tickAmount: 5,
-          labels: {
-            offsetY: 3,
-            formatter: value => `$${value}`,
-          },
-        },
-        stroke: {
-          width: [2, 2],
-        },
-        grid: {
-          strokeDashArray: 12,
-          padding: {
-            right: 0,
-          },
-        },
-    },
-
-    chartData: [
-      {
-        data: [40, 60, 50, 60, 75, 60, 50, 65],
-      },
-    ]
+      datos: null,
+      data: null
     }
   },
   computed: {
@@ -158,16 +87,30 @@ export default {
       return this.$store.state.user
     },
     completada() {
-      this.$store.dispatch('fetchCompletada')
       return this.$store.state.completada
     },
     jornadas() {
-      this.$store.dispatch('fetchJornadas')
       return this.$store.state.jornadas
     }
   },
   methods: {
-
+    calculoHoras() {
+      var caso = this.$store.state.jornadas
+      this.data = []
+      // console.log("hola")
+      // console.log(caso[0])
+      for (let i = 0; i < caso.length && i <= 5; i++) {
+        this.data.push(caso[i].hora_salida - caso[i].hora_entrada)
+      }
+      this.data = [...this.data]//Array.from(this.data)
+    }
   },
 }
 </script>
+
+<style scoped>
+.v-sheet--offset {
+    top: -24px;
+    position: relative;
+  }
+</style>

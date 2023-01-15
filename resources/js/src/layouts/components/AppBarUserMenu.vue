@@ -147,8 +147,7 @@ export default {
     }
   },
   async created() {
-    //await this.$store.dispatch('fetchUser');
-    // console.log(this.$store.state)
+    await this.$store.dispatch('fetchUser');
   },
   computed: {
     profileImage() {
