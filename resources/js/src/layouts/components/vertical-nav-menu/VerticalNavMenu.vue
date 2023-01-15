@@ -30,7 +30,8 @@
 
     <!-- Navigation Items -->
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
-      <nav-menu-link title="Inicio" to="/" :icon="icons.mdiHomeOutline"></nav-menu-link>
+      <nav-menu-link v-if="!this.$store.state.user.admin && !this.$store.state.user.supervisor" title="Inicio" to="/empleado/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
+      <nav-menu-link v-if="this.$store.state.user.admin || this.$store.state.user.supervisor" title="Inicio" to="/superole/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
       <nav-menu-link
         title="Solicitudes"
         :to="{ name: 'pages-solicitudes' }"
