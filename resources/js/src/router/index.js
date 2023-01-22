@@ -96,6 +96,16 @@ const routes = [
     component: () => import('@/views/pages/SolicitudesSupervisorVacaciones.vue'),
   },
   {
+    path: '/pages/categorias',
+    name: 'pages-categorias',
+    component: () => import('@/views/pages/Categorias.vue'),
+  },
+  {
+    path: '/pages/categorias/nueva',
+    name: 'pages-categorias-nueva',
+    component: () => import('@/views/pages/NuevaCategoria.vue'),
+  },
+  {
     path: '/pages/register',
     name: 'pages-register',
     component: () => import('@/views/pages/Register.vue'),

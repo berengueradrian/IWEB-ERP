@@ -33,7 +33,9 @@ Route::group(['prefix' => 'api'], function () {
     // ruta para obtener la categoria de un usuario
     Route::get('/categoria/{user}', [UserController::class, 'getCategoria']);
     // ruta para obtener todas categorias
-    Route::get('/categoria', [CategoryController::class, 'getCategorias']);
+    Route::get('/categorias', [CategoryController::class, 'getCategorias']);
+    //ruta para crear categoría
+    Route::post('/categorias', [CategoryController::class, 'createCategoria']);
     // ruta para obtener el supervisor de un usuario
     Route::get('/supervisor/{user}', [UserController::class, 'getSupervisor']);
     // ruta para obtener las jornadas de un usuario

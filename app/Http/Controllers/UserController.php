@@ -93,6 +93,7 @@ class UserController extends Controller
         ]);
     }
 
+
     // obtener las jornadas de un usuario
     public function getJornadas(Request $request) {
         $user = User::whereId($request->user)->first();

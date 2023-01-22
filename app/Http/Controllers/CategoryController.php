@@ -7,10 +7,24 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function getCategorias() {
-        $categorias = Category::all();
+    // obtener todas las categorias
+    public function getCategorias(Request $request) {
+        $categorias = Category::select('categories.name')->get();
         return response()->json([
-            'data' => $categorias
+            'categorias' => $categorias
+        ]);
+    }
+
+    // crear categoria
+    public function createCategoria(Request $request) {
+
+        $categoria = new Category();
+        $categoria->name = $request->name;
+        $categoria->save();
+
+        return response()->json([
+            'message' => 'Categoria creada',
+            'data' => $categoria,
         ]);
     }
 }

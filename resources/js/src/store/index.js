@@ -167,8 +167,13 @@ var store = new Vuex.Store({
       commit('setEmpleados', empleados)
     },
     async fetchCategorias({commit}) {
-      const response = await axios.get('/api/categoria');
-      commit('setCategorias', response.data.data)
+      try{
+        const response = await axios.get('http://localhost:8000/api/categorias/');
+        commit('setCategorias', response.data.categorias)
+      }
+      catch (error) {
+        throw error
+      }
     },
     async fetchSupervisores({commit}) {
       const response = await axios.get('/api/supervisores')
