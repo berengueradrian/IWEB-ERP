@@ -14,14 +14,14 @@
               class="me-3"
             ></v-img>
 
-            <h2 class="text-2xl font-weight-semibold">Materio</h2>
+            <h2 class="text-2xl font-weight-semibold">RRHH</h2>
           </router-link>
         </v-card-title>
 
         <!-- title -->
         <v-card-text>
-          <p class="text-2xl font-weight-semibold text--primary mb-2">Welcome to Materio! 👋🏻</p>
-          <p class="mb-2">Please sign-in to your account and start the adventure</p>
+          <p class="text-2xl font-weight-semibold text--primary mb-2">Welcome back! 👋🏻</p>
+          <p class="mb-2">Sign-in to your account to see your information</p>
         </v-card-text>
 
         <!-- login form -->
