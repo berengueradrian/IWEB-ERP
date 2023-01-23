@@ -168,8 +168,12 @@ export default {
       formData.append('img_url', this.profile_img)
       formData.append('birthday', this.date)
       formData.append('formacion', this.formation)
-      
-      axios.post('/api/users', formData)
+      axios.post('/api/users',
+        formData, 
+        {headers: {
+          'Authorization': 'Bearer ' + this.$store.state._token
+        }}
+      )
         .then(() => this.$router.push('/superole/dashboard'))
         .catch(error => console.log('ERROR: ' + error))
     },

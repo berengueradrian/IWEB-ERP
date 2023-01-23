@@ -118,8 +118,10 @@ import store from '@/store'
 import router from '@/router'
 export default {
   setup() {
+    console.log(store.state.user)
     if (store.state.user !== null) {
       if (store.state.user.admin || store.state.user.supervisor) {
+        console.log('redirect')
         router.push('/superole/dashboard')
       }
       else {
@@ -173,14 +175,16 @@ export default {
         email: this.email,
         password: this.password
       }).then(res => {
-        if (res.data[0] === false) {
+        if (res.data.status === 'error') {
           this.error_shown = true
         }
         else {
           this.error_shown = false
-          const user = {email: res.data[1].email, admin: res.data[1].admin, supervisor: res.data[1].supervisor, id: res.data[1].id, name: res.data[1].name, formacion: res.data[1].formacion, fechaNacimiento: res.data[1].fecha_nacimiento, supervisado: res.data[1].supervisado, categoria: res.data[1].category_id, profileImage: res.data[1].image_url}
+          const user = {email: res.data.user.email, admin: res.data.user.admin, supervisor: res.data.user.supervisor, id: res.data.user.id, name: res.data.user.name, formacion: res.data.user.formacion, fechaNacimiento: res.data.user.fecha_nacimiento, supervisado: res.data.user.supervisado, categoria: res.data.user.category_id, profileImage: res.data.user.image_url}
           store.dispatch('actualiseUser', user)
+          store.dispatch('actualiseToken', res.data.authorisation.token)
           localStorage.setItem('user', JSON.stringify(user))
+          localStorage.setItem('_token', res.data.authorisation.token)
           this.$router.push('/')
         }
       }).catch(error => {
