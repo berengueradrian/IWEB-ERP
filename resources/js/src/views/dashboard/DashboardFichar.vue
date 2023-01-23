@@ -59,7 +59,7 @@
         return this.$store.state.user.user
       },
       completada() {
-        this.$store.dispatch('fetchCompletada')
+        //this.$store.dispatch('fetchCompletada')
         return this.$store.state.completada
       }
     },
