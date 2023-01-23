@@ -8,28 +8,41 @@
           <h2 style="margin-bottom: 10px;">Categorías disponibles</h2>
           <v-spacer></v-spacer>
           <v-text-field
-            v-model="search"
-            label="Buscar"
-            single-line
+            v-model="busqueda"
+            @keyup="buscar"
+            rounded
+            dense
+            outlined
+            :prepend-inner-icon="mdiMagnify"
+            class="app-bar-search filters-bar-search"
+            width="50"
             hide-details
+            placeholder="Buscar"
           ></v-text-field>
           <v-icon style="margin-top: 15px;">{{ mdiMagnify }}</v-icon>
       </v-card-title>
 
-      <v-data-table
-        :headers="headers"
-        :items="categoriasLista"
-        item-key="nombre"
-        class="table-rounded"
-        hide-default-footer
-        disable-sort
-      >
-        <template #[`item.nombre`]="{item}">
-          <div class="d-flex flex-column">
-            <span class="d-block text--primary text-truncate">{{ item.nombre }}</span>
-          </div>
-          </template>
-      </v-data-table>
+      <v-simple-table fixedHeader>
+        <template v-slot:default>
+        <thead>
+            <tr>
+            <th class="text-uppercase">
+                Nombre
+            </th>
+            </tr>
+        </thead>
+
+      <tbody>
+        <tr
+          v-for="item in categorias"
+          :key="item.name"
+        >
+          <td>{{ item.name }}</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+
     </v-card>
     </section>
 </template>
@@ -41,26 +54,18 @@ import { mdiMagnify } from '@mdi/js';
 
 
 export default {
-    async created() {
-      //console.log(this.$store.state.user)
-        await this.$store.dispatch('fetchCategorias')
-        let categorias = this.$store.state.categorias
-    
-        // create a json with the names of the categories
-        for (let i = 0; i < categorias.length; i++) {
-            this.categoriasLista.push({nombre: categorias[i].name})
-        }
-
-        console.log(this.categoriasLista)
+    created() {
+        console.log(this.$store.state.categorias)
+        this.categorias = this.$store.state.categorias
     },
     data() {
       return {
         mdiMagnify,
-        search: '',
+        categorias: [],
+        busqueda: '',
         headers: [
           { text: 'Nombre', value: 'nombre' }
-        ],
-        categoriasLista: []
+        ]
       }
     },
     setup() {
@@ -68,8 +73,26 @@ export default {
         store
       }
     },
-  }
+    methods: {
+        buscar(){
+            console.log("Buscando..." + this.busqueda)
+            if(this.busqueda.length > 0 ){
+                this.categorias = this.$store.state.categorias.filter((categoria) => categoria.name.toLowerCase().includes(this.busqueda.toLowerCase()))
+            }
+            else{
+                this.categorias = this.$store.state.categorias
+            }
+        }
+    }
+    }
   
   
 
 </script>
+
+<style lang="scss">
+.v-data-table__wrapper{
+  height: min-content!important;
+  max-height: 350px!important;
+}
+</style>
