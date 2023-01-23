@@ -54,9 +54,14 @@ import { mdiMagnify } from '@mdi/js';
 
 
 export default {
-    created() {
+    async created() {
         console.log(this.$store.state.categorias)
-        this.categorias = this.$store.state.categorias
+        if (this.$store.state.categorias.length == 0) {
+            await this.$store.dispatch('fetchCategorias')
+            this.categorias = this.$store.state.categorias
+        } else {
+            this.categorias = this.$store.state.categorias
+        }
     },
     data() {
       return {

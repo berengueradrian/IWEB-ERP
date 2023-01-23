@@ -185,6 +185,7 @@ export default {
           store.dispatch('actualiseToken', res.data.authorisation.token)
           localStorage.setItem('user', JSON.stringify(user))
           localStorage.setItem('_token', res.data.authorisation.token)
+          console.log(localStorage.getItem('_token'))
           this.$router.push('/')
         }
       }).catch(error => {

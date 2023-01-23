@@ -58,6 +58,8 @@ export default {
     await this.$store.dispatch('fetchEmpleados')
     await this.$store.dispatch('fetchCategorias')
     await this.$store.dispatch('fetchSupervisores')
+    console.log(this.$store.state.categorias)
+    console.log(this.$store.state.empleados)
     this.categories = this.$store.state.categorias.map(category => category.name)
     this.categories.push('Elige uno')
     this.employees = this.$store.state.empleados

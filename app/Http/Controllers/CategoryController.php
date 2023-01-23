@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function getCategorias(Request $request) {
         $categorias = Category::select('categories.name')->get();
         return response()->json([
-            'categorias' => $categorias
+            'data' => $categorias
         ]);
     }
 
