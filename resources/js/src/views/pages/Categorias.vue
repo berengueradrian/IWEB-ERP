@@ -29,15 +29,23 @@
             <th class="text-uppercase">
                 Nombre
             </th>
+            <th>
+                Acciones
+            </th>
             </tr>
         </thead>
 
       <tbody>
         <tr
           v-for="item in categorias"
-          :key="item.name"
+          :key="item.id"
         >
           <td>{{ item.name }}</td>
+          <td>
+            <v-btn :to="{name: 'pages-categorias-editar', params: {id: item.id}}" small color="primary"> Editar </v-btn>
+            <v-btn small color="error" @click="deleteCategory(item.id)" > Eliminar </v-btn>
+        </td>
+
         </tr>
       </tbody>
     </template>
@@ -51,7 +59,7 @@
 
 import store from '../../store/index.js';
 import { mdiMagnify } from '@mdi/js';
-
+import axios from 'axios';
 
 export default {
     async created() {
@@ -59,6 +67,7 @@ export default {
         if (this.$store.state.categorias.length == 0) {
             await this.$store.dispatch('fetchCategorias')
             this.categorias = this.$store.state.categorias
+            console.log("NOMBRE DEL PRIMERO    " + this.$store.state.categorias[0].id)
         } else {
             this.categorias = this.$store.state.categorias
         }
@@ -80,13 +89,28 @@ export default {
     },
     methods: {
         buscar(){
-            console.log("Buscando..." + this.busqueda)
             if(this.busqueda.length > 0 ){
                 this.categorias = this.$store.state.categorias.filter((categoria) => categoria.name.toLowerCase().includes(this.busqueda.toLowerCase()))
             }
             else{
                 this.categorias = this.$store.state.categorias
             }
+        },
+        deleteCategory(id){
+            axios.delete('http://localhost:8000/api/categorias/' + id,{
+                    headers: {
+                    'Authorization': 'Bearer ' + store.state._token
+                    }
+                })
+                .then(async response => {
+                    console.log(response);
+                    await this.$store.dispatch('fetchCategorias')
+                    this.categorias = this.$store.state.categorias
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     }
     }

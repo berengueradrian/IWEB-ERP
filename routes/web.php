@@ -63,6 +63,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::get('/companeros/count/{user}', [UserController::class, 'getNumeroCompaneros']);
     // ruta para cerrar sesión
     Route::post('/logout', [AuthController::class, 'logout']);
+    //Ruta para borrar una categoria
+    Route::delete('/categorias/{id}', [CategoryController::class, 'deleteCategoria']);
 });
 
 // No auth routes
