@@ -154,7 +154,7 @@
         }),
         computed: {
             user() {
-                return this.$store.state.user.user
+                return this.$store.state.user
             },
         },
         methods: {
@@ -177,7 +177,11 @@
                 formData.append('user_id', this.user.id);
 
                 try {
-                    await axios.post('http://localhost:8000/api/solicitudes/' + this.user.id, formData)
+                    await axios.post('http://localhost:8000/api/solicitudes/' + this.user.id, formData, {
+                            headers: {
+                                'Authorization': 'Bearer ' + store.state._token
+                            }
+                        })
                     .then(response => {
                         // console.log(response);
                         //  console.log(this.justificante);
@@ -187,7 +191,12 @@
                         return axios.post('http://localhost:8000/api/solicitud/file', {
                             justificante: this.justificante,
                             justificante_name: this.justificante[0].name,
-                        }).then(response => {
+                        }, {
+                            headers: {
+                                'Authorization': 'Bearer ' + store.state._token
+                            }
+                        }
+                        ).then(response => {
                             // console.log(response);
                             // if(this.user.supervisor == true) {
                             //     this.$router.push({ name: 'dashboard' })
