@@ -58,7 +58,7 @@
     },
     computed: {
       completada() {
-        this.$store.dispatch('fetchCompletada')
+        //this.$store.dispatch('fetchCompletada')
         return this.$store.state.completada
       }
     },
