@@ -129,7 +129,7 @@ import {
   mdiLogoutVariant,
 } from '@mdi/js'
 import store from '../../store/index.js';
-
+import axios from 'axios'
 export default {
   setup() {
     return {
@@ -152,9 +152,17 @@ export default {
     },
   },
   methods: {
-    logout() {
+    async logout() {
+      await axios.post('/api/logout', {},{
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state._token
+        }
+      })
+      this.$store.dispatch('actualiseUser', null)
+      this.$store.dispatch('actualiseToken', null)
       localStorage.removeItem('user')
-      location.reload()
+      localStorage.removeItem('_token')
+      this.$router.push('/login')
     }
   }
 }

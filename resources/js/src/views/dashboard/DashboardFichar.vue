@@ -58,7 +58,7 @@
     },
     computed: {
       completada() {
-        this.$store.dispatch('fetchCompletada')
+        //this.$store.dispatch('fetchCompletada')
         return this.$store.state.completada
       }
     },
@@ -66,8 +66,12 @@
       async fichar() {
         try {
           const response = await axios.
-            post('/api/startJornada/' + this.user.id, {
+            post('/api/startJornada/' + this.user.id,{
               _token: this.$store.state.csrfToken
+            }, {
+              headers: {
+                'Authorization': 'Bearer ' + store.state._token
+              }
             }
             ).then(response => {
               this.$store.dispatch('fetchCompletada')
@@ -83,6 +87,10 @@
           const response = await axios.
             post('/api/endJornada/' + this.user.id, {
               _token: this.$store.state.csrfToken
+            }, {
+              headers: {
+                'Authorization': 'Bearer ' + store.state._token
+              }
             }
             ).then(response => {
               this.$store.dispatch('fetchCompletada')

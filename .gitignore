@@ -4,3 +4,4 @@ package-lock.json
 /vendor
 /public/images
 /public/js
+composer-lock

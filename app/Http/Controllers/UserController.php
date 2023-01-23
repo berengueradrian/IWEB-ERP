@@ -223,7 +223,9 @@ class UserController extends Controller
 
     public function createUser(Request $request) {
         $fileName = 'image-' . time();
-        $path = $request->file('img_url')->storeAs('public', $fileName);
+        if ($request->img_url != 'null') {
+            $path = $request->file('img_url')->storeAs('public', $fileName);
+        }
         
         $user = new User();
         $user->name = $request->name;
