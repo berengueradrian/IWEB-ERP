@@ -8,6 +8,7 @@ use App\Models\Solicitud;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -221,6 +222,14 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request) {
+        
+        if (!Auth::guard('api')->user()->admin) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
         $fileName = 'image-' . time();
         if ($request->img_url != 'null') {
             $path = $request->file('img_url')->storeAs('public', $fileName);
