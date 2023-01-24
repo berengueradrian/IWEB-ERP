@@ -127,5 +127,16 @@ class JornadasTableSeeder extends Seeder
             'user_id' => $usersId[6],
             'completada' => true
         ]);
+
+        for ($i = 0; $i < 60; $i++) {
+            DB::table('jornadas')->insert(
+            [
+                'hora_entrada' => rand(5, 10),
+                'hora_salida' => rand(13, 19),
+                'fecha' => Carbon::parse(rand(2021, 2022).'-'.rand(1, 12).'-'.rand(1, 28)),
+                'user_id' => $usersId[rand(0, 26)],
+                'completada' => true
+            ]);
+        }
     }
 }

@@ -25,12 +25,37 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert(
         [
-            'name' => 'Director de desarrollo'
+            'name' => 'Director de Desarrollo'
         ]);
 
         DB::table('categories')->insert(
         [
-            'name' => 'Director de producto'
+            'name' => 'Director de Producto'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'Director de Marketing'
+        ]);
+    
+        DB::table('categories')->insert(
+        [
+            'name' => 'Director de Diseño'
+        ]);
+    
+        DB::table('categories')->insert(
+        [
+            'name' => 'Director de RRPP'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'Director de Finanzas'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'Director de RRII'
         ]);
 
         DB::table('categories')->insert(
@@ -46,6 +71,31 @@ class CategoriesTableSeeder extends Seeder
         DB::table('categories')->insert(
         [
             'name' => 'Otro'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'Marketing'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'Diseño'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'RRPP'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'Finanzas'
+        ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'RRII'
         ]);
     }
 }

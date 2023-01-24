@@ -58,7 +58,7 @@
               Supervisor
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ $store.state.user.supervisado }}
+              {{ $store.state.supervisor.name }}
             </h3>
           </div>
         </v-col>
@@ -73,7 +73,7 @@
               Sección
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ $store.state.user.categoria }}
+              {{ $store.state.categoria.name }}
             </h3>
           </div>
         </v-col>
@@ -106,8 +106,6 @@ export default {
     await this.$store.dispatch('fetchCompletada')
     await this.$store.dispatch('fetchCategoria')
     await this.$store.dispatch('fetchSupervisor')
-    console.log(this.$store.state)
-    console.log(this.$store.state.categoria)
   },
   computed: {
     completada() {
