@@ -106,9 +106,19 @@ const routes = [
     component: () => import('@/views/pages/NuevaCategoria.vue'),
   },
   {
-    path: '/pages/categorias/:id',
+    path: '/pages/categorias/editar/:id',
     name: 'pages-categorias-editar',
     component: () => import('@/views/pages/EditarCategoria.vue'),
+  },
+  {
+    path: '/pages/superole/dashboard/editar/:id',
+    name: 'pages-empleados-editar',
+    component: () => import('@/views/pages/EditarEmpleados.vue'),
+  },
+  {
+    path: '/pages/superole/dashboard/:id',
+    name: 'pages-empleados-detalles',
+    component: () => import('@/views/pages/DetallesEmpleados.vue'),
   },
   {
     path: '/pages/register',

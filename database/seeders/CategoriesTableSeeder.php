@@ -42,5 +42,10 @@ class CategoriesTableSeeder extends Seeder
         [
             'name' => 'Producto'
         ]);
+
+        DB::table('categories')->insert(
+        [
+            'name' => 'Otro'
+        ]);
     }
 }
