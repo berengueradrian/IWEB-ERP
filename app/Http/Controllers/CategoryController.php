@@ -15,6 +15,26 @@ class CategoryController extends Controller
         ]);
     }
 
+    // obtener una categoria
+    public function getCategoria(Request $request) {
+        $categoria = Category::whereId($request->id)->first();
+        return response()->json([
+            'data' => $categoria
+        ]);
+    }
+
+    // actualizar una categoria
+    public function updateCategoria(Request $request) {
+        $categoria = Category::whereId($request->id)->first();
+        $categoria->name = $request->name;
+        $categoria->save();
+
+        return response()->json([
+            'message' => 'Categoria actualizada',
+            'data' => $categoria,
+        ]);
+    }
+
     // crear categoria
     public function createCategoria(Request $request) {
         $categoria = new Category();

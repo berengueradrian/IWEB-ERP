@@ -37,6 +37,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::get('/categorias', [CategoryController::class, 'getCategorias']);
     //ruta para crear categoría
     Route::post('/categorias', [CategoryController::class, 'createCategoria']);
+    // ruta para actualizar una categoria
+    Route::post('/categorias/{id}', [CategoryController::class, 'updateCategoria']);
     // ruta para obtener el supervisor de un usuario
     Route::get('/supervisor/{user}', [UserController::class, 'getSupervisor']);
     // ruta para obtener las jornadas de un usuario
@@ -65,6 +67,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     //Ruta para borrar una categoria
     Route::delete('/categorias/{id}', [CategoryController::class, 'deleteCategoria']);
+    // Ruta para coger solo una categoria
+    Route::get('/categorias/{id}', [CategoryController::class, 'getCategoria']);
 });
 
 // No auth routes

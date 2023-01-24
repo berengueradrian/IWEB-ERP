@@ -43,7 +43,7 @@
           <td>{{ item.name }}</td>
           <td>
             <v-btn :to="{name: 'pages-categorias-editar', params: {id: item.id}}" small color="primary"> Editar </v-btn>
-            <v-btn small color="error" @click="deleteCategory(item.id)" > Eliminar </v-btn>
+            <!-- <v-btn small color="error" @click="deleteCategory(item.id)" > Eliminar </v-btn> -->
         </td>
 
         </tr>
@@ -63,11 +63,9 @@ import axios from 'axios';
 
 export default {
     async created() {
-        console.log(this.$store.state.categorias)
         if (this.$store.state.categorias.length == 0) {
             await this.$store.dispatch('fetchCategorias')
             this.categorias = this.$store.state.categorias
-            console.log("NOMBRE DEL PRIMERO    " + this.$store.state.categorias[0].id)
         } else {
             this.categorias = this.$store.state.categorias
         }
@@ -97,6 +95,7 @@ export default {
             }
         },
         deleteCategory(id){
+            console.log(id)
             axios.delete('http://localhost:8000/api/categorias/' + id,{
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token

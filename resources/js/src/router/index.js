@@ -106,6 +106,11 @@ const routes = [
     component: () => import('@/views/pages/NuevaCategoria.vue'),
   },
   {
+    path: '/pages/categorias/:id',
+    name: 'pages-categorias-editar',
+    component: () => import('@/views/pages/EditarCategoria.vue'),
+  },
+  {
     path: '/pages/register',
     name: 'pages-register',
     component: () => import('@/views/pages/Register.vue'),
