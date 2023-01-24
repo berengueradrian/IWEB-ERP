@@ -170,6 +170,7 @@
                 formData.append('descripcion', this.description);
                 formData.append('tipo', this.select);
                 formData.append('fecha_inicio', this.date);
+                formData.append('justificante', this.justificante);
                 if(this.date2 == null) {formData.append('fecha_fin', this.date);}
                 else {formData.append('fecha_fin', this.date2);}
                 if(this.justificante != null) { formData.append('justificante_name', this.justificante[0].name);}
@@ -183,8 +184,7 @@
                             }
                         })
                     .then(response => {
-                        // console.log(response);
-                        //  console.log(this.justificante);
+                        console.log(this.justificante);
                         if(this.justificante == null) {
                             this.$router.push({ name: 'pages-solicitudes' })
                         }
@@ -197,10 +197,6 @@
                             }
                         }
                         ).then(response => {
-                            // console.log(response);
-                            // if(this.user.supervisor == true) {
-                            //     this.$router.push({ name: 'dashboard' })
-                            // }
                             this.$router.push({ name: 'pages-solicitudes' })
                         })
                     })

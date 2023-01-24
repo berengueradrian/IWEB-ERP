@@ -93,7 +93,7 @@ var store = new Vuex.Store({
     },
     async fetchCompletada({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/jornada/', {
+        const response = await axios.get('http://localhost:8000/api/jornada/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }

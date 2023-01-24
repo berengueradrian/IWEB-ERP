@@ -51,12 +51,10 @@
   
   export default {
     async created() {
-      //console.log(this.$store.state.user)
-        await this.$store.dispatch('fetchSolicitudes')
-        await this.$store.dispatch('fetchSolicitudesVacaciones')
-        //console.log(this.$store.state)
-        // console.log(this.$store.state.solicitudes)
-        this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudesVacaciones))
+      await this.$store.dispatch('fetchSolicitudes')
+      await this.$store.dispatch('fetchSolicitudesVacaciones')
+
+      this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudes))
     },
     data() {
       return {
@@ -72,9 +70,9 @@
         ],
         usreList: [],
         status: {
-            0: 'Pendiente',
-            1: 'Aprobada',
-            2: 'Denegada',
+          0: 'Pendiente',
+          1: 'Aprobada',
+          2: 'Denegada',
         },
       }
     },
