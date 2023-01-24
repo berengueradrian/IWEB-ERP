@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
@@ -16,10 +17,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $categoriesId = DB::table('categories')->pluck('id');
-
         // Delete the table data   
         DB::table('users')->delete();
+
+        $faker = Faker::create();
+        $categoriesId = DB::table('categories')->pluck('id');
 
         DB::table('users')->insert(
         [
@@ -65,9 +67,24 @@ class UsersTableSeeder extends Seeder
             'category_id' => $categoriesId[2]
         ]);
 
+        for ($i = 0, $j = 3; $i < 5; $i++, $j++) {
+            DB::table('users')->insert(
+            [
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'password' => Hash::make('123'),
+                'admin' => false,
+                'supervisor' => true,
+                'fecha_nacimiento' => $faker->dateTimeBetween($startDate = '-30 years', $endDate = '-18 years', $timezone = null),
+                'formacion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+                'image_url' => 'default.jpg',
+                'supervisado' => $usersId[0],
+                'category_id' => $categoriesId[$j]
+            ]);
+        }
+
         $usersId2 = DB::table('users')->pluck('id');
 
-        // Add a new entry to the table 
         DB::table('users')->insert(
         [
             'name' => 'adri',
@@ -126,5 +143,24 @@ class UsersTableSeeder extends Seeder
             'category_id' => $categoriesId[4]
         ]);
 
+        for ($i = 0, $j = 3, $k = 9; $i < 15; $i++) {
+            DB::table('users')->insert(
+            [
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'password' => Hash::make('123'),
+                'admin' => false,
+                'supervisor' => false,
+                'fecha_nacimiento' => $faker->dateTimeBetween($startDate = '-30 years', $endDate = '-18 years', $timezone = null),
+                'formacion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+                'image_url' => 'default.jpg',
+                'supervisado' => $usersId3[$j],
+                'category_id' => $categoriesId[$k]
+            ]);
+            if($i == 2 || $i == 5 || $i == 8 || $i == 11) {
+                $j++;
+                $k++;
+            }
+        }
     }
 }

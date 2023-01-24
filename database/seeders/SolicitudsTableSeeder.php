@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Faker\Factory as Faker;
 
 class SolicitudsTableSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class SolicitudsTableSeeder extends Seeder
     public function run()
     {
         $usersId = DB::table('users')->pluck('id');
+        $faker = Faker::create();
 
         // Delete the table data   
         DB::table('solicituds')->delete();
@@ -85,5 +87,18 @@ class SolicitudsTableSeeder extends Seeder
             'tipo' => 'Baja',
             'user_id' => $usersId[2]
         ]);
+
+        for ($i = 0; $i < 35; $i++) {
+            DB::table('solicituds')->insert(
+            [
+                'fecha_inicio' => Carbon::parse('2022-'.rand(1, 12).'-'.rand(1, 28)),
+                'fecha_fin' => Carbon::parse('2023-'.rand(1, 12).'-'.rand(1, 28)),
+                'descripcion' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+                'estado' => $faker->boolean(),
+                'justificante' => 'No consta',
+                'tipo' => $faker->randomElement(['Baja', 'Vacaciones', 'Otros']),
+                'user_id' => $usersId[rand(0, 26)]
+            ]);
+        }
     }
 }

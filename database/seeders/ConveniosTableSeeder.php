@@ -54,46 +54,60 @@ class ConveniosTableSeeder extends Seeder
 
         DB::table('convenios')->insert(
         [
-            'sueldo' => 1200.99,
+            'sueldo' => 1900.99,
             'horas_diarias' => 8,
-            'sueldo_horas_extra' => 14.99,
+            'sueldo_horas_extra' => 18.99,
             'tope_horas_extra' => 15,
-            'sueldo_extraordinario' => 20.99,
+            'sueldo_extraordinario' => 24.99,
             'dias_vacaciones' => 15,
             'user_id' => $usersId[3]
         ]);
 
         DB::table('convenios')->insert(
         [
-            'sueldo' => 1200.99,
+            'sueldo' => 1900.99,
             'horas_diarias' => 8,
-            'sueldo_horas_extra' => 14.99,
+            'sueldo_horas_extra' => 18.99,
             'tope_horas_extra' => 15,
-            'sueldo_extraordinario' => 20.99,
+            'sueldo_extraordinario' => 24.99,
             'dias_vacaciones' => 15,
             'user_id' => $usersId[4]
         ]);
 
         DB::table('convenios')->insert(
         [
-            'sueldo' => 1200.99,
+            'sueldo' => 1900.99,
             'horas_diarias' => 8,
-            'sueldo_horas_extra' => 14.99,
+            'sueldo_horas_extra' => 18.99,
             'tope_horas_extra' => 15,
-            'sueldo_extraordinario' => 20.99,
+            'sueldo_extraordinario' => 24.99,
             'dias_vacaciones' => 15,
             'user_id' => $usersId[5]
         ]);
 
         DB::table('convenios')->insert(
         [
-            'sueldo' => 1200.99,
+            'sueldo' => 1900.99,
             'horas_diarias' => 8,
-            'sueldo_horas_extra' => 14.99,
+            'sueldo_horas_extra' => 18.99,
             'tope_horas_extra' => 15,
-            'sueldo_extraordinario' => 20.99,
+            'sueldo_extraordinario' => 24.99,
             'dias_vacaciones' => 15,
             'user_id' => $usersId[6]
         ]);
+
+        // add convenios for the rest of users
+        for ($i = 7; $i < count($usersId); $i++) {
+            DB::table('convenios')->insert(
+            [
+                'sueldo' => 1200.99,
+                'horas_diarias' => 8,
+                'sueldo_horas_extra' => 14.99,
+                'tope_horas_extra' => 15,
+                'sueldo_extraordinario' => 20.99,
+                'dias_vacaciones' => 15,
+                'user_id' => $usersId[$i]
+            ]);
+        }
     }
 }
