@@ -55,11 +55,15 @@ export default {
     }
   },
   async created() {
-    await this.$store.dispatch('fetchEmpleados')
-    await this.$store.dispatch('fetchCategorias')
-    await this.$store.dispatch('fetchSupervisores')
-    console.log(this.$store.state.categorias)
-    console.log(this.$store.state.empleados)
+    if (this.$store.state.empleados.length === 0){
+      await this.$store.dispatch('fetchEmpleados')
+    }
+    if (this.$store.state.categorias.length === 0){
+      await this.$store.dispatch('fetchCategorias')
+    }
+    if (this.$store.state.supervisores.length === 0){
+      await this.$store.dispatch('fetchSupervisores')
+    }
     this.categories = this.$store.state.categorias.map(category => category.name)
     this.categories.push('Elige uno')
     this.employees = this.$store.state.empleados

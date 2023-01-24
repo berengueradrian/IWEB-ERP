@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class DirectionsTableSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class DirectionsTableSeeder extends Seeder
     {
         // Delete the table data   
         DB::table('directions')->delete();
+        $faker = Faker::create();
 
         DB::table('directions')->insert(
         [
@@ -61,5 +63,12 @@ class DirectionsTableSeeder extends Seeder
         [
             'name' => 'C/Teulada 10',
         ]);
+
+        for ($i = 0; $i < 20; $i++) {
+            DB::table('directions')->insert(
+            [
+                'name' =>  $faker->address($nbWords = 6, $variableNbWords = true)
+            ]);
+        }
     }
 }

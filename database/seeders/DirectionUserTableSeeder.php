@@ -73,5 +73,15 @@ class DirectionUserTableSeeder extends Seeder
             'user_id' => $usersId[5],
             'directions_id' => $directionsId[8]
         ]);
+
+        // add relations between all the directions and all users with each user has 2 directions at least
+        for ($i = 7, $j = 9; $i < 27; $i++, $j++) {
+            DB::table('direction_usuario')->insert(
+            [
+                'user_id' => $usersId[$i],
+                'directions_id' => $directionsId[$j]
+            ]);
+        }
+
     }
 }

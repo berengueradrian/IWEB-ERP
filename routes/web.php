@@ -23,12 +23,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::post('/startJornada/{user}', [UserController::class, 'startJornada']);
     // ruta para finalizar una jornada
     Route::post('/endJornada/{user}', [UserController::class, 'endJornada']);
-    // ruta para obtener todos los usuarios
-    Route::get('/users', [UserController::class, 'getUsers']);
     // ruta para obtener los usuarios supervisores
     Route::get('/supervisores', [UserController::class, 'getSupervisors']);
-    // ruta para obtener un usuario
-    Route::get('/users/{user}', [UserController::class, 'getUser']);
     // ruta para obtener si hay alguna jornada abierta
     Route::get('/jornada/{user}', [UserController::class, 'getJornada']);
     // ruta para obtener la categoria de un usuario
@@ -63,6 +59,14 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::get('/companeros/count/{user}', [UserController::class, 'getNumeroCompaneros']);
     // ruta para cerrar sesión
     Route::post('/logout', [AuthController::class, 'logout']);
+});
+
+// Routes accesible from API KEY auth
+Route::group(['prefix' => 'api', 'middleware' => 'apiKeyAuth'], function() {
+    // ruta para obtener todos los usuarios
+    Route::get('/users', [UserController::class, 'getUsers']);
+    // ruta para obtener un usuario
+    Route::get('/users/{user}', [UserController::class, 'getUser']);
 });
 
 // No auth routes
