@@ -224,13 +224,6 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request) {
-        
-        if (!Auth::guard('api')->user()->admin) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
-        }
 
         $fileName = 'image-' . time();
         if ($request->img_url != 'null') {

@@ -5,6 +5,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\AdminAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     // ruta para finalizar una jornada
     Route::post('/endJornada/{user}', [UserController::class, 'endJornada']);
     // ruta para obtener los usuarios supervisores
-    Route::get('/supervisores', [UserController::class, 'getSupervisors']);
+    Route::get('/supervisores', [UserController::class, 'getSupervisors'])->middleware(AdminAuth::class);
     // ruta para obtener si hay alguna jornada abierta
     Route::get('/jornada/{user}', [UserController::class, 'getJornada']);
     // ruta para obtener la categoria de un usuario
@@ -54,7 +55,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     // ruta para rechazar una solicitud de vacaciones
     Route::post('/solicitudes/{solicitud}/denegar', [UserController::class, 'denegarSolicitudVacaciones']);
     // ruta para crear un nuevo usuario
-    Route::post('/users', [UserController::class, 'createUser']);
+    Route::post('/users', [UserController::class, 'createUser'])->middleware(AdminAuth::class);
     // ruta para obtener las horas trabajadas de un usuario
     Route::get('/horas/count/{user}', [UserController::class, 'getNumeroHoras']);
     // ruta para obtener el numero de compañeros de un usuario
