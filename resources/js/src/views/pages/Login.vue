@@ -118,10 +118,8 @@ import store from '@/store'
 import router from '@/router'
 export default {
   setup() {
-    console.log(store.state.user)
     if (store.state.user !== null) {
       if (store.state.user.admin || store.state.user.supervisor) {
-        console.log('redirect')
         router.push('/superole/dashboard')
       }
       else {
@@ -185,7 +183,6 @@ export default {
           store.dispatch('actualiseToken', res.data.authorisation.token)
           localStorage.setItem('user', JSON.stringify(user))
           localStorage.setItem('_token', res.data.authorisation.token)
-          console.log(localStorage.getItem('_token'))
           this.$router.push('/')
         }
       }).catch(error => {
