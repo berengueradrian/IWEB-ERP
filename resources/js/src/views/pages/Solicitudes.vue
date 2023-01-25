@@ -18,7 +18,7 @@
       <v-data-table
         :headers="headers"
         :items="usreList"
-        item-key="descripcion"
+        item-key="id"
         class="table-rounded"
         hide-default-footer
         disable-sort
@@ -40,6 +40,18 @@
             {{ status[item.estado] }}
           </v-chip>
         </template>
+        <template #[`item.id`]="{item}">
+          <div class="parent" v-if="item.estado == 0">
+            <div class="child">
+              <v-btn
+                color="error"
+                @click="borrar(item.id)"
+              >
+                Borrar
+              </v-btn>
+            </div>
+          </div>
+        </template>
       </v-data-table>
     </v-card>
   </div>
@@ -48,11 +60,11 @@
 <script>
   import store from '../../store/index.js';
   import { mdiMagnify } from '@mdi/js';
+  import axios from 'axios';
   
   export default {
     async created() {
       await this.$store.dispatch('fetchSolicitudes')
-      await this.$store.dispatch('fetchSolicitudesVacaciones')
 
       this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudes))
     },
@@ -67,6 +79,7 @@
           { text: 'Fecha fin', value: 'fecha_fin' },
           { text: 'Justificante', value: 'justificante' },
           { text: 'Estado', value: 'estado' },
+          { text: '', value: 'id' },
         ],
         usreList: [],
         status: {
@@ -90,5 +103,32 @@
         statusColor,
       }
     },
+    methods: {
+      async borrar(id) {
+        await axios.delete('http://localhost:8000/api/solicitudes/' + id ,{
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        }).then(response => {
+          this.actualizar()
+        })
+      },
+      async actualizar() {
+        await this.$store.dispatch('fetchSolicitudes')
+        this.$set(this, 'usreList', JSON.parse(JSON.stringify(this.$store.state.solicitudes)))
+      }
+    }
   }
 </script>
+
+<style scoped>
+  .parent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .child {
+    margin: 0 5px;
+    font-size: medium;
+  }
+</style>

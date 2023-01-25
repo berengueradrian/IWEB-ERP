@@ -139,13 +139,13 @@
       },
       async deny(id) {
         try {
-        await axios.post('http://localhost:8000/api/solicitudes/' + id + '/denegar', {},{
+        await axios.post('http://localhost:8000/api/solicitudes/' + id + '/denegar', {}, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
         }).
         then(response => {
-          console.log(response)
+          // console.log(response)
           this.actualizar()
           // this.$store.dispatch('fetchSolicitudesVacaciones')
           // this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudesVacaciones))

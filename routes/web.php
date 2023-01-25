@@ -60,6 +60,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::get('/horas/count/{user}', [UserController::class, 'getNumeroHoras']);
     // ruta para obtener el numero de compañeros de un usuario
     Route::get('/companeros/count/{user}', [UserController::class, 'getNumeroCompaneros']);
+    // ruta para borrar una solicitud de un usuario
+    Route::delete('/solicitudes/{solicitud}', [UserController::class, 'deleteSolicitud']);
     // ruta para cerrar sesión
     Route::post('/logout', [AuthController::class, 'logout']);
     //Ruta para borrar una categoria
