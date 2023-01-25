@@ -96,7 +96,7 @@ class UsersTableSeeder extends Seeder
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
             'supervisado' => $usersId2[1],
-            'category_id' => $categoriesId[3]
+            'category_id' => $categoriesId[8]
         ]);
 
         DB::table('users')->insert(
@@ -110,7 +110,7 @@ class UsersTableSeeder extends Seeder
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
             'supervisado' => $usersId2[1],
-            'category_id' => $categoriesId[3]
+            'category_id' => $categoriesId[8]
         ]);
 
         $usersId3 = DB::table('users')->pluck('id');
@@ -126,7 +126,7 @@ class UsersTableSeeder extends Seeder
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
             'supervisado' => $usersId3[2],
-            'category_id' => $categoriesId[4]
+            'category_id' => $categoriesId[9]
         ]);
 
         DB::table('users')->insert(
@@ -140,7 +140,7 @@ class UsersTableSeeder extends Seeder
             'formacion' => 'Grado en ingeniería informática',
             'image_url' => 'default.jpg',
             'supervisado' => $usersId3[2],
-            'category_id' => $categoriesId[4]
+            'category_id' => $categoriesId[9]
         ]);
 
         for ($i = 0, $j = 3, $k = 9; $i < 15; $i++) {

@@ -86,7 +86,7 @@
               </p>
 
               <div class="d-flex align-end flex-wrap">
-                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.nominas.length }}</span>
+                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.nominasCount }}</span>
               </div>
             </v-card-text>
           </v-card>
@@ -123,7 +123,7 @@
               </p>
 
               <div class="d-flex align-end flex-wrap">
-                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.$store.state.solicitudes.length }}</span>
+                <span class="font-weight-semibold text-2xl me-1 mb-2">{{ this.solicitudesCount }}</span>
               </div>
             </v-card-text>
           </v-card>
@@ -230,6 +230,8 @@ export default {
     await this.$store.dispatch('fetchNumeroCompaneros')
     await this.$store.dispatch('fetchSolicitudes')
     await this.$store.dispatch('fetchNominas')
+    this.solicitudesCount = this.$store.state.solicitudes.length
+    this.nominasCount = this.$store.state.nominas.length
   },
   setup() {
     return {
@@ -237,8 +239,12 @@ export default {
       mdiAccountGroupOutline,
       mdiAccountCashOutline,
       mdiCalendarClockOutline,
-      mdiBookArrowUpOutline
+      mdiBookArrowUpOutline,
     }
   },
+  data: () => ({
+    solicitudesCount: 0,
+    nominasCount: 0,
+  }),
 }
 </script>

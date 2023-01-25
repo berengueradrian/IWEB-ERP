@@ -58,7 +58,7 @@
               Supervisor
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ $store.state.supervisor.name }}
+              {{ this.supervisor.name }}
             </h3>
           </div>
         </v-col>
@@ -73,7 +73,7 @@
               Sección
             </p>
             <h3 class="text-xs font-weight-semibold">
-              {{ $store.state.categoria.name }}
+              {{ this.categoria.name }}
             </h3>
           </div>
         </v-col>

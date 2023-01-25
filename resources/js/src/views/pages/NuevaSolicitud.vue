@@ -3,6 +3,7 @@
     ref="form"
     v-model="valid"
     lazy-validation
+    enctype="multipart/form-data"
     >
     <h2 class="mb-10">Nueva solicitud</h2>
         <v-select
@@ -170,13 +171,14 @@
                 formData.append('descripcion', this.description);
                 formData.append('tipo', this.select);
                 formData.append('fecha_inicio', this.date);
-                formData.append('justificante', this.justificante);
+                formData.append('justificante', this.justificante[0]);
                 if(this.date2 == null) {formData.append('fecha_fin', this.date);}
                 else {formData.append('fecha_fin', this.date2);}
                 if(this.justificante != null) { formData.append('justificante_name', this.justificante[0].name);}
                 else {formData.append('justificante_name', 'No consta');}
                 formData.append('user_id', this.user.id);
 
+                console.log(this.justificante[0]);
                 try {
                     await axios.post('http://localhost:8000/api/solicitudes/' + this.user.id, formData, {
                             headers: {
@@ -184,21 +186,39 @@
                             }
                         })
                     .then(response => {
-                        console.log(this.justificante);
-                        if(this.justificante == null) {
-                            this.$router.push({ name: 'pages-solicitudes' })
-                        }
-                        return axios.post('http://localhost:8000/api/solicitud/file', {
-                            justificante: this.justificante,
-                            justificante_name: this.justificante[0].name,
-                        }, {
-                            headers: {
-                                'Authorization': 'Bearer ' + store.state._token
-                            }
-                        }
-                        ).then(response => {
-                            this.$router.push({ name: 'pages-solicitudes' })
-                        })
+                        console.log(response);
+                        console.log(this.justificante[0].name);
+                        console.log(this.justificante[0]);
+                        // this.$router.push({ name: 'pages-solicitudes' })
+                        // if(this.justificante == null) {
+                        //     this.$router.push({ name: 'pages-solicitudes' })
+                        // }
+                        // const formData2 = new FormData();
+                        // formData2.append('justificante', this.justificante[0], this.justificante[0].name);
+                        // formData2.append('justificante_name', this.justificante[0].name);
+                        // console.log(formData2.get('justificante'));
+
+                        // axios.post('http://localhost:8000/api/solicitud/file', formData2, {
+                        //     headers: {
+                        //         // 'Content-Type': 'multipatr/form-data',
+                        //         'Authorization': 'Bearer ' + store.state._token
+                        //     }
+                        // }).then(response => {
+                        //     this.$router.push({ name: 'pages-solicitudes' });
+                        // }).catch(error => {
+                        //     console.log(error);
+                        //     console.log(error.justificante)
+                        //     console.log(error.justificante_name)
+                        // });
+                        // // return axios.post('http://localhost:8000/api/solicitud/file', formData, {
+                        //     headers: {
+                        //         'Content-Type': 'multipart/form-data',
+                        //         'Authorization': 'Bearer ' + store.state._token
+                        //     }
+                        // }
+                        // ).then(response => {
+                        //     this.$router.push({ name: 'pages-solicitudes' })
+                        // })
                     })
                     .catch(error => {
                         console.log(error);
