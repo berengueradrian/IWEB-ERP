@@ -31,9 +31,9 @@ class UserController extends Controller
     }
 
     public function getUser(Request $request) {
-        $newUser = User::whereId($request->user)->first();
+        $user = User::whereId($request->user)->first();
         return response()->json([
-            'user' => $newUser,
+            'data' => $user,
         ]);
     }
 

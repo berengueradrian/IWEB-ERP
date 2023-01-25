@@ -2,7 +2,7 @@
 
 <section>
     <h2 class="mb-10">Detalles del empleado</h2>
-    <v-form ref="form" v-model="valid" lazy-validation>
+
         <div class="section-top">
             <div class="section-container">
             <!-- image located in public/images/1.png -->
@@ -13,7 +13,7 @@
                 <h3 class="mb-5 mt-5">Datos personales</h3>
                 <!-- Name -->
                 <div class="linea">
-                    <v-card-text> <b>Nombre completo: </b> rosa maria rodriguez lledo </v-card-text>
+                    <v-card-text> <b>Nombre completo: </b> {{ this.user.name }} </v-card-text>
                 </div>
                 
                 <!-- Email -->
@@ -68,6 +68,8 @@
             </div>
         </div>
       </div>
+
+        <file-upload-component></file-upload-component>
       
       <!-- Botones -->
       <div style="display:flex; flex-flow:row; justify-content: center; gap: 20px;">
@@ -83,102 +85,48 @@
         <v-btn color="warning">
             Volver
         </v-btn>
-      </div>
-    </v-form>        
+      </div>    
   </section>
 
 </template>
 
 <script>
 import axios from 'axios';
-import { mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
+import store from '../../store/index.js';
+import FileUploadComponent from '../../components/FileUploadComponent.vue'
+
 
 export default {
-  created() {
-    if (this.$store.state.categorias.length === 0) {
-      this.$store.dispatch('fetchCategorias')  
-    }
-    if (this.$store.state.supervisores.length === 0) {
-      this.$store.dispatch('fetchSupervisores')  
-    }
-  },
-  methods: {
-    validate() {
-      this.$refs.form.validate()
-
-      if(this.valid) {
-        this.crearEmpleado()
+    async created() {
+        axios.get('http://localhost:8000/api/users/' + this.$route.params.id,{
+            headers: {
+            'Authorization': 'Bearer ' + store.state._token
+            }
+        })
+        .then(async response => {
+            console.log(response.data.data)
+            this.user = response.data.data;
+            this.user.name = response.data.data.name;
+            console.log(this.user.name)
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    },
+    setup() {
+      return {
+        store,
+        user: {
+            name: '',
+            email: '',
+            birthdate: '',
+            category: '',
+            role: '',
+            formation: '',
+            teams: '',
+        }
       }
     },
-    crearEmpleado() {
-      const formData = new FormData();
-      formData.append('name', this.name)
-      formData.append('email', this.email)
-      formData.append('category', this.category)
-      if (this.role === 'Empleado') {
-        formData.append('role', 0)
-      }
-      else {
-        formData.append('role', 1)
-      }
-      formData.append('supervisor', this.supervisor)
-      formData.append('password', this.password)
-      formData.append('img_url', this.profile_img)
-      formData.append('birthday', this.date)
-      formData.append('formacion', this.formation)
-      axios.post('/api/users',
-        formData, 
-        {headers: {
-          'Authorization': 'Bearer ' + this.$store.state._token
-        }}
-      )
-        .then(() => this.$router.push('/superole/dashboard'))
-        .catch(error => console.log('ERROR: ' + error))
-    },
-    reset() {
-      this.$refs.form.reset()
-    },
-    save (date) {
-      this.$refs.menu.save(date)
-    },
-  },
-  data() {
-    return {
-      valid: true,
-      gralRules: [
-        v => !!v || 'Campo requerido',
-        v => (v && v.length <= 50) || 'Este campo debe tener menos de 50 caracteres',
-      ],
-      mailRules: [
-        v => !!v || 'Campo requerido',
-        v => (v && v.length <= 50) || 'Este campo debe tener menos de 50 caracteres',
-        v => (v && v.includes('@')) || 'Este campo debe ser un email'
-      ],
-      formationRules: [
-        v => !!v || 'Campo requerido',
-        v => (v && v.length <= 100) || 'Este campo debe tener menos de 100 caracteres',
-      ],
-      name: '',
-      email: '',
-      category: '',
-      role: '',
-      supervisor: '',
-      roleItems: ['Empleado', 'Supervisor'],
-      password: '',
-      isPasswordVisible: false,
-      icons: {mdiEyeOutline, mdiEyeOffOutline},
-      menu: false,
-      activePicker: null,
-      date: null,
-      profile_img: null,
-      formation: ''
-    }
-  },
-  watch: {
-    menu (val) {
-      val && setTimeout(() => (this.activePicker = 'YEAR'))
-    },
-  }
 }
 </script>
 
