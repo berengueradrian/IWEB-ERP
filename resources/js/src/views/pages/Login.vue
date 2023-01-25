@@ -21,7 +21,7 @@
         <!-- title -->
         <v-card-text>
           <p class="text-2xl font-weight-semibold text--primary mb-2">Bienvenido de nuevo! 👋🏻</p>
-          <p class="mb-2">Inicia sesión en tu herramiental de tu día a día laboral</p>
+          <p class="mb-2">Inicia sesión en la herramienta de tu día a día laboral</p>
         </v-card-text>
 
         <!-- login form -->
