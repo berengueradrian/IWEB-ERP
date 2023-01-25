@@ -6,7 +6,7 @@
         <v-card-title class="d-flex align-center justify-center py-7">
           <router-link to="/" class="d-flex align-center">
             <v-img
-              :src="require('@/assets/images/logos/logo.svg')"
+              :src="require('@/assets/images/logos/ua-logo.png')"
               max-height="30px"
               max-width="30px"
               alt="logo"
@@ -20,8 +20,8 @@
 
         <!-- title -->
         <v-card-text>
-          <p class="text-2xl font-weight-semibold text--primary mb-2">Welcome back! 👋🏻</p>
-          <p class="mb-2">Sign-in to your account to see your information</p>
+          <p class="text-2xl font-weight-semibold text--primary mb-2">Bienvenido de nuevo! 👋🏻</p>
+          <p class="mb-2">Inicia sesión en tu cuenta para ver tu información</p>
         </v-card-text>
 
         <!-- login form -->
@@ -118,10 +118,8 @@ import store from '@/store'
 import router from '@/router'
 export default {
   setup() {
-    console.log(store.state.user)
     if (store.state.user !== null) {
       if (store.state.user.admin || store.state.user.supervisor) {
-        console.log('redirect')
         router.push('/superole/dashboard')
       }
       else {
