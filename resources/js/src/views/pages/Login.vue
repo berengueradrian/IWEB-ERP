@@ -14,14 +14,14 @@
               class="me-3"
             ></v-img>
 
-            <h2 class="text-2xl font-weight-semibold">RRHH</h2>
+            <h2 class="text-2xl font-weight-semibold">Módulo RRHH</h2>
           </router-link>
         </v-card-title>
 
         <!-- title -->
         <v-card-text>
           <p class="text-2xl font-weight-semibold text--primary mb-2">Bienvenido de nuevo! 👋🏻</p>
-          <p class="mb-2">Inicia sesión en tu cuenta para ver tu información</p>
+          <p class="mb-2">Inicia sesión en tu herramiental de tu día a día laboral</p>
         </v-card-text>
 
         <!-- login form -->
@@ -30,7 +30,7 @@
             <v-text-field
               v-model="email"
               outlined
-              label="Email"
+              label="Usuario"
               placeholder="john@example.com"
               hide-details
               class="mb-3"
@@ -40,7 +40,7 @@
               v-model="password"
               outlined
               :type="isPasswordVisible ? 'text' : 'password'"
-              label="Password"
+              label="Contraseña"
               placeholder="············"
               :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
               hide-details
@@ -54,7 +54,7 @@
               <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
             </div>-->
 
-            <v-btn block color="primary" class="mt-6" @click="attemptLogin" > Login </v-btn>
+            <v-btn block color="primary" class="mt-6" @click="attemptLogin" > Iniciar sesión </v-btn>
           </v-form>
           <v-alert
             text

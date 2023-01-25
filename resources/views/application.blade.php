@@ -10,7 +10,7 @@
   <title>RRHH ERP2</title>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="{{ asset('icons8-sitio-web-de-reanudar-16.png') }}">
+  <link rel="shortcut icon" href="{{ asset('ua-logo.png') }}">
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 
   <!-- Font -->
