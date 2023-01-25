@@ -2,112 +2,198 @@
   <section>
     <h2 class="mb-10">Nuevo empleado</h2>
     <v-form ref="form" v-model="valid" lazy-validation>
-      <!-- Name -->
-      <v-text-field 
-        v-model="name"
-        :counter="50"
-        :rules="gralRules"
-        label="Nombre"
-        required
-        class="form-text-input"
-        ></v-text-field>
-      <!-- Email -->
-      <v-text-field
-        v-model="email"
-        :counter="20"
-        :rules="mailRules"
-        label="Mail"
-        required
-        class="form-text-input"
-      ></v-text-field>
-      <!-- Formation -->
-      <v-textarea
-        name="formacion"
-        v-model="formation"
-        label="Describe su formación"
-        :rules="formationRules"
-        hint="El máximo son 100 carácteres"
-        class="form-text-input"
-      ></v-textarea>
-      <!-- Category -->
-      <v-select
-        v-model="category"
-        :items="$store.state.categorias"
-        item-text="name"
-        item-value="id"
-        :rules="[v => !!v || 'La categoría es requerida']"
-        label="Categoría"
-        required
-        class="form-text-input"
-      ></v-select>
-      <!-- Role -->
-      <v-select
-        v-model="role"
-        :items="roleItems"
-        :rules="[v => !!v || 'El rol es requerido']"
-        label="Rol"
-        required
-        class="form-text-input"
-      ></v-select>
-      <!-- Equipo -->
-      <v-select
-        v-model="supervisor"
-        :items="$store.state.supervisores"
-        item-text="name"
-        item-value="id"
-        label="Equipo"
-        class="form-text-input"
-      ></v-select>
-      <!-- Contraseña -->
-      <v-text-field
-        v-model="password"
-        :type="isPasswordVisible ? 'text' : 'password'"
-        label="Password"
-        placeholder="············"
-        :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
-        hide-details
-        class="form-text-input"
-        style="margin-bottom: 30px"
-        @click:append="isPasswordVisible = !isPasswordVisible"
-      ></v-text-field>
-      <!-- Fecha nacimiento -->
-      <div>
-          <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
+      <div class="section-data-form">
+        <div class="section-container">
+        <h3 class="mb-5 mt-5">Datos personales</h3>
+        <!-- Name -->
+        <v-text-field 
+          v-model="name"
+          :counter="50"
+          :rules="gralRules"
+          label="Nombre"
           required
-          min-width="auto"
-          >
-          <template v-slot:activator="{ on, attrs }">
-              <v-text-field class="form-text-input"
-              v-model="date"
-              label="Fecha nacimiento"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-              ></v-text-field>
-          </template>
-          <v-date-picker
-              v-model="date"
-              required
-              :active-picker.sync="activePicker"
-              min="1950-01-01"
-              @change="save"
-              
-          ></v-date-picker>
-          </v-menu>
+          class="form-text-input mr-10 mb-5"
+          style="display: inline-block"
+          ></v-text-field>
+        <!-- Email -->
+        <v-text-field
+          v-model="email"
+          :counter="20"
+          :rules="mailRules"
+          label="Mail"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        <!-- Fecha nacimiento -->
+        <div>
+            <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            transition="scale-transition"
+            offset-y
+            required
+            min-width="auto"
+            >
+            <template v-slot:activator="{ on, attrs }">
+                <v-text-field class="form-text-input"
+                v-model="date"
+                label="Fecha nacimiento"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+                ></v-text-field>
+            </template>
+            <v-date-picker
+                v-model="date"
+                required
+                :active-picker.sync="activePicker"
+                min="1950-01-01"
+                @change="save"  
+            ></v-date-picker>
+            </v-menu>
+        </div>
+        </div>
       </div>
-      <!-- Foto perfil -->
-      <v-file-input
-        placeholder="Foto de perfil"
-        chips
-        truncate-length="15"
-        v-model="profile_img"
-        class="form-text-input"
-      ></v-file-input>
+      <div class="section-data-form">
+        <div class="section-container">
+        <h3 class="mb-5 mt-5">Datos profesionales</h3>
+        <!-- Category -->
+        <v-select
+          v-model="category"
+          :items="$store.state.categorias"
+          item-text="name"
+          item-value="id"
+          :rules="[v => !!v || 'La categoría es requerida']"
+          label="Categoría"
+          required
+          class="form-text-input mr-10 mb-5"
+          style="display: inline-block"
+        ></v-select>
+        <!-- Role -->
+        <v-select
+          v-model="role"
+          :items="roleItems"
+          :rules="[v => !!v || 'El rol es requerido']"
+          label="Rol"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-select>
+        <!-- Formation -->
+        <v-textarea
+          name="formacion"
+          v-model="formation"
+          label="Describe su formación"
+          :rules="formationRules"
+          hint="El máximo son 100 carácteres"
+          class="form-text-input mr-10"
+          style="display: inline-block"
+        ></v-textarea>
+        <!-- Equipo -->
+        <v-select
+          v-model="supervisor"
+          :items="$store.state.supervisores"
+          item-text="name"
+          item-value="id"
+          label="Equipo"
+          class="form-text-input mb-5"
+          style="display: inline-block"
+        ></v-select>
+        </div>
+      </div>
+      <div class="section-data-form">
+        <div class="section-container">
+        <h3 class="mb-5 mt-5">Información de la cuenta</h3>
+        <!-- Contraseña -->
+        <v-text-field
+          v-model="password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          label="Password"
+          placeholder="············"
+          :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
+          hide-details
+          class="form-text-input mr-10"
+          style="margin-bottom: 30px; display: inline-block"
+          @click:append="isPasswordVisible = !isPasswordVisible"
+        ></v-text-field>
+        <!-- Foto perfil -->
+        <div style="display:inline-block">
+        <v-file-input
+          placeholder="Foto de perfil"
+          chips
+          truncate-length="15"
+          v-model="profile_img"
+          class="form-text-input"
+        ></v-file-input>
+        </div>
+        </div>
+      </div>
+      <div class="section-data-form">
+        <div class="section-container">
+          <h3 class="mb-5 mt-5">Convenio</h3>
+          <!-- Convenio base -->
+          <v-text-field
+          v-model="sueldo_base"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo base"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block;"
+        ></v-text-field>
+        <v-text-field
+          v-model="horas_diarias"
+          type="number"
+          :rules="numericRules"
+          label="Horas diarias"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        <!-- Horas extra -->
+        <v-text-field
+          v-model="sueldo_horas_extra"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo horas extra"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block"
+        ></v-text-field>
+        <v-text-field
+          v-model="tope_horas_extra"
+          type="number"
+          :rules="numericRules"
+          label="Tope horas extra"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        <!-- Más -->
+        <v-text-field
+          v-model="sueldo_extraordinario"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo extraordinario"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block"
+        ></v-text-field>
+        <v-text-field
+          v-model="dias_vacaciones"
+          type="number"
+          :rules="numericRules"
+          label="Dias de vacaciones"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        </div>
+      </div>
+      
+      
       <!-- Botones -->
       <div class="mt-10">
         <v-btn
@@ -144,6 +230,14 @@ import axios from 'axios';
 import { mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
 
 export default {
+  created() {
+    if (this.$store.state.categorias.length === 0) {
+      this.$store.dispatch('fetchCategorias')  
+    }
+    if (this.$store.state.supervisores.length === 0) {
+      this.$store.dispatch('fetchSupervisores')  
+    }
+  },
   methods: {
     validate() {
       this.$refs.form.validate()
@@ -168,6 +262,12 @@ export default {
       formData.append('img_url', this.profile_img)
       formData.append('birthday', this.date)
       formData.append('formacion', this.formation)
+      formData.append('sueldo', this.sueldo_base)
+      formData.append('horas_diarias', this.horas_diarias)
+      formData.append('sueldo_horas_extra', this.sueldo_horas_extra)
+      formData.append('tope_horas_extra', this.tope_horas_extra)
+      formData.append('sueldo_extraordinario', this.sueldo_extraordinario)
+      formData.append('dias_vacaciones', this.dias_vacaciones)
       axios.post('/api/users',
         formData, 
         {headers: {
@@ -200,6 +300,9 @@ export default {
         v => !!v || 'Campo requerido',
         v => (v && v.length <= 100) || 'Este campo debe tener menos de 100 caracteres',
       ],
+      numericRules: [
+        v => !!v || 'Campo requerido'
+      ],
       name: '',
       email: '',
       category: '',
@@ -213,7 +316,13 @@ export default {
       activePicker: null,
       date: null,
       profile_img: null,
-      formation: ''
+      formation: '',
+      sueldo_base:'',
+      horas_diarias:'',
+      sueldo_horas_extra:'',
+      tope_horas_extra:'',
+      sueldo_extraordinario:'',
+      dias_vacaciones:''
     }
   },
   watch: {
@@ -227,5 +336,17 @@ export default {
 <style lang="scss">
 .form-text-input{
   width: 500px;
+}
+v-text-field{
+  width: 400px;
+}
+.section-data-form{
+  margin-bottom: 50px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.section-container{
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 </style>

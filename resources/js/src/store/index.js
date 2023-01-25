@@ -186,8 +186,8 @@ var store = new Vuex.Store({
     },
     async fetchEmpleados({commit}) {
       const response = await axios.get('/api/users', {
-        headers: {
-          'Authorization': 'Bearer ' + store.state._token
+        params: {
+          'api_key': 'tmrgmbhyfvdbuxkiive'
         }
       });
       let empleados = response.data.data
@@ -205,7 +205,7 @@ var store = new Vuex.Store({
       commit('setEmpleados', empleados)
     },
     async fetchCategorias({commit}) {
-      const response = await axios.get('/api/categoria', {
+      const response = await axios.get('/api/categorias', {
         headers: {
           'Authorization': 'Bearer ' + store.state._token
         }

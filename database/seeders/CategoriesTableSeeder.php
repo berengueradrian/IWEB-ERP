@@ -70,6 +70,11 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert(
         [
+            'name' => 'Otro'
+        ]);
+
+        DB::table('categories')->insert(
+        [
             'name' => 'Marketing'
         ]);
 

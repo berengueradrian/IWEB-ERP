@@ -48,7 +48,11 @@ const routes = [
   {
     path: '/superole/nuevo',
     name: 'superole-nuevo',
-    component: () => import('@/views/NuevoEmpleado.vue')
+    component: () => import('@/views/NuevoEmpleado.vue'),
+    meta: {
+      auth: true,
+      super: true
+    },
   },
   {
     path: '/typography',
@@ -96,6 +100,31 @@ const routes = [
     component: () => import('@/views/pages/SolicitudesSupervisorVacaciones.vue'),
   },
   {
+    path: '/pages/categorias',
+    name: 'pages-categorias',
+    component: () => import('@/views/pages/Categorias.vue'),
+  },
+  {
+    path: '/pages/categorias/nueva',
+    name: 'pages-categorias-nueva',
+    component: () => import('@/views/pages/NuevaCategoria.vue'),
+  },
+  {
+    path: '/pages/categorias/editar/:id',
+    name: 'pages-categorias-editar',
+    component: () => import('@/views/pages/EditarCategoria.vue'),
+  },
+  {
+    path: '/pages/superole/dashboard/editar/:id',
+    name: 'pages-empleados-editar',
+    component: () => import('@/views/pages/EditarEmpleados.vue'),
+  },
+  {
+    path: '/pages/superole/dashboard/:id',
+    name: 'pages-empleados-detalles',
+    component: () => import('@/views/pages/DetallesEmpleados.vue'),
+  },
+  {
     path: '/pages/register',
     name: 'pages-register',
     component: () => import('@/views/pages/Register.vue'),
@@ -111,10 +140,10 @@ const routes = [
       layout: 'blank',
     },
   },
-  /* {
+  {
     path: '*',
     redirect: 'error-404',
-  }, */
+  },
 ]
 
 const router = new VueRouter({

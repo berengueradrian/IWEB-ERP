@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Solicitud;
 use App\Models\Category;
+use App\Models\Convenio;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -94,6 +95,7 @@ class UserController extends Controller
             'categoria' => $categoria,
         ]);
     }
+
 
     // obtener las jornadas de un usuario
     public function getJornadas(Request $request) {
@@ -281,6 +283,7 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request) {
+
         $fileName = 'image-' . time();
         if ($request->img_url != 'null') {
             $path = $request->file('img_url')->storeAs('public', $fileName);
@@ -300,6 +303,17 @@ class UserController extends Controller
         $user->formacion = $request->formacion;
     
         $user->save();
+
+        $convenio = new Convenio();
+        $convenio->horas_diarias = $request->horas_diarias;
+        $convenio->sueldo = $request->sueldo;
+        $convenio->sueldo_horas_extra = $request->sueldo_horas_extra;
+        $convenio->tope_horas_extra = $request->tope_horas_extra;
+        $convenio->sueldo_extraordinario = $request->sueldo_extraordinario;
+        $convenio->dias_vacaciones = $request->dias_vacaciones;
+        $convenio->user_id = $user->id;
+        
+        $convenio->save();
 
         return response()->json([
             'message' => 'Usuario creado',
