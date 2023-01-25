@@ -6,6 +6,8 @@ import vuetify from './plugins/vuetify'
 import router from './router'
 import store from './store'
 Vue.config.productionTip = false
+Vue.component('file-upload-component', require('./components/FileUploadComponent.vue').default)
+
 new Vue({
   router,
   store,

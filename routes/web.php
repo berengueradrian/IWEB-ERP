@@ -55,6 +55,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::post('/solicitudes/{solicitud}/denegar', [UserController::class, 'denegarSolicitudVacaciones']);
     // ruta para crear un nuevo usuario
     Route::post('/users', [UserController::class, 'createUser']);
+    // ruta para obtener un usuario
+    Route::get('/users/{user}', [UserController::class, 'getUser']);
     // ruta para obtener las horas trabajadas de un usuario
     Route::get('/horas/count/{user}', [UserController::class, 'getNumeroHoras']);
     // ruta para obtener el numero de compañeros de un usuario
@@ -65,6 +67,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::delete('/categorias/{id}', [CategoryController::class, 'deleteCategoria']);
     // Ruta para coger solo una categoria
     Route::get('/categorias/{id}', [CategoryController::class, 'getCategoria']);
+
+    Route::get('/upload', [FileController::class, 'index']);
+    Route::post('/upload', [FileController::class, 'upload'])->name('upload');
+
 });
 
 // Routes accesible from API KEY auth
