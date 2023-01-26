@@ -32,6 +32,7 @@ class UserController extends Controller
 
     public function getUser(Request $request) {
         $user = User::whereId($request->user)->first();
+        $user->convenio = Convenio::whereUserId($user->id)->first();
         return response()->json([
             'data' => $user,
         ]);

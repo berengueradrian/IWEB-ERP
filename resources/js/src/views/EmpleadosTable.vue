@@ -37,7 +37,6 @@
           </td>
           <td class="text-center">
             <v-btn :to="{name: 'pages-empleados-detalles', params: {id: item.id}}" small color="primary"> Ver más </v-btn>
-            <v-btn :to="{name: 'pages-empleados-editar', params: {id: item.id}}" small color="primary"> Editar </v-btn>
           </td>
         </tr>
       </tbody>
