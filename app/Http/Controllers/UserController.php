@@ -31,7 +31,9 @@ class UserController extends Controller
     }
 
     public function getUser(Request $request) {
+
         $user = User::select('users.id', 'users.name', 'users.email', 'users.fecha_nacimiento', 'users.admin', 'users.image_url')->whereId($request->user)->first();
+        $user->convenio = Convenio::whereUserId($user->id)->first();
         return response()->json([
             'data' => $user,
         ]);

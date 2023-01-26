@@ -88,27 +88,61 @@
                     </template>
                 </v-card-text>
             </div>  
-            <div style="display:flex; flex-flow: row;  justify-content:center; gap: 20px;">
-                <v-btn
-                    color="info" v-if="this.user.es_admin == false">
-                    Ver historial de solicitudes 
-                </v-btn>
-                <v-btn v-if="this.user.es_admin == false"
-                    color="info">
-                    Ver convenio
-                </v-btn>
-            </div>
         </div>
-      </div>
+        </div>
+        <div class="section-data-form">
+            <div class="section-container">
+                <h3 class="mb-5 mt-5">Convenio</h3>
+                <!-- Sueldo base -->
+                <div class="linea">
+                        <v-card-text> <b>Sueldo base: </b> 
+                            {{ this.user.sueldo_base }} €
+                        </v-card-text>
+                </div>
+                <div class="linea">
+                        <v-card-text> <b>Máximo de horas diarias: </b> 
+                            {{ this.user.horas_diarias }} h
+                        </v-card-text>
+                </div>
+                <div class="linea">
+                        <v-card-text> <b>Sueldo por hora extra: </b> 
+                            {{ this.user.sueldo_horas_extra }} €
+                        </v-card-text>
+                </div>
+                <div class="linea">
+                        <v-card-text> <b>Horas extra máximas al mes: </b> 
+                            {{ this.user.tope_horas_extra }} h
+                        </v-card-text>
+                </div>
+                <div class="linea">
+                        <v-card-text> <b> Paga extraordinaria: </b> 
+                            {{ this.user.sueldo_extraordinario }} h
+                        </v-card-text>
+                </div>
+                <div class="linea">
+                        <v-card-text> <b> Días de vacaciones disponibles al año : </b> 
+                            {{ this.user.dias_vacaciones }} h
+                        </v-card-text>
+                </div>
+                <div style="display:flex; flex-flow: row;  justify-content:center; gap: 20px;">
+                    <v-btn
+                        color="info" v-if="this.user.es_admin == false">
+                        Ver historial de solicitudes 
+                    </v-btn>
+                </div>
+            </div>
+            
+        </div>
+      
       
       <!-- Botones -->
       <div style="display:flex; flex-flow:row; justify-content: center; gap: 20px;">
-        <v-btn
+        <v-btn v-if="this.$store.state.user.admin"
         color="primary" >
           Editar datos
         </v-btn>
 
-        <v-btn color="error" v-if="this.user.es_admin == false" @click="dialog = true">
+        <v-btn color="error" v-if="this.user.es_admin == false && this.$store.state.user.admin" @click="dialog = true">
             Eliminar empleado
         </v-btn>
 
@@ -178,6 +212,13 @@ export default {
             this.user.es_supervisor = response.data.data.supervisor;
             this.user.es_admin = response.data.data.admin;
             this.user.image_url = response.data.data.image_url;
+            this.user.sueldo_base = response.data.data.convenio.sueldo;
+            this.user.horas_diarias = response.data.data.convenio.horas_diarias;
+            this.user.sueldo_horas_extra = response.data.data.convenio.sueldo_horas_extra;
+            this.user.tope_horas_extra = response.data.data.convenio.tope_horas_extra;
+            this.user.sueldo_extraordinario = response.data.data.convenio.sueldo_extraordinario;
+            this.user.dias_vacaciones = response.data.data.convenio.dias_vacaciones;
+
 
             //get the name of the supervisor
             axios.get('/api/supervisor/' + this.$route.params.id, {
@@ -207,6 +248,13 @@ export default {
                 es_supervisor: '',
                 es_admin: '',
                 image_url: '',
+                sueldo_base: '',
+                horas_diarias: '',
+                sueldo_horas_extra: '',
+                tope_horas_extra: '',
+                sueldo_extraordinario: '',
+                dias_vacaciones: ''
+
             },
             nombre_supervisor: '',
             dialog: false
