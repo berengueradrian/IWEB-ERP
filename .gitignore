@@ -4,8 +4,6 @@ package-lock.json
 /vendor
 /public/images
 /public/js
-<<<<<<< HEAD
-=======
 composer.json
->>>>>>> deb3eb6a544573ef68181c4678ee5aaf389a8e26
 composer.lock
+/public/mix-manifest.json
