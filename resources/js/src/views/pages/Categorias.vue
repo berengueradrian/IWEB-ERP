@@ -96,7 +96,7 @@ export default {
         },
         deleteCategory(id){
             console.log(id)
-            axios.delete('http://localhost:8000/api/categorias/' + id,{
+            axios.delete('/api/categorias/' + id,{
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token
                     }

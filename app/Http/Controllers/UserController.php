@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 class UserController extends Controller
 {
     public function getUsers() {
-        $users = User::select('users.id', 'users.name', 'users.email', 'users.admin', 'users.supervisor', 'categories.name as category', 'users.supervisado')
+        $users = User::select('users.id', 'users.name', 'users.email', 'users.fecha_nacimiento', 'users.admin', 'users.image_url', 'users.supervisor', 'categories.name as category', 'users.supervisado')
         ->join('categories', 'users.category_id', '=', 'categories.id')
         ->get();
         return response()->json([
@@ -83,7 +83,7 @@ class UserController extends Controller
         $user = User::whereId($request->user)->first();
         $supervisor = User::whereId($user->supervisado)->first();
         return response()->json([
-            'supervisor' => $supervisor,
+            'data' => $supervisor,
         ]);
     }
 
@@ -334,6 +334,16 @@ class UserController extends Controller
 
         return response()->json([
             'numeroCompaneros' => $numeroCompaneros,
+        ]);
+    }
+
+    // borrar un usuario
+    public function deleteUser(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Usuario eliminado',
         ]);
     }
 

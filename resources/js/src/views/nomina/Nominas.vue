@@ -1,9 +1,10 @@
 <template>
     <section>
       <v-card>
-        <v-card-title>Nominas de los empleados</v-card-title>
+        <v-card-title v-if="$store.state.user.admin">Nominas de los empleados</v-card-title>
+        <v-card-title v-else>Tus nominas</v-card-title>
         <div class="filters-bar">
-          <v-text-field
+          <v-text-field v-if="$store.state.user.admin"
             v-model="filters[0]"
             @keyup="filterNomina"
             rounded
@@ -66,7 +67,11 @@
             await this.$store.dispatch('generarNominasMesAnterior')
         }
 
-        this.nominas = this.$store.state.nominas
+        if (this.$store.state.user.admin) {
+          this.nominas = this.$store.state.nominas
+        } else {
+          this.nominas = this.$store.state.nominas.filter(nomina => nomina.user.id === this.$store.state.user.id)
+        }
       
         this.meses.push('Enero')
         this.meses.push('Febrero')

@@ -18,7 +18,7 @@ class SupervisorAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->isSupervisor()){
+        if (Auth::user()->isSupervisor() || Auth::user()->isAdmin()){
             return $next($request);
         }
         

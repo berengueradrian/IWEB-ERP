@@ -55,9 +55,7 @@ export default {
     }
   },
   async created() {
-    if (this.$store.state.empleados.length === 0){
       await this.$store.dispatch('fetchEmpleados')
-    }
     if (this.$store.state.categorias.length === 0){
       await this.$store.dispatch('fetchCategorias')
     }

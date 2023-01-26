@@ -91,7 +91,7 @@ var store = new Vuex.Store({
     },
     async fetchUser({commit}) {
       /* try {
-        const response = await axios.get('http://localhost:8000/api/users/' + this.state.user.id)
+        const response = await axios.get('/api/users/' + this.state.user.id)
         commit('setUser', response.data) 
       }
       catch (error) {
@@ -101,7 +101,7 @@ var store = new Vuex.Store({
     },
     async fetchCompletada({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/jornada/' + this.state.user.id, {
+        const response = await axios.get('/api/jornada/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -114,7 +114,7 @@ var store = new Vuex.Store({
     },
     async fetchSupervisor({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/supervisor/' + this.state.user.id, {
+        const response = await axios.get('/api/supervisor/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -127,7 +127,7 @@ var store = new Vuex.Store({
     },
     async fetchCategoria({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/categoria/' + this.state.user.id, {
+        const response = await axios.get('/api/categoria/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -140,7 +140,7 @@ var store = new Vuex.Store({
     },
     async fetchJornadas({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/jornadas/' + this.state.user.id, {
+        const response = await axios.get('/api/jornadas/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -153,7 +153,7 @@ var store = new Vuex.Store({
     },
     async fetchNominas({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/nominas/' + this.state.user.id, {
+        const response = await axios.get('/api/nominas/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -179,7 +179,7 @@ var store = new Vuex.Store({
     },
     async fetchSolicitudes({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/solicitudes/' + this.state.user.id, {
+        const response = await axios.get('/api/solicitudes/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -193,7 +193,7 @@ var store = new Vuex.Store({
     // sólo para admins
     async fetchSolicitudesVacaciones({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/solicitudesVacaciones/' + this.state.user.id, {
+        const response = await axios.get('/api/solicitudesVacaciones/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -208,7 +208,7 @@ var store = new Vuex.Store({
     async fetchEmpleados({commit}) {
       const response = await axios.get('/api/users', {
         params: {
-          'api_key': 'tmrgmbhyfvdbuxkiive'
+          'api_key': 'secreto'
         }
       });
       let empleados = response.data.data
@@ -247,7 +247,7 @@ var store = new Vuex.Store({
     },
     async fetchHorasTotales({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/horas/count/' + this.state.user.id, {
+        const response = await axios.get('/api/horas/count/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -260,7 +260,7 @@ var store = new Vuex.Store({
     },
     async fetchNumeroCompaneros({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/companeros/count/' + this.state.user.id, {
+        const response = await axios.get('/api/companeros/count/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }

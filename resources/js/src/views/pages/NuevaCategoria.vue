@@ -53,7 +53,7 @@
                 formData.append('name', this.nombre);
                 // print name from formData
                 console.log(formData.get('name'));
-                await axios.post('http://localhost:8000/api/categorias/', formData, {
+                await axios.post('/api/categorias/', formData, {
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token
                     }

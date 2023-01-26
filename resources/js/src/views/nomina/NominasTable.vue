@@ -4,7 +4,7 @@
         <template v-slot:default>
           <thead>
             <tr>
-              <th v-if="this.$store.state.user.admin" class="text-uppercase">
+              <th v-if="$store.state.user.admin" class="text-uppercase">
                 Empleado
               </th>
               <th class="text-center text-uppercase">
@@ -26,7 +26,7 @@
               v-for="nomina in nominas"
               :key="nomina.id"
             >
-              <td>{{ nomina.user.name }}</td>
+              <td v-if="$store.state.user.admin">{{ nomina.user.name }}</td>
               <td class="text-center">
                 {{ numeroAMes(nomina.mes) }}
               </td>
@@ -43,14 +43,14 @@
                 </v-chip>
               </td>
               <td class="text-center">
-                  <v-btn v-if="nomina.estado == 0"
+                  <v-btn v-if="nomina.estado == 0 && $store.state.user.admin"
                       color="primary"
                       class="mr-2"
                       @click="pagarNomina(nomina.id)"
                   >
                       Pagar
                   </v-btn>
-                  <v-btn v-else
+                  <v-btn v-if="nomina.estado == 1"
                       color="primary"
                       class="mr-2"
                       @click="generarPDF(nomina.id)"
@@ -219,7 +219,12 @@
           await this.$store.dispatch('generarNominasMesAnterior')
       }
 
-      this.nominas = this.$store.state.nominas
+      if (this.$store.state.user.admin) {
+        this.nominas = this.$store.state.nominas
+      } else {
+        this.nominas = this.$store.state.nominas.filter(nomina => nomina.user_id == this.$store.state.user.id)
+      }
+
       this.nominaDescargar = this.nominas[0]
     },
     data() {
@@ -230,7 +235,11 @@
     },
     watch: {
       nominasProp: function() {
-        this.nominas = this.nominasProp
+        if (this.$store.state.user.admin) {
+          this.nominas = this.nominasProp
+        } else {
+          this.nominas = this.nominasProp.filter(nomina => nomina.user_id == this.$store.state.user.id)
+        }
       }
     }
   }
