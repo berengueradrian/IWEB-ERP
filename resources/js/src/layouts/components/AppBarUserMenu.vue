@@ -153,16 +153,21 @@ export default {
   },
   methods: {
     async logout() {
-      await axios.post('/api/logout', {},{
-        headers: {
-          'Authorization': 'Bearer ' + this.$store.state._token
-        }
-      })
-      this.$store.dispatch('actualiseUser', null)
-      this.$store.dispatch('actualiseToken', null)
-      localStorage.removeItem('user')
-      localStorage.removeItem('_token')
-      this.$router.push('/login')
+      try {
+        await axios.post('/api/logout', {},{
+          headers: {
+            'Authorization': 'Bearer ' + this.$store.state._token
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.$store.dispatch('actualiseUser', null)
+        this.$store.dispatch('actualiseToken', null)
+        localStorage.removeItem('user')
+        localStorage.removeItem('_token')
+        this.$router.push('/login')
+      }
     }
   }
 }

@@ -115,6 +115,11 @@ const routes = [
     component: () => import('@/views/pages/EditarCategoria.vue'),
   },
   {
+    path: '/pages/nominas',
+    name: 'pages-nominas',
+    component: () => import('@/views/nomina/Nominas.vue'),
+  },
+  {
     path: '/pages/superole/dashboard/editar/:id',
     name: 'pages-empleados-editar',
     component: () => import('@/views/pages/EditarEmpleados.vue'),

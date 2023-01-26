@@ -112,15 +112,6 @@ class UserController extends Controller
         ]);
     }
 
-    // obtener las nominas de un usuario
-    public function getNominas(Request $request) {
-        $user = User::whereId($request->user)->first();
-        $nominas = $user->nominas()->get();
-        return response()->json([
-            'nominas' => $nominas,
-        ]);
-    }
-
     // obtener las solicitudes de un usuario
     public function getSolicitudes(Request $request) {
         $user = User::whereId($request->user)->first();
