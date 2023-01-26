@@ -24,7 +24,7 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1500.99,
-            'mes' => 'Enero',
+            'mes' => 0,
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -34,7 +34,7 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
-            'mes' => 'Enero',
+            'mes' => 0,
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -44,7 +44,8 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
-            'mes' => 'Enero',
+            'mes' => 0,
+            'anyo' => "2023",
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -54,7 +55,7 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
-            'mes' => 'Enero',
+            'mes' => 0,
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -64,7 +65,7 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
-            'mes' => 'Enero',
+            'mes' => 0,
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -74,7 +75,7 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
-            'mes' => 'Enero',
+            'mes' => 0,
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -84,7 +85,7 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
-            'mes' => 'Enero',
+            'mes' => 0,
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -94,7 +95,7 @@ class NominasTableSeeder extends Seeder
         DB::table('nominas')->insert(
         [
             'sueldo' => 1900.99,
-            'mes' => 'Enero',
+            'mes' => 0,
             'horas' => 40,
             'horas_extra' => 0,
             'dias_baja' => 0,
@@ -105,7 +106,8 @@ class NominasTableSeeder extends Seeder
             DB::table('nominas')->insert(
             [
                 'sueldo' => 1200.99,
-                'mes' => $faker->monthName,
+                // month number starting from zero
+                'mes' => rand(0, 11),
                 'horas' => 40,
                 'horas_extra' => rand(0, 5),
                 'dias_baja' => rand(0, 5),

@@ -19,6 +19,7 @@ class CreateNominasTable extends Migration
             // Añadido
             $table->float('sueldo');
             $table->string('mes');
+            $table->string('anyo')->default("2022");
             $table->integer('horas');
             $table->integer('horas_extra')->nullable();
             $table->integer('dias_baja')->nullable();

@@ -5,6 +5,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NominaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     // ruta para obtener las jornadas de un usuario
     Route::get('/jornadas/{user}', [UserController::class, 'getJornadas']);
     // ruta para obtener las nominas de un usuario
-    Route::get('/nominas/{user}', [UserController::class, 'getNominas']);
+    Route::get('/nominas/users/{user}', [NominaController::class, 'getNominasUsuario']);
+    // ruta para obtener una nomina
+    Route::get('/nominas/{nomina}', [NominaController::class, 'getNomina']);
+    // ruta para obtener todas las nominas
+    Route::get('/nominas', [NominaController::class, 'getAllNominas']);
     // ruta para obtener las solicitudes de un usuario
     Route::get('/solicitudes/{user}', [UserController::class, 'getSolicitudes']);
     // ruta para crear una solicitud de un usuario

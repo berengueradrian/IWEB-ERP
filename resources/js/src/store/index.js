@@ -13,7 +13,8 @@ var store = new Vuex.Store({
       supervisor: {},
       categoria: null,
       jornadas: null,
-      nominas: null,
+      nominas: [],
+      nominas_usuario: [],
       solicitudes: null,
       solicitudesVacaciones: null,
       empleados: [],
@@ -51,6 +52,9 @@ var store = new Vuex.Store({
     },
     setNominas(state, nominas) {
       state.nominas = nominas
+    },
+    setNominasUsuario(state, nominas_usuario) {
+      state.nominas_usuario = nominas_usuario
     },
     setSolicitudes(state, solicitudes) {
       state.solicitudes = solicitudes
@@ -146,6 +150,19 @@ var store = new Vuex.Store({
     async fetchNominas({commit}) {
       try {
         const response = await axios.get('http://localhost:8000/api/nominas/' + this.state.user.id, {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+        commit('setNominasUsuario', response.data.nominas)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchAllNominas({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/nominas/', {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
