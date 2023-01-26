@@ -101,9 +101,32 @@
           Editar datos
         </v-btn>
 
-        <v-btn color="error" v-if="this.user.es_admin == false">
+        <v-btn color="error" v-if="this.user.es_admin == false" @click="dialog = true">
             Eliminar empleado
         </v-btn>
+
+        <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="590px"
+            >
+
+            <v-card  v-if="this.dialog">
+                <v-card-title class="text-h5"> ¿Estás seguro de que quieres eliminar a este empleado? </v-card-title>
+                <v-card-text> Todos sus datos se perderán. </v-card-text>
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="green darken-1" text @click="dialog = false">
+                    Cancelar
+                </v-btn>
+                <v-btn
+                    color="green darken-1" text @click="deleteUser">
+                    Aceptar
+                </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
         <v-btn color="warning" :to="{ name: 'superole-dashboard' }">
             Volver
@@ -163,11 +186,32 @@ export default {
                 fecha_nacimiento: '',
                 es_supervisor: '',
                 es_admin: '',
-                supervisado_por: ''
-            }
+                supervisado_por: '',
+                image_url: ''
+            },
+            dialog: false,
+        }
+    },
+    methods: {
+        deleteUser(){
+            this.dialog = false;
+            axios.delete('http://localhost:8000/api/users/' + this.$route.params.id,{
+                    headers: {
+                    'Authorization': 'Bearer ' + store.state._token
+                    }
+                })
+                .then(async response => {
+    
+                    this.$router.push({ name: 'superole-dashboard' })
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+            
         }
     }
-}
+
 </script>
 
 <style lang="scss">
