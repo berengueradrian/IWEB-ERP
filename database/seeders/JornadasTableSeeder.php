@@ -21,6 +21,204 @@ class JornadasTableSeeder extends Seeder
         DB::table('jornadas')->delete();
 
         DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-02'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-03'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-04'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-05'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-06'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-09'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-10'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-11'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-12'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-13'),
+            'user_id' => $usersId[0],
+            'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+        [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-16'),
+            'user_id' => $usersId[0],
+            'completada' => true
+        ]);
+
+        DB::table('jornadas')->insert(
+        [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-17'),
+            'user_id' => $usersId[0],
+            'completada' => true
+        ]);
+
+        DB::table('jornadas')->insert(
+        [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-18'),
+            'user_id' => $usersId[0],
+            'completada' => true
+        ]);
+
+        DB::table('jornadas')->insert(
+        [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-19'),
+            'user_id' => $usersId[0],
+            'completada' => true
+        ]);
+
+        DB::table('jornadas')->insert(
+        [
+            'hora_entrada' => 8,
+            'hora_salida' => 16,
+            'fecha' => Carbon::parse('2023-01-20'),
+            'user_id' => $usersId[0],
+            'completada' => true
+        ]);
+
+        DB::table('jornadas')->insert(
+            [
+                'hora_entrada' => 8,
+                'hora_salida' => 16,
+                'fecha' => Carbon::parse('2023-01-23'),
+                'user_id' => $usersId[0],
+                'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+                'hora_entrada' => 8,
+                'hora_salida' => 16,
+                'fecha' => Carbon::parse('2023-01-24'),
+                'user_id' => $usersId[0],
+                'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+                'hora_entrada' => 8,
+                'hora_salida' => 18,
+                'fecha' => Carbon::parse('2023-01-25'),
+                'user_id' => $usersId[0],
+                'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+                'hora_entrada' => 8,
+                'hora_salida' => 17,
+                'fecha' => Carbon::parse('2023-01-26'),
+                'user_id' => $usersId[0],
+                'completada' => true
+            ]);
+
+        DB::table('jornadas')->insert(
+            [
+                'hora_entrada' => 8,
+                'hora_salida' => 18,
+                'fecha' => Carbon::parse('2023-01-27'),
+                'user_id' => $usersId[0],
+                'completada' => true
+            ]);
+
+            DB::table('jornadas')->insert(
+                [
+                    'hora_entrada' => 8,
+                    'hora_salida' => 19,
+                    'fecha' => Carbon::parse('2023-01-30'),
+                    'user_id' => $usersId[0],
+                    'completada' => true
+                ]);
+    
+            DB::table('jornadas')->insert(
+                [
+                    'hora_entrada' => 8,
+                    'hora_salida' => 16,
+                    'fecha' => Carbon::parse('2023-01-31'),
+                    'user_id' => $usersId[0],
+                    'completada' => true
+                ]);
+
+        DB::table('jornadas')->insert(
         [
             'hora_entrada' => 8,
             'hora_salida' => 16,

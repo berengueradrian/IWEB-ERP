@@ -20,6 +20,7 @@ var store = new Vuex.Store({
       empleados: [],
       categorias: [],
       supervisores: [],
+      generadasNominas: false,
       usuariosSolicitudes: null,
       numeroCompaneros: null,
       horasTotales: null,
@@ -34,6 +35,9 @@ var store = new Vuex.Store({
     },
     setSupervisors(state, supervisors) {
       state.supervisores = supervisors
+    },
+    setGeneradasNominas(state, generadasNominas) {
+      state.generadasNominas = generadasNominas
     },
     setToken(state) {
       state.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -203,8 +207,8 @@ var store = new Vuex.Store({
     },
     async fetchEmpleados({commit}) {
       const response = await axios.get('/api/users', {
-        headers: {
-          'Authorization': 'Bearer ' + store.state._token
+        params: {
+          'api_key': 'tmrgmbhyfvdbuxkiive'
         }
       });
       let empleados = response.data.data
@@ -264,6 +268,58 @@ var store = new Vuex.Store({
         commit('setNumeroCompaneros', response.data.numeroCompaneros)
       }
       catch (error) {
+        throw error
+      }
+    },
+    async generarNominasMesAnterior({commit}) {
+      try {
+        // Si es el dia uno del mes, se generan las nominas del mes anterior
+        let fecha = new Date()
+        let mesNominas = fecha.getMonth()
+        let anyoNominas = fecha.getFullYear()
+
+        mesNominas -= 1
+
+        if (mesNominas === -1) {
+          mesNominas = 11
+          anyoNominas -= 1
+        }
+
+        const response = await axios.post('http://localhost:8000/api/nominas/generadas', {
+          mes: mesNominas,
+          anyo: anyoNominas
+        }, {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+
+        if (!response.data.nominasGeneradas) {
+          const response = await axios.post('http://localhost:8000/api/nominas/generar', {
+            mes: mesNominas,
+            anyo: anyoNominas
+          }, {
+            headers: {
+              'Authorization': 'Bearer ' + store.state._token
+            }
+          })
+          commit('setGeneradasNominas', true)
+        } else {
+          console.log('Las nominas para el mes ' + mesNominas + ' del año ' + anyoNominas + ' ya se han generado correctamente')
+          commit('setGeneradasNominas', true)
+        }
+      } catch (error) {
+        throw error
+      }
+    },
+    async cambiarEstadoNominaPagada({commit}, idNomina) {
+      try {
+        const response = await axios.post('http://localhost:8000/api/nominas/' + idNomina + '/pagada', {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+      } catch (error) {
         throw error
       }
     },

@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Solicitud;
 use App\Models\Category;
+use App\Models\Convenio;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
@@ -29,9 +31,9 @@ class UserController extends Controller
     }
 
     public function getUser(Request $request) {
-        $newUser = User::whereId($request->user)->first();
+        $user = User::whereId($request->user)->first();
         return response()->json([
-            'user' => $newUser,
+            'data' => $user,
         ]);
     }
 
@@ -122,12 +124,19 @@ class UserController extends Controller
     // crear una solicitud por un usuario
     public function createSolicitud(Request $request) {
         $user = User::whereId($request->user)->first();
+        $uniqueId = Uuid::uuid4()->toString();
+
+        // $request->validate([
+        //     'justificante' => 'max:200*2048',
+        // ]);
 
         if($request->justificante_name == null) {
             $justificante = "No consta";
         }
         else {
             $justificante = $request->justificante_name;
+            $path = $request->file('justificante')->storeAs('/files', $request->justificante_name);
+            //Storage::put('public/files/'.$request->justificante_name, $request->file('justificante'));
         }
 
         $solicitud = $user->solicituds()->create([
@@ -141,15 +150,29 @@ class UserController extends Controller
         ]);
         return response()->json([
             'message' => 'Solicitud enviada',
+            'justificante' => $request->file('justificante'),
             'solicitud' => $solicitud,
+        ]);
+    }
+
+    // borrar una solicitud de un usuario
+    public function deleteSolicitud(Request $request) {
+        $user = User::whereId(Auth::guard('api')->user()->id)->first();
+        $solicitud = $user->solicituds()->whereId($request->solicitud)->first();
+        $solicitud->delete();
+        return response()->json([
+            'message' => 'Solicitud eliminada',
         ]);
     }
 
     // guardar un archivo justificante de una solicitud
     public function saveJustificante(Request $request) {
-        if($request->input('justificante')) {
+        //if($request->input('justificante')) {
+        if($request->hasFile('justificante')) {
+            if($request->file('justificante')->isValid()) {
             $archivo = $request->input('justificante');
-            Storage::put('public/files/'.$request->justificante_name, $archivo[0]);
+            $uniqueId = Uuid::uuid4()->toString();
+            Storage::put('public/files/'.$request->justificante_name.'-'.$uniqueId, $archivo[0]);
             // $file = $request->file('justificante');
             // $name = $request->justificante_name;
             // $file->move(public_path().'../public/files', $name);
@@ -158,10 +181,33 @@ class UserController extends Controller
                 'message' => 'Justificante guardado',
                 'justificante' => $request->justificante_name,
             ]);
+            }
+            else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'El justificante no es válido',
+                ], 500);
+            }
+        }
+        else {
+            return response()->json([
+                'status' => 'error',
+                'justificante' => $request->input('justificante'),
+                'justificante_name' => $request->justificante_name,
+                'header' => $request->headers->get('content-type'),
+                'message' => 'La solicitud no tiene justificante',
+            ], 500);
         }
     }
 
     public function getSolicitudesVacaciones(Request $request) {
+        if (!Auth::guard('api')->user()->supervisor) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
         $user = User::whereId($request->user)->first();
         $supervisados = User::where('supervisado', $user->id)->get();
         
@@ -191,6 +237,13 @@ class UserController extends Controller
 
     // aprobar una solicitud de vacaciones
     public function aprobarSolicitudVacaciones(Request $request) {
+        if (!Auth::guard('api')->user()->supervisor) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        
         $solicitud = Solicitud::whereId($request->solicitud)->first();
         $solicitud->estado = 1;
         $solicitud->save();
@@ -203,6 +256,13 @@ class UserController extends Controller
 
     // denegar una solicitud de vacaciones
     public function denegarSolicitudVacaciones(Request $request) {
+        if (!Auth::guard('api')->user()->supervisor) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        
         $solicitud = Solicitud::whereId($request->solicitud)->first();
         $solicitud->estado = 2;
         $solicitud->save();
@@ -214,13 +274,6 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request) {
-        
-        if (!Auth::guard('api')->user()->admin) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
-        }
 
         $fileName = 'image-' . time();
         if ($request->img_url != 'null') {
@@ -241,6 +294,17 @@ class UserController extends Controller
         $user->formacion = $request->formacion;
     
         $user->save();
+
+        $convenio = new Convenio();
+        $convenio->horas_diarias = $request->horas_diarias;
+        $convenio->sueldo = $request->sueldo;
+        $convenio->sueldo_horas_extra = $request->sueldo_horas_extra;
+        $convenio->tope_horas_extra = $request->tope_horas_extra;
+        $convenio->sueldo_extraordinario = $request->sueldo_extraordinario;
+        $convenio->dias_vacaciones = $request->dias_vacaciones;
+        $convenio->user_id = $user->id;
+        
+        $convenio->save();
 
         return response()->json([
             'message' => 'Usuario creado',

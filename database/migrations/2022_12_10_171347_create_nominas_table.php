@@ -22,7 +22,12 @@ class CreateNominasTable extends Migration
             $table->string('anyo')->default("2022");
             $table->integer('horas');
             $table->integer('horas_extra')->nullable();
+            $table->float('importe_horas_extra')->nullable();
             $table->integer('dias_baja')->nullable();
+            $table->float('importe_dias_baja')->nullable();
+            $table->float('importe_total')->nullable();
+            $table->integer('jornadas_trabajadas')->nullable();
+            $table->integer('jornadas_esperadas')->nullable();
             $table->boolean('estado')->default(false);
             // Relaciones
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

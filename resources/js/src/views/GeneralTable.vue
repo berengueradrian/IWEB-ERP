@@ -64,6 +64,9 @@ export default {
     if (this.$store.state.supervisores.length === 0){
       await this.$store.dispatch('fetchSupervisores')
     }
+    if (this.$store.state.generadasNominas == false) {
+      await this.$store.dispatch('generarNominasMesAnterior')
+    }
     this.categories = this.$store.state.categorias.map(category => category.name)
     this.categories.push('Elige uno')
     this.employees = this.$store.state.empleados

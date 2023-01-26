@@ -48,7 +48,11 @@ const routes = [
   {
     path: '/superole/nuevo',
     name: 'superole-nuevo',
-    component: () => import('@/views/NuevoEmpleado.vue')
+    component: () => import('@/views/NuevoEmpleado.vue'),
+    meta: {
+      auth: true,
+      super: true
+    },
   },
   {
     path: '/typography',
@@ -141,10 +145,10 @@ const routes = [
       layout: 'blank',
     },
   },
-  /* {
+  {
     path: '*',
     redirect: 'error-404',
-  }, */
+  },
 ]
 
 const router = new VueRouter({

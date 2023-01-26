@@ -130,6 +130,68 @@
         </div>
         </div>
       </div>
+      <div class="section-data-form">
+        <div class="section-container">
+          <h3 class="mb-5 mt-5">Convenio</h3>
+          <!-- Convenio base -->
+          <v-text-field
+          v-model="sueldo_base"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo base"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block;"
+        ></v-text-field>
+        <v-text-field
+          v-model="horas_diarias"
+          type="number"
+          :rules="numericRules"
+          label="Horas diarias"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        <!-- Horas extra -->
+        <v-text-field
+          v-model="sueldo_horas_extra"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo horas extra"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block"
+        ></v-text-field>
+        <v-text-field
+          v-model="tope_horas_extra"
+          type="number"
+          :rules="numericRules"
+          label="Tope horas extra"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        <!-- Más -->
+        <v-text-field
+          v-model="sueldo_extraordinario"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo extraordinario"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block"
+        ></v-text-field>
+        <v-text-field
+          v-model="dias_vacaciones"
+          type="number"
+          :rules="numericRules"
+          label="Dias de vacaciones"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        </div>
+      </div>
       
       
       <!-- Botones -->
@@ -200,6 +262,12 @@ export default {
       formData.append('img_url', this.profile_img)
       formData.append('birthday', this.date)
       formData.append('formacion', this.formation)
+      formData.append('sueldo', this.sueldo_base)
+      formData.append('horas_diarias', this.horas_diarias)
+      formData.append('sueldo_horas_extra', this.sueldo_horas_extra)
+      formData.append('tope_horas_extra', this.tope_horas_extra)
+      formData.append('sueldo_extraordinario', this.sueldo_extraordinario)
+      formData.append('dias_vacaciones', this.dias_vacaciones)
       axios.post('/api/users',
         formData, 
         {headers: {
@@ -232,6 +300,9 @@ export default {
         v => !!v || 'Campo requerido',
         v => (v && v.length <= 100) || 'Este campo debe tener menos de 100 caracteres',
       ],
+      numericRules: [
+        v => !!v || 'Campo requerido'
+      ],
       name: '',
       email: '',
       category: '',
@@ -245,7 +316,13 @@ export default {
       activePicker: null,
       date: null,
       profile_img: null,
-      formation: ''
+      formation: '',
+      sueldo_base:'',
+      horas_diarias:'',
+      sueldo_horas_extra:'',
+      tope_horas_extra:'',
+      sueldo_extraordinario:'',
+      dias_vacaciones:''
     }
   },
   watch: {

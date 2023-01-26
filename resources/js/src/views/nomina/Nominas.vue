@@ -32,7 +32,7 @@
             class="filters-bar-select"
           ></v-select>
         </div>
-        <nominas-table :nominas="nominas" ></nominas-table>
+        <nominas-table :nominasProp="nominas"></nominas-table>
       </v-card>  
     </section>
   </template>
@@ -61,6 +61,9 @@
         }
         if (this.$store.state.nominas.length === 0){
             await this.$store.dispatch('fetchAllNominas')
+        }
+        if (this.$store.state.generadasNominas == false) {
+            await this.$store.dispatch('generarNominasMesAnterior')
         }
 
         this.nominas = this.$store.state.nominas

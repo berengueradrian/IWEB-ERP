@@ -45,6 +45,17 @@ class SolicitudsTableSeeder extends Seeder
         ]);
 
         DB::table('solicituds')->insert(
+            [
+                'fecha_inicio' => Carbon::parse('2023-01-02'),
+                'fecha_fin' => Carbon::parse('2023-01-03'),
+                'descripcion' => 'Soy bobo',
+                'estado' => 1,
+                'justificante' => 'justificante.pdf',
+                'tipo' => 'Baja',
+                'user_id' => '1'
+            ]);
+
+        DB::table('solicituds')->insert(
         [
             'fecha_inicio' => Carbon::parse('2022-06-12'),
             'fecha_fin' => NULL,
@@ -94,7 +105,7 @@ class SolicitudsTableSeeder extends Seeder
                 'fecha_inicio' => Carbon::parse('2022-'.rand(1, 12).'-'.rand(1, 28)),
                 'fecha_fin' => Carbon::parse('2023-'.rand(1, 12).'-'.rand(1, 28)),
                 'descripcion' => $faker->sentence($nbWords = 6, $variableNbWords = true),
-                'estado' => $faker->boolean(),
+                'estado' => rand(0,2),
                 'justificante' => 'No consta',
                 'tipo' => $faker->randomElement(['Baja', 'Vacaciones', 'Otros']),
                 'user_id' => $usersId[rand(0, 26)]
