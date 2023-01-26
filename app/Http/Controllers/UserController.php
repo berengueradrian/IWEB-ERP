@@ -83,7 +83,7 @@ class UserController extends Controller
         $user = User::whereId($request->user)->first();
         $supervisor = User::whereId($user->supervisado)->first();
         return response()->json([
-            'supervisor' => $supervisor,
+            'data' => $supervisor,
         ]);
     }
 

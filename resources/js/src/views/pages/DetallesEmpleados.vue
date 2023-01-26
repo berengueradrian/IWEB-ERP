@@ -79,7 +79,14 @@
             </div>
             <!-- Role -->
             <div class="linea">
-                <v-card-text> <b>Equipos a los que pertenece: </b>  {{ this.user.supervisor }} </v-card-text>
+                <v-card-text> <b>Equipo al que pertenece: </b>  
+                    <template v-if="this.nombre_supervisor">
+                        {{ this.nombre_supervisor }} 
+                    </template>
+                    <template v-else>
+                        Ninguno
+                    </template>
+                </v-card-text>
             </div>  
             <div style="display:flex; flex-flow: row;  justify-content:center; gap: 20px;">
                 <v-btn
@@ -144,7 +151,15 @@ import { nullLiteral } from '@babel/types';
 
 
 export default {
+    setup() {
+      return {
+        store
+      }
+    },
     async created() {
+        await this.$store.dispatch('fetchSupervisor')
+
+
         axios.get('/api/users/' + this.$route.params.id,{
             headers: {
             'Authorization': 'Bearer ' + store.state._token
@@ -154,7 +169,6 @@ export default {
             }
         })
         .then(async response => {
-            console.log(response.data.data)
             this.user = response.data.data;
             this.user.name = response.data.data.name;
             this.user.email = response.data.data.email;
@@ -163,17 +177,23 @@ export default {
             this.user.formation = response.data.data.formation;
             this.user.es_supervisor = response.data.data.supervisor;
             this.user.es_admin = response.data.data.admin;
-            this.user.supervisado_por = response.data.data.supervisado;
             this.user.image_url = response.data.data.image_url;
+
+            //get the name of the supervisor
+            axios.get('/api/supervisor/' + this.$route.params.id, {
+                headers: {
+                'Authorization': 'Bearer ' + store.state._token
+                }
+            }).then(async response =>  {
+                this.nombre_supervisor = response.data.data.name;
+            }).catch(error => {
+                console.log(error);
+            });
+
         })
         .catch(error => {
             console.log(error);
         });
-    },
-    setup() {
-      return {
-        store
-      }
     },
     data() {
         return {
@@ -186,11 +206,17 @@ export default {
                 fecha_nacimiento: '',
                 es_supervisor: '',
                 es_admin: '',
-                supervisado_por: '',
-                image_url: ''
+                image_url: '',
             },
-            dialog: false,
+            nombre_supervisor: '',
+            dialog: false
         }
+    },
+    computed: {
+        supervisor() {
+        //this.$store.dispatch('fetchCompletada')
+        return this.$store.state.supervisor
+        },
     },
     methods: {
         deleteUser(){
