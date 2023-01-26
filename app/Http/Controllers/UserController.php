@@ -214,7 +214,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized',
-            ], 401);
+           ], 401);
         }
 
         $user = User::whereId($request->user)->first();

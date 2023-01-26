@@ -97,7 +97,7 @@ class SolicitudsTableSeeder extends Seeder
                 'estado' => rand(0,2),
                 'justificante' => 'No consta',
                 'tipo' => $faker->randomElement(['Baja', 'Vacaciones', 'Otros']),
-                'user_id' => $usersId[rand(0, 26)]
+                'user_id' => $usersId[rand(1, 26)]
             ]);
         }
     }

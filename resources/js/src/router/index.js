@@ -125,6 +125,11 @@ const routes = [
     component: () => import('@/views/pages/DetallesEmpleados.vue'),
   },
   {
+    path: '/pages/superole/solicitudes/',
+    name: 'pages-solicitudes-administrador',
+    component: () => import('@/views/pages/SolicitudesAdministrador.vue'),
+  },
+  {
     path: '/pages/register',
     name: 'pages-register',
     component: () => import('@/views/pages/Register.vue'),

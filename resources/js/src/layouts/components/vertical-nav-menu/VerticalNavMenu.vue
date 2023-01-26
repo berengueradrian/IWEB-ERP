@@ -32,11 +32,14 @@
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
       <nav-menu-link v-if="!this.$store.state.user.admin && !this.$store.state.user.supervisor" title="Inicio" to="/empleado/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
       <nav-menu-link v-if="this.$store.state.user.admin || this.$store.state.user.supervisor" title="Inicio" to="/superole/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
-      <nav-menu-link
+      <!-- solicitudes que alguien envía al admin o su supervisor -->
+      <nav-menu-link v-if="!this.$store.state.user.admin"
         title="Solicitudes"
         :to="{ name: 'pages-solicitudes' }"
         :icon="icons.mdiBookArrowUpOutline"
       ></nav-menu-link>
+      <!-- solicitudes que recibe el administrador -->
+      <nav-menu-link v-if="this.$store.state.user.admin" title="Solicitudes" :to="{ name: 'pages-solicitudes-administrador' }" :icon="icons.mdiBookArrowUpOutline"></nav-menu-link>
       <nav-menu-link title="Nóminas" :to="{ name: 'typography' }" :icon="icons.mdiFileChartOutline"></nav-menu-link> 
       <nav-menu-link v-if="this.$store.state.user.admin" title="Categorías" to="/pages/categorias" :icon="icons.mdiShapeOutline" ></nav-menu-link>
       <!-- <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">

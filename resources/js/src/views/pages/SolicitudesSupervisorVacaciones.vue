@@ -42,6 +42,7 @@
           <div class="parent" v-if="item.estado == 'Pendiente'">
             <div class="child font-weight-medium">
               <v-btn
+                small
                 color="success"
                 @click="approve(item.id)"
               >
@@ -50,6 +51,7 @@
             </div>
             <div class="child">
             <v-btn
+              small
               color="error"
               @click="deny(item.id)"
             >
