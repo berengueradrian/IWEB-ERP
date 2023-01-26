@@ -121,6 +121,6 @@ export default {
 <style lang="scss">
 .v-data-table__wrapper{
   height: min-content!important;
-  max-height: 350px!important;
+  max-height: 600px !important;
 }
 </style>

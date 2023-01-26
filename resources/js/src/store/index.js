@@ -22,6 +22,8 @@ var store = new Vuex.Store({
       usuariosSolicitudes: null,
       numeroCompaneros: null,
       horasTotales: null,
+      solicitudesAdmin: null,
+      usuariosSolicitudesAdmin: null,
     }
   },
   mutations: {
@@ -72,6 +74,12 @@ var store = new Vuex.Store({
     },
     setNumeroCompaneros(state, numeroCompaneros) {
       state.numeroCompaneros = numeroCompaneros
+    },
+    setSolicitudesAdmin(state, solicitudesAdmin) {
+      state.solicitudesAdmin = solicitudesAdmin
+    },
+    setUsuariosSolicitudesAdmin(state, usuariosSolicitudesAdmin) {
+      state.usuariosSolicitudesAdmin = usuariosSolicitudesAdmin
     }
   },
   actions: {
@@ -179,6 +187,21 @@ var store = new Vuex.Store({
         })
         commit('setSolicitudesVacaciones', response.data.solicitudesVacaciones)
         commit('setUsuariosSolicitudes', response.data.usuariosSolicitudes)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    //solo para admins
+    async fetchSolicitudesAdmin({commit}) {
+      try {
+        const response = await axios.get('/api/solicitudesAdmin/', {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+        commit('setSolicitudesAdmin', response.data.solicitudes)
+        commit('setUsuariosSolicitudesAdmin', response.data.usuarios)
       }
       catch (error) {
         throw error

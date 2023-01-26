@@ -142,4 +142,7 @@ export default {
   max-width: 300px!important;
   margin-right: 50px!important;
 }
+.v-card{
+  height:auto;
+}
 </style>

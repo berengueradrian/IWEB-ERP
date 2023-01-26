@@ -4,13 +4,28 @@
       <v-card-title>
         <h2 style="margin-bottom: 10px;">Solicitudes recibidas </h2>
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          label="Buscar"
-          single-line
-          hide-details
-        ></v-text-field>
-        <v-icon style="margin-top: 15px;">{{ mdiMagnify }}</v-icon>
+        <div class="filters-bar">
+
+            <v-select
+            v-model="filters[0]"
+            @input="filterEstado"
+            :items="estados"
+            label="Elige un estado"
+            outlined
+            dense
+            class="filters-bar-select"
+            ></v-select>
+            <v-select
+            v-model="filters[1]"
+            @input="filterTipo"
+            :items="tipos"
+            dense
+            label="Elige un tipo"
+            outlined
+            class="filters-bar-select"
+            ></v-select>
+
+        </div>
       </v-card-title>
       <v-data-table
         :headers="headers"
@@ -23,7 +38,7 @@
       >
         <template #[`item.user_id`]="{item}">
           <div class="d-flex flex-column">
-            <span class="d-block font-weight-semibold text--primary text-truncate">{{ item.user_id }}</span>
+            <span class="d-block font-weight-semibold text--primary text-truncate"> {{ `${item.user_name}` }} </span>
           </div>
         </template>
         <template #[`item.tipo`]="{item}">
@@ -83,21 +98,10 @@ import axios from 'axios';
 
 export default {
     async created() {
-        axios.get('/api/solicitudesAdmin/',{
-                headers: {
-                'Authorization': 'Bearer ' + store.state._token
-                }
-            })
-            .then(async response => {
-                console.log(response);
-                console.log(response.data.solicitudes);
-                console.log(response.data.usuarios)
-                this.usreList = response.data.solicitudes;
-                this.usuarios_solicitudes = response.data.usuarios;
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        await this.$store.dispatch('fetchSolicitudesAdmin')
+
+        this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudesAdmin))
+        this.usuarios_solicitudes = JSON.parse(JSON.stringify(this.$store.state.usuariosSolicitudesAdmin))
         },
         data() {
             return {
@@ -120,14 +124,31 @@ export default {
                 2: 'Denegada',
                 },
                 solicitudes: null,
+                tipos: ['Baja', 'Vacaciones', 'Otros', 'Elige uno'],
+                estados: ['Pendiente', 'Aprobada', 'Denegada', 'Elige uno'],
+                filters: ['Elige uno', 'Elige uno'] // First is the user, second the types and third the states
             }
         },
         computed: {
             filteredItems() {
                 return this.usreList.map(item => {
-                item.user_id = this.usuarios_solicitudes[item.user_id]
-                item.estado = this.status[item.estado];
-                return item;
+                    item.user_id = this.usuarios_solicitudes[item.user_id]
+                    axios.get('/api/users/' + item.user_id, {
+                        headers: {
+                        'Authorization': 'Bearer ' + store.state._token
+                        },
+                        params:{
+                            'api_key':'secreto'
+                        }
+                    }).then(res => {
+                        item.user_name = res.data.data.name;
+                        console.log("la respuesta es " + res.data.data.name)
+                        console.log(item.user_name)
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                    item.estado = this.status[item.estado];
+                    return item;
                 });
             }
         },
@@ -149,6 +170,9 @@ export default {
             getStatusText(estado){
                 return this.status[estado];
             },
+            nombre_usuario(id){
+                return this.usuarios_solicitudes[id].name;
+            },
             async approve(id){
 
             },
@@ -157,11 +181,60 @@ export default {
             },
             async actualizar(){
 
-            }
+            },
+            filterEstado() {
 
+                if (this.filters[0] === 'Elige uno') {
+                    this.usreList = this.$store.state.solicitudesAdmin  
+                }
+                else {
+                    this.usreList = this.$store.state.solicitudesAdmin.filter(sol => sol.estado === this.filters[0])
+                }
+                if (this.filters[1] !== 'Elige uno') {
+                    this.usreList = this.usreList.filter(sol => sol.tipo === this.filters[1])
+                }
+                this.filteredItems();
+            },
+            filterTipo() {
+                if (this.filters[1] === 'Elige uno') {
+                    this.usreList = this.$store.state.solicitudesAdmin  
+                }
+                else {
+                    this.usreList = this.$store.state.solicitudesAdmin.filter(sol => sol.tipo === this.filters[1])
+                }
+                if (this.filters[0] !== 'Elige uno') {
+                    this.usreList = this.usreList.filter(sol => sol.estado === this.filters[0])
+                }
+                this.filteredItems();
+            },
         }
     }
 
-
-
 </script>
+
+<style>
+.filters-bar{
+  display: flex;
+  gap: 30px;
+  padding: 0px 20px;
+  height: min-content;
+  width: 75%;
+  margin-top: 20px;
+}
+.filters-bar-select{
+  width: 200px!important;
+  flex: 0 0 auto!important;
+}
+.filters-bar-search{
+  max-width: 300px!important;
+  margin-right: 50px!important;
+}
+
+.v-data-table{
+  height: min-content!important;
+  max-height: 600px!important;
+  overflow:auto;
+}
+
+
+</style>
