@@ -29,16 +29,16 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="filteredItems"
+        :items="usreList"
         :search="search"
         item-key="descripcion"
         class="table-rounded"
         hide-default-footer
         disable-sort
       >
-        <template #[`item.user_id`]="{item}">
+        <template #[`item.user.name`]="{item}">
           <div class="d-flex flex-column">
-            <span class="d-block font-weight-semibold text--primary text-truncate"> {{ `${item.user_name}` }} </span>
+            <span class="d-block font-weight-semibold text--primary text-truncate"> {{ item.user.name }} </span>
           </div>
         </template>
         <template #[`item.tipo`]="{item}">
@@ -100,14 +100,14 @@ export default {
     async created() {
         await this.$store.dispatch('fetchSolicitudesAdmin')
 
-        this.usreList = JSON.parse(JSON.stringify(this.$store.state.solicitudesAdmin))
-        this.usuarios_solicitudes = JSON.parse(JSON.stringify(this.$store.state.usuariosSolicitudesAdmin))
-        },
+        this.usreList = this.$store.state.solicitudesAdmin
+        this.usuarios_solicitudes = this.$store.state.usuariosSolicitudesAdmin
+    },
         data() {
             return {
                 search: '',
                 headers: [
-                { text: 'Trabajador', value: 'user_id' },
+                { text: 'Trabajador', value: 'user.name' },
                 { text: 'Tipo', value: 'tipo'},
                 { text: 'Descripción', value: 'descripcion' },
                 { text: 'Fecha inicio', value: 'fecha_inicio' },
@@ -127,29 +127,6 @@ export default {
                 tipos: ['Baja', 'Vacaciones', 'Otros', 'Elige uno'],
                 estados: ['Pendiente', 'Aprobada', 'Denegada', 'Elige uno'],
                 filters: ['Elige uno', 'Elige uno'] // First is the user, second the types and third the states
-            }
-        },
-        computed: {
-            filteredItems() {
-                return this.usreList.map(item => {
-                    item.user_id = this.usuarios_solicitudes[item.user_id]
-                    axios.get('/api/users/' + item.user_id, {
-                        headers: {
-                        'Authorization': 'Bearer ' + store.state._token
-                        },
-                        params:{
-                            'api_key':'secreto'
-                        }
-                    }).then(res => {
-                        item.user_name = res.data.data.name;
-                        console.log("la respuesta es " + res.data.data.name)
-                        console.log(item.user_name)
-                    }).catch(err => {
-                        console.log(err);
-                    });
-                    item.estado = this.status[item.estado];
-                    return item;
-                });
             }
         },
         setup() {
@@ -184,6 +161,8 @@ export default {
             },
             filterEstado() {
 
+                console.log(this.usreList)
+
                 if (this.filters[0] === 'Elige uno') {
                     this.usreList = this.$store.state.solicitudesAdmin  
                 }
@@ -193,7 +172,8 @@ export default {
                 if (this.filters[1] !== 'Elige uno') {
                     this.usreList = this.usreList.filter(sol => sol.tipo === this.filters[1])
                 }
-                this.filteredItems();
+                
+                console.log(this.usreList)
             },
             filterTipo() {
                 if (this.filters[1] === 'Elige uno') {
@@ -205,7 +185,6 @@ export default {
                 if (this.filters[0] !== 'Elige uno') {
                     this.usreList = this.usreList.filter(sol => sol.estado === this.filters[0])
                 }
-                this.filteredItems();
             },
         }
     }

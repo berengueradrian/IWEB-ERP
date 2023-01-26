@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Solicitud;
 
 class SolicitudController extends Controller
 {
@@ -22,46 +23,36 @@ class SolicitudController extends Controller
                 'message' => 'Unauthorized',
             ], 401);
         }
-
-
-        $usuarios = User::select('users.id', 'users.name', 'users.email')->where('admin', 0)->get();
         
-        $solicitudes = [];
-        $usuarios_con_solicitud = [];
+        $solicitudes = Solicitud::all();
 
-        // añado todas las solicitudes que son de tipo OTROS
-        // añado todas las solicitudes que son de tipo BAJAS
-        // añado todas las solicitudes que son de tipo VACACIONES si el usuario NO TIENE SUPERVISOR
-
-        foreach($usuarios as $user) {
-
-            if ($user->supervisado() == null){
-                $solicituds = $user->solicituds()->get();
+        foreach ($solicitudes as $solicitud) {
+            $solicitud->user = $solicitud->user()->first();
+            
+            if ($solicitud->estado == 0) {
+                $solicitud->estado = "Pendiente";
+            } else if ($solicitud->estado == 1) {
+                $solicitud->estado = "Aprobada";
+            } else if ($solicitud->estado == 2) {
+                $solicitud->estado = "Denegada";
             }
-            else{   //ya tiene un supervisor que va a ver las solicitudes de vacaciones
-                $solicituds = $user->solicituds()->where('tipo', '!=', 'vacaciones')->get();
-            }
+        }
 
-            $usuarios_con_solicitud[$user->id] = $user->id;
-            $size = count($solicituds);
-            if($size > 0) {
-                if($size > 1) {
-                    for($i = 0; $i < $size; $i++) {
-                        array_push($solicitudes, $solicituds[$i]);
-                    }
+        $return_array = array();
+
+        foreach ($solicitudes as $solicitud) {
+            if ($solicitud->tipo == "Vacaciones") {
+                if ($solicitud->user->supervisado == null) {
+                    array_push($return_array, $solicitud);
                 }
-                else {
-                    array_push($solicitudes, $solicituds[0]);
-                }
+            } else {
+                array_push($return_array, $solicitud);
             }
         }
 
         return response()->json([
-            'usuarios' => $usuarios_con_solicitud,
             'solicitudes' => $solicitudes,
         ]);
-
-
     }
 
 }
