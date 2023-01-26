@@ -98,7 +98,7 @@ import FileUploadComponent from '../../components/FileUploadComponent.vue'
 
 export default {
     async created() {
-        axios.get('http://localhost:8000/api/users/' + this.$route.params.id,{
+        axios.get('/api/users/' + this.$route.params.id,{
             headers: {
             'Authorization': 'Bearer ' + store.state._token
             }

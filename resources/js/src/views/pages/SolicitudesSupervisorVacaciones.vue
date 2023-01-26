@@ -123,7 +123,7 @@
       },
       async approve(id) {
         try {
-          await axios.post('http://localhost:8000/api/solicitudes/' + id + '/aprobar', {},{
+          await axios.post('/api/solicitudes/' + id + '/aprobar', {},{
             headers: {
               'Authorization': 'Bearer ' + store.state._token
             }
@@ -139,7 +139,7 @@
       },
       async deny(id) {
         try {
-        await axios.post('http://localhost:8000/api/solicitudes/' + id + '/denegar', {}, {
+        await axios.post('/api/solicitudes/' + id + '/denegar', {}, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
