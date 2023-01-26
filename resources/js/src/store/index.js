@@ -187,7 +187,7 @@ var store = new Vuex.Store({
     async fetchEmpleados({commit}) {
       const response = await axios.get('/api/users', {
         params: {
-          'api_key': 'tmrgmbhyfvdbuxkiive'
+          'api_key': 'secreto'
         }
       });
       let empleados = response.data.data
