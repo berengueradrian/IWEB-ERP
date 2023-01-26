@@ -57,9 +57,14 @@
             <p class="text-xs mb-0">
               Supervisor
             </p>
-            <h3 class="text-xs font-weight-semibold">
+
+            <h3 v-if="this.supervisor.name" class="text-xs font-weight-semibold">
               {{ this.supervisor.name }}
             </h3>
+            <h3 v-else class="text-xs font-weight-semibold">
+              Ninguno
+            </h3>
+
           </div>
         </v-col>
         <v-col cols="6" md="3" class="d-flex align-center">
