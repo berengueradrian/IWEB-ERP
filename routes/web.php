@@ -5,6 +5,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\NominaController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\SupervisorAuth;
@@ -84,7 +85,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::delete('/categorias/{id}', [CategoryController::class, 'deleteCategoria']);
     // Ruta para coger solo una categoria
     Route::get('/categorias/{id}', [CategoryController::class, 'getCategoria']);
-
+    //Ruta para obtener las solicitudes enviadas al administrador
+    Route::get('/solicitudesAdmin', [SolicitudController::class, 'getSolicitudesAdmin'])->middleware(AdminAuth::class);;
     Route::get('/upload', [FileController::class, 'index']);
     Route::post('/upload', [FileController::class, 'upload'])->name('upload');
 
