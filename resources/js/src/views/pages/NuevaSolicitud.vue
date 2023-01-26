@@ -93,6 +93,7 @@
         color="primary"
         class="mr-4"
         @click="validate"
+        to="/pages/solicitudes"
         >
             Enviar solicitud
         </v-btn>
@@ -180,7 +181,7 @@
 
                 console.log(this.justificante[0]);
                 try {
-                    await axios.post('http://localhost:8000/api/solicitudes/' + this.user.id, formData, {
+                    await axios.post('/api/solicitudes/' + this.user.id, formData, {
                             headers: {
                                 'Authorization': 'Bearer ' + store.state._token
                             }
@@ -198,7 +199,7 @@
                         // formData2.append('justificante_name', this.justificante[0].name);
                         // console.log(formData2.get('justificante'));
 
-                        // axios.post('http://localhost:8000/api/solicitud/file', formData2, {
+                        // axios.post('/api/solicitud/file', formData2, {
                         //     headers: {
                         //         // 'Content-Type': 'multipatr/form-data',
                         //         'Authorization': 'Bearer ' + store.state._token
@@ -210,7 +211,7 @@
                         //     console.log(error.justificante)
                         //     console.log(error.justificante_name)
                         // });
-                        // // return axios.post('http://localhost:8000/api/solicitud/file', formData, {
+                        // // return axios.post('/api/solicitud/file', formData, {
                         //     headers: {
                         //         'Content-Type': 'multipart/form-data',
                         //         'Authorization': 'Bearer ' + store.state._token
