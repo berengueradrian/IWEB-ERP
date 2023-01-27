@@ -18,7 +18,6 @@
     "/images/card-basic-person.png": "/images/card-basic-person.png",
     "/images/digital-ocean-logo.png": "/images/digital-ocean-logo.png",
     "/images/error.png": "/images/error.png",
-    "/images/feote.png": "/images/feote.png",
     "/images/github.png": "/images/github.png",
     "/images/google.png": "/images/google.png",
     "/images/gumroad.png": "/images/gumroad.png",
@@ -29,7 +28,6 @@
     "/images/logos/bank-account.png": "/images/logos/bank-account.png",
     "/images/logos/bitbank.png": "/images/logos/bitbank.png",
     "/images/logos/digital-ocean-logo.png": "/images/logos/digital-ocean-logo.png",
-    "/images/logos/feote.png": "/images/logos/feote.png",
     "/images/logos/github.png": "/images/logos/github.png",
     "/images/logos/google.png": "/images/logos/google.png",
     "/images/logos/gumroad.png": "/images/logos/gumroad.png",
@@ -76,5 +74,6 @@
     "/images/ua-logo.png": "/images/ua-logo.png",
     "/images/upgrade-banner-dark.png": "/images/upgrade-banner-dark.png",
     "/images/upgrade-banner-light.png": "/images/upgrade-banner-light.png",
+    "/images/users/default.jpg": "/images/users/default.jpg",
     "/images/zipcar.png": "/images/zipcar.png"
 }
