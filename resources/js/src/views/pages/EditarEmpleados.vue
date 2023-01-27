@@ -335,7 +335,6 @@
             this.name = response.data.data.name;
             this.email = response.data.data.email;
             this.category = response.data.data.category;
-            console.log(response.data.data);
             this.fecha_nacimiento = response.data.data.fecha_nacimiento;
             this.formation = response.data.data.formation;
             this.es_supervisor = response.data.data.supervisor;
@@ -343,6 +342,7 @@
             this.formacion = response.data.data.formacion;
             this.image_url = response.data.data.image_url;
             this.sueldo_base = response.data.data.convenio.sueldo;
+            this.convenio_id = response.data.data.convenio.id;
             this.horas_diarias = response.data.data.convenio.horas_diarias;
             this.sueldo_horas_extra = response.data.data.convenio.sueldo_horas_extra;
             this.tope_horas_extra = response.data.data.convenio.tope_horas_extra;
@@ -413,7 +413,21 @@
 
       },
       editarDatosLaborales(){
-
+        // llamada a metodo post para actualizar los datos en bbdd
+        axios.post('/api/convenios/' + this.convenio_id, {
+          sueldo: this.sueldo_base,
+          horas_diarias: this.horas_diarias,
+          sueldo_horas_extra: this.sueldo_horas_extra,
+          tope_horas_extra: this.tope_horas_extra,
+          sueldo_extraordinario: this.sueldo_extraordinario,
+          dias_vacaciones: this.dias_vacaciones
+        }, {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+            }
+        }).then(async response => {
+          this.$router.push({ name: 'pages-empleados-detalles', params: {id: this.user_id}})
+        })
       },
       editarDatosCuenta(){
 
@@ -462,6 +476,7 @@
         name: '',
         email: '',
         category: '',
+        convenio_id: '',
         role: '',
         fecha_nacimiento: '',
         admin: '',

@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\NominaController;
 use App\Http\Middleware\AdminAuth;
+use App\Http\Controllers\ConvenioController;
 use App\Http\Middleware\SupervisorAuth;
 
 /*
@@ -67,6 +68,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::post('/solicitudes/{solicitud}/aprobar', [UserController::class, 'aprobarSolicitudVacaciones']);
     // ruta para rechazar una solicitud de vacaciones
     Route::post('/solicitudes/{solicitud}/denegar', [UserController::class, 'denegarSolicitudVacaciones']);
+    // ruta para modificar el convenio
+    Route::post('/convenios/{convenio}', [ConvenioController::class, 'updateConvenio']);
     // ruta para crear un nuevo usuario
     Route::post('/users', [UserController::class, 'createUser'])->middleware(AdminAuth::class);
     // ruta para obtener un usuario
