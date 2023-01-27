@@ -182,4 +182,8 @@
     margin: 0 5px;
     font-size: medium;
   }
+
+  .v-data-table__wrapper{
+  max-height: 600px !important;
+}
 </style>
