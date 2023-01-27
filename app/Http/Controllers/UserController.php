@@ -34,6 +34,7 @@ class UserController extends Controller
 
         $user = User::select('users.id', 'users.name', 'users.email', 'users.fecha_nacimiento', 'users.admin', 'users.image_url')->whereId($request->user)->first();
         $user->convenio = Convenio::whereUserId($user->id)->first();
+        $user->category = Category::whereId($user->category_id)->first();
         return response()->json([
             'data' => $user,
         ]);
