@@ -169,8 +169,8 @@ class UserController extends Controller
 
     // descargar un justificante de una solicitud
     public function downloadJustificante(Request $request) {
-        $user = User::whereId(Auth::guard('api')->user()->id)->first();
-        $solicitud = $user->solicituds()->whereId($request->solicitud)->first();
+        //$user = User::whereId(Auth::guard('api')->user()->id)->first();
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
         $justificante = $solicitud->justificante;
         if($justificante == "No consta") {
             return response()->json([
@@ -248,7 +248,11 @@ class UserController extends Controller
                     }
                 }
                 else {
-                    array_push($solicitudes, $solicituds[0]);
+                    if($size == 0) {
+                        continue;
+                    } else {
+                        array_push($solicitudes, $solicituds[0]);
+                    }
                 }
             }
         }
