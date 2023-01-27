@@ -87,8 +87,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert(
         [
-            'name' => 'adri',
-            'email' => 'adri@ua.es',
+            'name' => 'Adrián Berenguer',
+            'email' => 'adriberenguer@ua.es',
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,
@@ -101,8 +101,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert(
         [
-            'name' => 'ilyan',
-            'email' => 'ilyan@ua.es',
+            'name' => 'Ilyan Slyusarchuck',
+            'email' => 'ilyanslyusarchuck@ua.es',
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,
@@ -117,8 +117,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert(
         [
-            'name' => 'rosa',
-            'email' => 'rosa@ua.es',
+            'name' => 'Rosa María Rodríguez',
+            'email' => 'rosamariarodriguez@ua.es',
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,
@@ -131,8 +131,8 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert(
         [
-            'name' => 'javi',
-            'email' => 'javi@ua.es',
+            'name' => 'Javi Rodríguez',
+            'email' => 'javirodriguez@ua.es',
             'password' => Hash::make('123'),
             'admin' => false,
             'supervisor' => false,

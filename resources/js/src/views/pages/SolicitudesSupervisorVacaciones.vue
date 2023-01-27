@@ -16,9 +16,7 @@
         :headers="headers"
         :items="filteredItems"
         :search="search"
-        item-key="descripcion"
-        class="table-rounded"
-        hide-default-footer
+        item-key="id"
         disable-sort
       >
         <template #[`item.user_id`]="{item}">
@@ -399,4 +397,8 @@
     margin: 0 5px;
     font-size: medium;
   }
+
+  .v-data-table__wrapper{
+  max-height: 600px !important;
+}
 </style>

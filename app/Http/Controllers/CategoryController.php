@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function getCategoria(Request $request) {
         $categoria = Category::whereId($request->id)->first();
         return response()->json([
-            'data' => $categoria
+            'categoria' => $categoria
         ]);
     }
 

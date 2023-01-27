@@ -102,14 +102,30 @@ class SolicitudsTableSeeder extends Seeder
         for ($i = 0; $i < 35; $i++) {
             DB::table('solicituds')->insert(
             [
-                'fecha_inicio' => Carbon::parse('2022-'.rand(1, 12).'-'.rand(1, 28)),
-                'fecha_fin' => Carbon::parse('2023-'.rand(1, 12).'-'.rand(1, 28)),
+                'fecha_inicio' => Carbon::parse('2021-'.rand(1, 12).'-'.rand(1, 28)),
+                'fecha_fin' => Carbon::parse('2022-'.rand(1, 12).'-'.rand(1, 28)),
                 'descripcion' => $faker->sentence($nbWords = 6, $variableNbWords = true),
                 'estado' => rand(0,2),
                 'justificante' => 'No consta',
-                'tipo' => $faker->randomElement(['Baja', 'Vacaciones', 'Otros']),
+                'tipo' => $faker->randomElement(['Baja', 'Otros']),
                 'user_id' => $usersId[rand(1, 26)]
             ]);
+        }
+
+        for ($i = 0; $i < 27; $i++) {
+            $mes = ($i <= 13) ? 7 : 8;
+            for ($k = 2021; $k < 2023; $k++) {
+                DB::table('solicituds')->insert(
+                [
+                    'fecha_inicio' => Carbon::parse($k.'-'.$mes.'-'.'1'),
+                    'fecha_fin' => Carbon::parse($k.'-'.$mes.'-'.'28'),
+                    'descripcion' => 'Vacaciones de verano',
+                    'estado' => 1,
+                    'justificante' => 'No consta',
+                    'tipo' => 'Vacaciones',
+                    'user_id' => $usersId[$i]
+                ]);
+            }
         }
     }
 }
