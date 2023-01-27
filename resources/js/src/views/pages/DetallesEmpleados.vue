@@ -275,7 +275,6 @@ export default {
                     }
                 })
                 .then(async response => {
-    
                     this.$router.push({ name: 'superole-dashboard' })
                 })
                 .catch(error => {

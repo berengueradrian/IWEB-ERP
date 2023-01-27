@@ -44,7 +44,7 @@
                       >
                       <template v-slot:activator="{ on, attrs }">
                           <v-text-field class="form-text-input"
-                          v-model="date"
+                          v-model="fecha_nacimiento"
                           label="Fecha nacimiento"
                           readonly
                           v-bind="attrs"
@@ -52,7 +52,7 @@
                           ></v-text-field>
                       </template>
                       <v-date-picker
-                          v-model="date"
+                          v-model="fecha_nacimiento"
                           required
                           :active-picker.sync="activePicker"
                           min="1950-01-01"
@@ -76,7 +76,7 @@
               </div>
           </div>
       </v-form>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form2" v-model="valid2" lazy-validation>
         <div class="section-data-form">
           <div class="section-container">
           <h3 class="mb-5 mt-5">Datos profesionales</h3>
@@ -131,7 +131,7 @@
               <v-btn
               color="primary"
               class="mr-4"
-              @click="validate">
+              @click="validate2">
                 Guardar cambios
               </v-btn>
             </div>
@@ -139,7 +139,7 @@
           </div>
         </div>
       </v-form>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form3" v-model="valid3" lazy-validation>
         <div class="section-data-form">
           <div class="section-container">
           <h3 class="mb-5 mt-5">Datos laborales</h3>
@@ -209,7 +209,7 @@
               <v-btn
               color="primary"
               class="mr-4"
-              @click="validate">
+              @click="validate3">
                 Guardar cambios
               </v-btn>
             </div>
@@ -217,7 +217,7 @@
           </div>
         </div>
       </v-form>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form4" v-model="valid4" lazy-validation>
         <div class="section-data-form">
           <div class="section-container">
           <h3 class="mb-5 mt-5">Información de la cuenta</h3>
@@ -251,7 +251,7 @@
               <v-btn
               color="primary"
               class="mr-4"
-              @click="validate">
+              @click="validate4">
                 Guardar cambios
               </v-btn>
             </div>
@@ -274,13 +274,12 @@
           <v-btn
           color="error"
           class="mr-4"
-          @click="dialog = true"
+          @click="dialog = true"  v-if="this.admin == false "
           >
               Borrar empleado
           </v-btn>
 
-        </div>
-      </v-form>        
+        </div>     
 
       <v-dialog
             v-model="dialog"
@@ -312,6 +311,8 @@
   <script>
   import axios from 'axios';
   import { mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
+  import store from '../../store/index.js';
+
   
   export default {
     created() {
@@ -321,29 +322,116 @@
       if (this.$store.state.supervisores.length === 0) {
         this.$store.dispatch('fetchSupervisores')  
       }
+
+      axios.get('/api/users/' + this.$route.params.id,{
+            headers: {
+            'Authorization': 'Bearer ' + store.state._token
+            },
+            params:{
+                'api_key':'secreto'
+            }
+        })
+        .then(async response => {
+            this.name = response.data.data.name;
+            this.email = response.data.data.email;
+            this.category = response.data.data.category;
+            console.log(response.data.data);
+            this.fecha_nacimiento = response.data.data.fecha_nacimiento;
+            this.formation = response.data.data.formation;
+            this.es_supervisor = response.data.data.supervisor;
+            this.es_admin = response.data.data.admin;
+            this.formacion = response.data.data.formacion;
+            this.image_url = response.data.data.image_url;
+            this.sueldo_base = response.data.data.convenio.sueldo;
+            this.horas_diarias = response.data.data.convenio.horas_diarias;
+            this.sueldo_horas_extra = response.data.data.convenio.sueldo_horas_extra;
+            this.tope_horas_extra = response.data.data.convenio.tope_horas_extra;
+            this.sueldo_extraordinario = response.data.data.convenio.sueldo_extraordinario;
+            this.dias_vacaciones = response.data.data.convenio.dias_vacaciones;
+
+            if(this.es_supervisor){
+              this.rol = "Supervisor"
+            }
+            else if (this.es_admin){
+              this.rol = "Administrador"
+            }
+            else{
+              this.rol = "Empleado"
+            }
+
+
+            //get the name of the supervisor
+            axios.get('/api/supervisor/' + this.$route.params.id, {
+                headers: {
+                'Authorization': 'Bearer ' + store.state._token
+                }
+            }).then(async response =>  {
+                this.nombre_supervisor = response.data.data.name;
+            }).catch(error => {
+                console.log(error);
+            });
+
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
     },
     methods: {
       validate() {
         this.$refs.form.validate()
   
         if(this.valid) {
-          this.editarEmpleado()
+          this.editarDatosPersonales()
         }
       },
-      editarEmpleado() {},
+      validate2(){
+        this.$refs.form2.validate()
+        if (this.valid2){
+          this.editarDatosProfesionales()
+        }
+      },
+
+      validate3(){
+        this.$refs.form3.validate()
+        if (this.valid3){
+          this.editarDatosLaborales()
+        }
+      },
+
+      validate4(){
+        this.$refs.form4.validate()
+        if (this.valid4){
+          this.editarDatosCuenta()
+        }
+      },
+
+      editarDatosPersonales(){
+
+      },
+      editarDatosProfesionales(){
+
+      },
+      editarDatosLaborales(){
+
+      },
+      editarDatosCuenta(){
+
+      },
       deleteUser(){
-        axios.delete('http://localhost:3000/empleados/' + this.user_id, {
+        axios.delete('/api/users/' + this.user_id, {
           headers: {
-                    'Authorization': 'Bearer ' + store.state._token
-                    }
+            'Authorization': 'Bearer ' + store.state._token
+            }
         })
         .then(async response => {
-            this.$router.push({ name: 'pages-empleados-editar', params:{id: this.user_id}})
+            this.$router.push({ name: 'superole-dashboard'})
         })
         .catch(err => {
           console.log(err)
         })
       },
+
       save (date) {
         this.$refs.menu.save(date)
       },
@@ -352,6 +440,9 @@
     data() {
       return {
         valid: true,
+        valid2: true,
+        valid3: true,
+        valid4: true,
         gralRules: [
           v => !!v || 'Campo requerido',
           v => (v && v.length <= 50) || 'Este campo debe tener menos de 50 caracteres',
@@ -372,11 +463,14 @@
         email: '',
         category: '',
         role: '',
+        fecha_nacimiento: '',
+        admin: '',
         supervisor: '',
         sueldo_base: '',
         horas_diarias: '',
         sueldo_horas_extra: '',
         tope_horas_extra: '',
+        rol: '',
         sueldo_extraordinario: '',
         dias_vacaciones: '',
         user_id: this.$route.params.id,
