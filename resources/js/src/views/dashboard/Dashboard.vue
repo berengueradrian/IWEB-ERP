@@ -26,7 +26,7 @@
           <v-card>
             <v-card-title class="align-start">
               <v-avatar
-                color="error"
+                color="warning"
                 size="38"
                 class="elevation-3"
               >
@@ -136,7 +136,7 @@
           <v-card>
             <v-card-title class="align-start">
               <v-avatar
-                color="success"
+                color="info"
                 size="38"
                 class="elevation-3"
               >
@@ -229,7 +229,8 @@ export default {
     await this.$store.dispatch('fetchHorasTotales')
     await this.$store.dispatch('fetchNumeroCompaneros')
     await this.$store.dispatch('fetchSolicitudes')
-    await this.$store.dispatch('fetchNominas')
+    await this.$store.dispatch('fetchAllNominas')
+    await this.$store.dispatch('fetchNominasUsuario')
     this.solicitudesCount = this.$store.state.solicitudes.length
     this.nominasCount = this.$store.state.nominas.length
   },

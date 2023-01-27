@@ -8,27 +8,13 @@
         <v-card-subtitle v-if="this.completada == false" class="text-no-wrap ps-2"> Que tengas un gran día </v-card-subtitle>
         <v-card-text class="d-flex align-center mt-2 pb-2 ps-2">
           <div>
+            <span v-if="negativo && !mostrarHoras" class="text-h8" style="margin-bottom: 5px;"> Ya has completado una jornada hoy </span>
+            <span v-if="negativo && mostrarHoras" class="text-h8" style="margin-bottom: 5px;"> Ya has completado una jornada de {{ this.horas }}h </span>
+            <span v-if="mostrarHoras && !negativo" class="text-h8" style="margin-bottom: 5px;"> Tu jornada de hoy ha sido de {{ this.horas }}h </span>
             <v-btn v-if="this.completada == false" @click="finalizar" small color="primary"> Finalizar jornada </v-btn>
-            <v-btn v-if="this.completada == true" @click="fichar" small color="primary"> Fichar </v-btn>
+            <v-btn v-if="this.completada == true" @click="fichar" small color="primary" style="margin-top: 5px;"> Fichar </v-btn>
           </div>
         </v-card-text>
-      </v-col>
-
-      <v-col cols="4">
-        <v-img
-          contain
-          height="180"
-          width="159"
-          :src="require(`@/assets/images/misc/triangle-${$vuetify.theme.dark ? 'dark' : 'light'}.png`).default"
-          class="greeting-card-bg"
-        ></v-img>
-        <v-img
-          contain
-          height="108"
-          max-width="83"
-          class="greeting-card-trophy"
-          :src="require('@/assets/images/misc/trophy.png').default"
-        ></v-img>
       </v-col>
     </v-row>
   </v-card>
@@ -47,39 +33,50 @@
     },
     data() {
       return {
-        user: this.$store.state.user
+        user: this.$store.state.user,
+        negativo: false,
+        horas: 0,
+        mostrarHoras: false,
       }
     },
-    created() {
-      //this.$store.dispatch('fetchUser')
-      //this.$store.commit('setToken')
-      this.$store.dispatch('fetchCompletada')
-      // console.log(this.$store.state)
+    async created() {
+      await this.$store.dispatch('fetchCompletada')
+      await this.$store.dispatch('fetchJornadas')
     },
     computed: {
       completada() {
-        //this.$store.dispatch('fetchCompletada')
         return this.$store.state.completada
       }
     },
     methods: {
       async fichar() {
-        try {
-          const response = await axios.
-            post('/api/startJornada/' + this.user.id,{
-              _token: this.$store.state.csrfToken
-            }, {
-              headers: {
-                'Authorization': 'Bearer ' + store.state._token
+        var ultima = this.$store.state.jornadas[0].fecha
+        var hoy = new Date()
+        if(hoy.getMonth() + 1 < 10) {
+          var mes = '0' + (hoy.getMonth() + 1)
+        } else {
+          var mes = hoy.getMonth() + 1
+        }
+        var fecha = hoy.getFullYear() + '-' + mes + '-' + hoy.getDate()
+        if(ultima == fecha) {
+          this.negativo = true;
+        }
+        else {
+          try {
+            const response = await axios.
+              post('/api/startJornada/' + this.user.id,{
+                _token: this.$store.state.csrfToken
+              }, {
+                headers: {
+                  'Authorization': 'Bearer ' + store.state._token
+                }
               }
-            }
-            ).then(response => {
-              this.$store.dispatch('fetchCompletada')
-              // console.log(this.$store.state.completada)
-              // console.log(response)
-            });
-        } catch (error) {
-          console.log(error);
+              ).then(response => {
+                this.$store.dispatch('fetchCompletada')
+              });
+          } catch (error) {
+            console.log(error);
+          }
         }
       },
       async finalizar() {
@@ -92,10 +89,11 @@
                 'Authorization': 'Bearer ' + store.state._token
               }
             }
-            ).then(response => {
-              this.$store.dispatch('fetchCompletada')
-              // console.log(this.$store.state.completada)
-              // console.log(response)
+            ).then(async (response) => {
+              await this.$store.dispatch('fetchCompletada')
+              await this.$store.dispatch('fetchJornadas')
+              this.horas = this.$store.state.jornadas[0].hora_salida - this.$store.state.jornadas[0].hora_entrada
+              this.mostrarHoras = true;
             });
         } catch (error) {
           console.log(error);

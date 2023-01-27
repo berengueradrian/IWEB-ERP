@@ -12,7 +12,7 @@
     </v-card-title>
 
     <v-card-subtitle class="mb-8 mt-n5">
-      <span class="font-weight-semibold text--primary me-1">{{$store.state.user.name}}</span>
+      <span class="font-weight-semibold text--primary me-1">{{this.user.name}}</span>
     </v-card-subtitle>
 
     <v-card-text>
@@ -57,9 +57,14 @@
             <p class="text-xs mb-0">
               Supervisor
             </p>
-            <h3 class="text-xs font-weight-semibold">
+
+            <h3 v-if="this.supervisor.name" class="text-xs font-weight-semibold">
               {{ this.supervisor.name }}
             </h3>
+            <h3 v-else class="text-xs font-weight-semibold">
+              Ninguno
+            </h3>
+
           </div>
         </v-col>
         <v-col cols="6" md="3" class="d-flex align-center">
@@ -83,48 +88,47 @@
 </template>
 
 <script>
-import { mdiAccountOutline, mdiLabelOutline, mdiCalendarBlank, mdiFolderAccountOutline, mdiAccountEyeOutline, mdiAccountTieOutline } from '@mdi/js'
+  import { mdiAccountOutline, mdiLabelOutline, mdiCalendarBlank, mdiFolderAccountOutline, mdiAccountEyeOutline, mdiAccountTieOutline } from '@mdi/js'
 
-import store from '../../store/index.js';
+  import store from '../../store/index.js';
 
-export default {
-  setup() {
-    return {
-      store,
-      // icons
-      icons: {
-        mdiAccountOutline,
-        mdiLabelOutline,
-        mdiCalendarBlank,
-        mdiFolderAccountOutline,
-        mdiAccountTieOutline
+  export default {
+    setup() {
+      return {
+        store,
+        icons: {
+          mdiAccountOutline,
+          mdiLabelOutline,
+          mdiCalendarBlank,
+          mdiFolderAccountOutline,
+          mdiAccountTieOutline
+        },
+      }
+    },
+    async created() {
+      await this.$store.dispatch('fetchUser')
+      await this.$store.dispatch('fetchCompletada')
+      await this.$store.dispatch('fetchCategoria')
+      await this.$store.dispatch('fetchSupervisor')
+    },
+    computed: {
+      user() {
+        return this.$store.state.user
       },
-    }
-  },
-  async created() {
-    await this.$store.dispatch('fetchUser')
-    await this.$store.dispatch('fetchCompletada')
-    await this.$store.dispatch('fetchCategoria')
-    await this.$store.dispatch('fetchSupervisor')
-  },
-  computed: {
-    completada() {
-      //this.$store.dispatch('fetchCompletada')
-      return this.$store.state.completada
+      completada() {
+        return this.$store.state.completada
+      },
+      categoria() {
+        return this.$store.state.categoria
+      },
+      supervisor() {
+        return this.$store.state.supervisor
+      },
     },
-    categoria() {
-      //this.$store.dispatch('fetchCategoria')
-      return this.$store.state.categoria
+    data() {
+      return {
+      }
     },
-    supervisor() {
-      //this.$store.dispatch('fetchSupervisor')
-      return this.$store.state.supervisor
-    },
-  },
-  data() {
-    return {
-    }
-  },
 
-}
+  }
 </script>

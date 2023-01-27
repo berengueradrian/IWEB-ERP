@@ -37,7 +37,6 @@
           </td>
           <td class="text-center">
             <v-btn :to="{name: 'pages-empleados-detalles', params: {id: item.id}}" small color="primary"> Ver más </v-btn>
-            <v-btn :to="{name: 'pages-empleados-editar', params: {id: item.id}}" small color="primary"> Editar </v-btn>
           </td>
         </tr>
       </tbody>
@@ -68,6 +67,6 @@ export default {
 <style lang="scss">
 .v-data-table__wrapper{
   height: min-content!important;
-  max-height: 350px!important;
+  max-height: 450px!important;
 }
 </style>

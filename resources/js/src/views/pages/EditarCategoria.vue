@@ -28,7 +28,7 @@
 
     export default {
         async created() {
-            axios.get('http://localhost:8000/api/categorias/' + this.$route.params.id,{
+            axios.get('/api/categorias/' + this.$route.params.id,{
                 headers: {
                 'Authorization': 'Bearer ' + store.state._token
                 }
@@ -70,7 +70,7 @@
                 const formData = new FormData();
                 formData.append('name', this.nombre);
                 // print name from formData
-                await axios.post('http://localhost:8000/api/categorias/' + this.id, formData, {
+                await axios.post('/api/categorias/' + this.id, formData, {
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token
                     }

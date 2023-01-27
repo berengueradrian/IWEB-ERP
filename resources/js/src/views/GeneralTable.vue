@@ -55,14 +55,15 @@ export default {
     }
   },
   async created() {
-    if (this.$store.state.empleados.length === 0){
       await this.$store.dispatch('fetchEmpleados')
-    }
     if (this.$store.state.categorias.length === 0){
       await this.$store.dispatch('fetchCategorias')
     }
     if (this.$store.state.supervisores.length === 0){
       await this.$store.dispatch('fetchSupervisores')
+    }
+    if (this.$store.state.generadasNominas == false) {
+      await this.$store.dispatch('generarNominasMesAnterior')
     }
     this.categories = this.$store.state.categorias.map(category => category.name)
     this.categories.push('Elige uno')
@@ -143,5 +144,8 @@ export default {
 .filters-bar-search{
   max-width: 300px!important;
   margin-right: 50px!important;
+}
+.v-card{
+  height:auto;
 }
 </style>
