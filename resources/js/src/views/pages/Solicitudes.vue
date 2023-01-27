@@ -19,8 +19,6 @@
         :headers="headers"
         :items="usreList"
         item-key="id"
-        class="table-rounded"
-        hide-default-footer
         disable-sort
       >
         <template #[`item.tipo`]="{item}">
@@ -131,4 +129,8 @@
     margin: 0 5px;
     font-size: medium;
   }
+
+  .v-data-table__wrapper{
+  max-height: 600px !important;
+}
 </style>

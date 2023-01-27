@@ -1,6 +1,6 @@
 <template>
     <div>
-      <v-card class="overflow-hidden">
+      <v-card>
         <v-card-title>
           <h2 style="margin-bottom: 10px;"> Solicitudes del trabajador {{ `${user_name}` }}</h2>
           <v-spacer></v-spacer>
@@ -9,8 +9,6 @@
           :headers="headers"
           :items="usreList"
           item-key="id"
-          class="table-rounded"
-          hide-default-footer
           :sort-by="['estado']"
         >
 

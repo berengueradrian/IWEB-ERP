@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="overflow-hidden">
+    <v-card>
       <v-card-title>
         <h2 style="margin-bottom: 10px;">Solicitudes recibidas </h2>
         <v-spacer></v-spacer>
@@ -32,9 +32,6 @@
         :items="usreList"
         :search="search"
         item-key="id"
-        class="table-rounded"
-        hide-default-footer
-        disable-sort
       >
         <template #[`item.user.name`]="{item}">
           <div class="d-flex flex-column">
@@ -80,6 +77,7 @@
             </div>
           </div>
         </template>
+
       </v-data-table>
     </v-card>
   </div>
@@ -235,16 +233,6 @@ export default {
 .filters-bar-search{
   max-width: 300px!important;
   margin-right: 50px!important;
-}
-
-.v-data-table{
-  height: min-content!important;
-  max-height: 600px!important;
-}
-
-.v-data-table__wrapper{
-    height: min-content!important;
-    max-height: 600px!important;
 }
 
 
