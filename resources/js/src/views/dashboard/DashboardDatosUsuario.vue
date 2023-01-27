@@ -110,7 +110,6 @@
       await this.$store.dispatch('fetchCompletada')
       await this.$store.dispatch('fetchCategoria')
       await this.$store.dispatch('fetchSupervisor')
-      console.log(this.$store.state.supervisor)
     },
     computed: {
       user() {
