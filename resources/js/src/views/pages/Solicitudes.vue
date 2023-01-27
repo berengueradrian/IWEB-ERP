@@ -122,7 +122,7 @@
         this.$set(this, 'usreList', JSON.parse(JSON.stringify(this.$store.state.solicitudes)))
       },
       async descargar(id, nombre) {
-        await axios.get('http://localhost:8000/api/solicitudes/' + id + '/file',
+        await axios.get('/api/solicitudes/' + id + '/file',
         {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
@@ -182,4 +182,8 @@
     margin: 0 5px;
     font-size: medium;
   }
+
+  .v-data-table__wrapper{
+  max-height: 600px !important;
+}
 </style>

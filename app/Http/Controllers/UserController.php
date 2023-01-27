@@ -102,7 +102,7 @@ class UserController extends Controller
     // obtener las jornadas de un usuario
     public function getJornadas(Request $request) {
         $user = User::whereId($request->user)->first();
-        $jornadas = $user->jornadas()->orderBy('id', 'desc')->take(5)->get();
+        $jornadas = $user->jornadas()->orderBy('fecha', 'desc')->take(5)->get();
         // $jornadas = $user->jornadas()->get();
         // $jornadas = [];
         // for($i = 0; $i < count($jornadas1) && $i <= 5; $i++) {
@@ -116,8 +116,11 @@ class UserController extends Controller
 
     // obtener las solicitudes de un usuario
     public function getSolicitudes(Request $request) {
-        $user = User::whereId($request->user)->first();
+        $user = User::select('users.id', 'users.name')->whereId($request->user)->first();
         $solicitudes = $user->solicituds()->get();
+        foreach($solicitudes as $sol){
+            $sol->user = $user;
+        }
         return response()->json([
             'solicitudes' => $solicitudes,
         ]);
@@ -169,8 +172,8 @@ class UserController extends Controller
 
     // descargar un justificante de una solicitud
     public function downloadJustificante(Request $request) {
-        $user = User::whereId(Auth::guard('api')->user()->id)->first();
-        $solicitud = $user->solicituds()->whereId($request->solicitud)->first();
+        //$user = User::whereId(Auth::guard('api')->user()->id)->first();
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
         $justificante = $solicitud->justificante;
         if($justificante == "No consta") {
             return response()->json([
@@ -248,7 +251,11 @@ class UserController extends Controller
                     }
                 }
                 else {
-                    array_push($solicitudes, $solicituds[0]);
+                    if($size == 0) {
+                        continue;
+                    } else {
+                        array_push($solicitudes, $solicituds[0]);
+                    }
                 }
             }
         }

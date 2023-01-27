@@ -95,7 +95,6 @@
         color="primary"
         class="mr-4"
         @click="validate"
-        to="/pages/solicitudes"
         >
             Enviar solicitud
         </v-btn>
