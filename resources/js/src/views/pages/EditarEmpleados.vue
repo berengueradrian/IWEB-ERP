@@ -62,8 +62,7 @@
                   </div>
                   <div class="botones"> 
                     <v-btn
-                    color="warning"
-                    @click="reset">
+                    color="warning">
                         Reestablecer
                     </v-btn>
                     <v-btn
@@ -76,8 +75,8 @@
                   </div>
               </div>
           </div>
-  
-  
+      </v-form>
+      <v-form ref="form" v-model="valid" lazy-validation>
         <div class="section-data-form">
           <div class="section-container">
           <h3 class="mb-5 mt-5">Datos profesionales</h3>
@@ -126,8 +125,7 @@
 
           <div class="botones"> 
               <v-btn
-              color="warning"
-              @click="reset">
+              color="warning">
                   Reestablecer
               </v-btn>
               <v-btn
@@ -140,7 +138,8 @@
 
           </div>
         </div>
-
+      </v-form>
+      <v-form ref="form" v-model="valid" lazy-validation>
         <div class="section-data-form">
           <div class="section-container">
           <h3 class="mb-5 mt-5">Datos laborales</h3>
@@ -201,10 +200,24 @@
           class="form-text-input"
           style="display: inline-block"
         ></v-text-field>
+
+        <div class="botones"> 
+              <v-btn
+              color="warning">
+                  Reestablecer
+              </v-btn>
+              <v-btn
+              color="primary"
+              class="mr-4"
+              @click="validate">
+                Guardar cambios
+              </v-btn>
+            </div>
+
           </div>
         </div>
-
-
+      </v-form>
+      <v-form ref="form" v-model="valid" lazy-validation>
         <div class="section-data-form">
           <div class="section-container">
           <h3 class="mb-5 mt-5">Información de la cuenta</h3>
@@ -232,8 +245,7 @@
           </div>
           <div class="botones"> 
               <v-btn
-              color="warning"
-              @click="reset">
+              color="warning">
                   Reestablecer
               </v-btn>
               <v-btn
@@ -245,16 +257,16 @@
             </div>
           </div>
         </div>
-        
+      </v-form>
         
         <!-- Botones -->
-        <div class="mt-10">
+        <div class="botones">
   
           <v-btn
           color="warning"
           class="mr-4"
-          :to="{ name: 'superole-dashboard' }"
-          @click="reset"
+          :to="{ name: 'pages-empleados-detalles', params: {id: user_id} }"
+
           >
               Volver
           </v-btn>
@@ -262,12 +274,37 @@
           <v-btn
           color="error"
           class="mr-4"
+          @click="dialog = true"
           >
               Borrar empleado
           </v-btn>
 
         </div>
       </v-form>        
+
+      <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="590px"
+            >
+
+            <v-card  v-if="this.dialog">
+                <v-card-title class="text-h5"> ¿Estás seguro de que quieres eliminar a este empleado? </v-card-title>
+                <v-card-text> Todos sus datos se perderán. </v-card-text>
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="green darken-1" text @click="dialog = false">
+                    Cancelar
+                </v-btn>
+                <v-btn
+                    color="green darken-1" text @click="deleteUser">
+                    Aceptar
+                </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
     </section>
   
   </template>
@@ -290,40 +327,27 @@
         this.$refs.form.validate()
   
         if(this.valid) {
-          this.crearEmpleado()
+          this.editarEmpleado()
         }
       },
-      crearEmpleado() {
-        const formData = new FormData();
-        formData.append('name', this.name)
-        formData.append('email', this.email)
-        formData.append('category', this.category)
-        if (this.role === 'Empleado') {
-          formData.append('role', 0)
-        }
-        else {
-          formData.append('role', 1)
-        }
-        formData.append('supervisor', this.supervisor)
-        formData.append('password', this.password)
-        formData.append('img_url', this.profile_img)
-        formData.append('birthday', this.date)
-        formData.append('formacion', this.formation)
-        axios.post('/api/users',
-          formData, 
-          {headers: {
-            'Authorization': 'Bearer ' + this.$store.state._token
-          }}
-        )
-          .then(() => this.$router.push('/superole/dashboard'))
-          .catch(error => console.log('ERROR: ' + error))
-      },
-      reset() {
-        this.$refs.form.reset()
+      editarEmpleado() {},
+      deleteUser(){
+        axios.delete('http://localhost:3000/empleados/' + this.user_id, {
+          headers: {
+                    'Authorization': 'Bearer ' + store.state._token
+                    }
+        })
+        .then(async response => {
+            this.$router.push({ name: 'pages-empleados-editar', params:{id: this.user_id}})
+        })
+        .catch(err => {
+          console.log(err)
+        })
       },
       save (date) {
         this.$refs.menu.save(date)
       },
+      
     },
     data() {
       return {
@@ -341,11 +365,21 @@
           v => !!v || 'Campo requerido',
           v => (v && v.length <= 100) || 'Este campo debe tener menos de 100 caracteres',
         ],
+        numericRules: [
+        v => !!v || 'Campo requerido'
+        ],
         name: '',
         email: '',
         category: '',
         role: '',
         supervisor: '',
+        sueldo_base: '',
+        horas_diarias: '',
+        sueldo_horas_extra: '',
+        tope_horas_extra: '',
+        sueldo_extraordinario: '',
+        dias_vacaciones: '',
+        user_id: this.$route.params.id,
         roleItems: ['Empleado', 'Supervisor'],
         password: '',
         isPasswordVisible: false,
@@ -354,7 +388,8 @@
         activePicker: null,
         date: null,
         profile_img: null,
-        formation: ''
+        formation: '',
+        dialog: false,
       }
     },
     watch: {
