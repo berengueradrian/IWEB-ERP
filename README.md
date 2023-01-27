@@ -1,5 +1,5 @@
-# IWEB-ERP-RRHH
-## Proyecto ERP - Apartado de RRHH
+# IWEB-ERP2-RRHH
+## Proyecto ERP2 - Apartado de RRHH
 
 - Autores:
     - `Adrián Berenguer Agulló`
@@ -7,7 +7,7 @@
     - `Javier Rodríguez Juan`
     - `Ilya Slyusarchuk Dimitrouchkina`
 
-## En la carpeta doc/ adjuntaremos la memoria junto con las historias de usuario y especificación inicial.
+## En la carpeta /doc se encuentra la Memoria técnica junto con la Especificación inicial.
 
 ## Repositorio
 - https://github.com/berengueradrian/IWEB-ERP
@@ -17,13 +17,6 @@
 
 ## Mockups
 - https://app.moqups.com/iYPyM8jmZRTvMapOayHeBzq0XNaNuJeP/edit/page/a81dd62ef
-
-## Plantilla instalada
-- https://themeselection.com/item/materio-free-vuetify-vuejs-laravel-admin-template/
-
-## Instalación de plantilla
--  Mirad este enlace para ver los comandos que tenéis que ejecutar por si tenéis dudas
-    - https://demos.themeselection.com/materio-vuetify-vuejs-admin-template-vue2/documentation/guide/laravel-integration/installation.html#guide
     
 ## BBDD
 - Draw.io con la **estructura de la BBDD**: https://app.diagrams.net/#G1Zdn3UXGbnQ15xSQ_08hQ3R2FfHNFtsm5
@@ -71,3 +64,10 @@ Recuerda también ejecutar php artisan storage:link para que se enlace la carpet
     - *public/*: aquí encontramos la carpeta *images/*, donde **crearemos** una nueva llamada *users/* y meteremos las imágenes de perfil de los usuarios. Esta carpeta no se subirá a git por lo que la creamos todos y nos pasamos las fotos.
 
     - *resources/*, por último, esta carpeta contiene las vistas en *js/src/views*, también *js/src/components* y *js/src/*. También encontramos las rutas *js/src/router*. Otras como el *js/src/store* (manejo del estado de la aplicación) o *js/src/plugins*.
+
+## Plantilla instalada
+- https://themeselection.com/item/materio-free-vuetify-vuejs-laravel-admin-template/
+
+## Instalación de plantilla
+-  Enlace de soporte para la instalación y modificación de la plantilla
+    - https://demos.themeselection.com/materio-vuetify-vuejs-admin-template-vue2/documentation/guide/laravel-integration/installation.html#guide
