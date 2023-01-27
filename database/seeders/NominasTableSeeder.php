@@ -23,7 +23,7 @@ class NominasTableSeeder extends Seeder
 
         for($i = 0; $i < 27; $i++) {
             $sueldo = rand(1200, 4500);
-            for($j = 0; $j < 13; $j++) {
+            for($j = 0; $j < 12; $j++) {
                 for($k = 2021; $k < 2023; $k++) {
                     DB::table('nominas')->insert(
                     [
@@ -34,7 +34,8 @@ class NominasTableSeeder extends Seeder
                         'horas_extra' => rand(0, 5),
                         'dias_baja' => rand(0, 5),
                         'user_id' => $usersId[$i],
-                        'anyo' => $k
+                        'anyo' => $k,
+                        'estado' => 1
                     ]);
                 }
             }

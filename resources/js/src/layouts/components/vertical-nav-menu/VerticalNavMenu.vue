@@ -38,8 +38,6 @@
         :to="{ name: 'pages-solicitudes-vacaciones' }"
         :icon="icons.mdiFileClockOutline"
       ></nav-menu-link>
-      <nav-menu-link
-      <!-- solicitudes que alguien envía al admin o su supervisor -->
       <nav-menu-link v-if="!this.$store.state.user.admin"
         title="Solicitudes"
         :to="{ name: 'pages-solicitudes' }"

@@ -95,7 +95,7 @@ const routes = [
     component: () => import('@/views/pages/NuevaSolicitud.vue'),
   },
   {
-    path: '/pages/solicitudes/vacaciones',
+    path: '/pages/vacaciones',
     name: 'pages-solicitudes-vacaciones',
     component: () => import('@/views/pages/SolicitudesSupervisorVacaciones.vue'),
   },
