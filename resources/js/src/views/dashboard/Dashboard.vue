@@ -230,9 +230,9 @@ export default {
     await this.$store.dispatch('fetchNumeroCompaneros')
     await this.$store.dispatch('fetchSolicitudes')
     await this.$store.dispatch('fetchAllNominas')
-    await this.$store.dispatch('fetchNominasUsuario')
+    await this.$store.dispatch('fetchNominas')
     this.solicitudesCount = this.$store.state.solicitudes.length
-    this.nominasCount = this.$store.state.nominas.length
+    this.nominasCount = this.$store.state.nominas_usuario.length
   },
   setup() {
     return {

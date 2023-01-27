@@ -102,7 +102,7 @@ class UserController extends Controller
     // obtener las jornadas de un usuario
     public function getJornadas(Request $request) {
         $user = User::whereId($request->user)->first();
-        $jornadas = $user->jornadas()->orderBy('id', 'desc')->take(5)->get();
+        $jornadas = $user->jornadas()->orderBy('fecha', 'desc')->take(5)->get();
         // $jornadas = $user->jornadas()->get();
         // $jornadas = [];
         // for($i = 0; $i < count($jornadas1) && $i <= 5; $i++) {

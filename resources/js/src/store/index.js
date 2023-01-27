@@ -161,7 +161,7 @@ var store = new Vuex.Store({
     },
     async fetchNominas({commit}) {
       try {
-        const response = await axios.get('/api/nominas/' + this.state.user.id, {
+        const response = await axios.get('/api/nominas/users/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
