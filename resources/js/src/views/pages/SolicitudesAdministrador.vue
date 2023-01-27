@@ -187,7 +187,7 @@ export default {
             },
             filterEstado() {
 
-                console.log(this.usreList)
+                //console.log(this.usreList)
 
                 if (this.filters[0] === 'Elige uno') {
                     this.usreList = this.$store.state.solicitudesAdmin  
@@ -199,7 +199,7 @@ export default {
                     this.usreList = this.usreList.filter(sol => sol.tipo === this.filters[1])
                 }
                 
-                console.log(this.usreList)
+                //console.log(this.usreList)
             },
             filterTipo() {
                 if (this.filters[1] === 'Elige uno') {

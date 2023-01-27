@@ -52,14 +52,14 @@
                 const formData = new FormData();
                 formData.append('name', this.nombre);
                 // print name from formData
-                console.log(formData.get('name'));
+                //console.log(formData.get('name'));
                 await axios.post('/api/categorias/', formData, {
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token
                     }
                 })
                 .then(async response => {
-                    console.log(response);
+                    //console.log(response);
                     await this.$store.dispatch('fetchCategorias')
                     this.$router.push({ name: 'pages-categorias' })
                 })

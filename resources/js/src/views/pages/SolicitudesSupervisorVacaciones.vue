@@ -248,7 +248,7 @@
             }
           }).
           then(response => {
-            console.log(response)
+            //console.log(response)
             this.actualizar()
             //this.solicitudes = JSON.parse(JSON.stringify(this.$store.state.solicitudesVacaciones))
           })
@@ -332,8 +332,8 @@
         return Math.floor((b - a + 1) * Math.random()) + a
       },
       async descargar(id, nombre) {
-        console.log(id)
-        console.log(nombre)
+        //console.log(id)
+        //console.log(nombre)
         await axios.get('/api/solicitudes/' + id + '/file',
         {
           headers: {
