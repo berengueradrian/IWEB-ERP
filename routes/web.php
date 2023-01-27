@@ -85,6 +85,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::delete('/categorias/{id}', [CategoryController::class, 'deleteCategoria']);
     // Ruta para coger solo una categoria
     Route::get('/categorias/{id}', [CategoryController::class, 'getCategoria']);
+    // Ruta para descargar justificantes
+    Route::get('/solicitudes/{solicitud}/file', [UserController::class, 'downloadJustificante']);
     //Ruta para obtener las solicitudes enviadas al administrador
     Route::get('/solicitudesAdmin', [SolicitudController::class, 'getSolicitudesAdmin'])->middleware(AdminAuth::class);;
     Route::get('/upload', [FileController::class, 'index']);

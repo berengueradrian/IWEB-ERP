@@ -135,7 +135,7 @@ class UserController extends Controller
         //     'justificante' => 'max:200*2048',
         // ]);
 
-        if($request->justificante_name == null) {
+        if($request->justificante == null) {
             $justificante = "No consta";
         }
         else {
@@ -168,6 +168,28 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Solicitud eliminada',
         ]);
+    }
+
+    // descargar un justificante de una solicitud
+    public function downloadJustificante(Request $request) {
+        $user = User::whereId(Auth::guard('api')->user()->id)->first();
+        $solicitud = $user->solicituds()->whereId($request->solicitud)->first();
+        $justificante = $solicitud->justificante;
+        if($justificante == "No consta") {
+            return response()->json([
+                'message' => 'No hay justificante',
+            ]);
+        }
+        else {
+            if($justificante == "undefined") {
+                return response()->json([
+                    'message' => 'No hay justificante',
+                ]);
+            }
+            $path = storage_path('/app/files/'.$justificante);
+
+            return response()->download($path);
+        }
     }
 
     // guardar un archivo justificante de una solicitud

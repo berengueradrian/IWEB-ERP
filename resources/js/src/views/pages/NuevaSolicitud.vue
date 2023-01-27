@@ -9,7 +9,7 @@
         <v-select
         v-model="select"
         :items="items"
-        :rules="[v => !!v || 'El tipo es requerido']"
+        :rules="[v => !!v || 'El tipo es obligatorio']"
         label="Tipo"
         required
         ></v-select>
@@ -37,6 +37,7 @@
                 <v-text-field
                 v-model="date"
                 label="Fecha inicial"
+                :rules="dateRules"
                 readonly
                 v-bind="attrs"
                 v-on="on"
@@ -67,6 +68,7 @@
                 v-model="date2"
                 label="Fecha final"
                 readonly
+                
                 v-bind="attrs"
                 v-on="on"
                 ></v-text-field>
@@ -133,11 +135,11 @@
             valid: true,
             description: '',
             descrRules: [
-                v => !!v || 'La descripción es requerida',
+                v => !!v || 'La descripción es obligatoria',
                 v => (v && v.length <= 50) || 'La descripción debe tener menos de 50 caracteres',
             ],
             dateRules: [
-                v => !!v || 'La fecha es requerida',
+                v => !!v || 'La fecha es obligatoria',
             ],
             select: null,
             items: [
@@ -172,14 +174,17 @@
                 formData.append('descripcion', this.description);
                 formData.append('tipo', this.select);
                 formData.append('fecha_inicio', this.date);
-                formData.append('justificante', this.justificante[0]);
-                if(this.date2 == null) {formData.append('fecha_fin', this.date);}
-                else {formData.append('fecha_fin', this.date2);}
-                if(this.justificante != null) { formData.append('justificante_name', this.justificante[0].name);}
-                else {formData.append('justificante_name', 'No consta');}
+
+                if(this.date2 == null) { formData.append('fecha_fin', this.date); }
+                else { formData.append('fecha_fin', this.date2);}
+                if(this.justificante != null) { 
+                    formData.append('justificante_name', this.justificante[0].name);
+                    formData.append('justificante', this.justificante[0]);
+                }
+                else { formData.append('justificante_name', 'No consta');}
+                
                 formData.append('user_id', this.user.id);
 
-                console.log(this.justificante[0]);
                 try {
                     await axios.post('/api/solicitudes/' + this.user.id, formData, {
                             headers: {
@@ -187,39 +192,10 @@
                             }
                         })
                     .then(response => {
-                        console.log(response);
-                        console.log(this.justificante[0].name);
-                        console.log(this.justificante[0]);
-                        // this.$router.push({ name: 'pages-solicitudes' })
-                        // if(this.justificante == null) {
-                        //     this.$router.push({ name: 'pages-solicitudes' })
-                        // }
-                        // const formData2 = new FormData();
-                        // formData2.append('justificante', this.justificante[0], this.justificante[0].name);
-                        // formData2.append('justificante_name', this.justificante[0].name);
-                        // console.log(formData2.get('justificante'));
-
-                        // axios.post('/api/solicitud/file', formData2, {
-                        //     headers: {
-                        //         // 'Content-Type': 'multipatr/form-data',
-                        //         'Authorization': 'Bearer ' + store.state._token
-                        //     }
-                        // }).then(response => {
-                        //     this.$router.push({ name: 'pages-solicitudes' });
-                        // }).catch(error => {
-                        //     console.log(error);
-                        //     console.log(error.justificante)
-                        //     console.log(error.justificante_name)
-                        // });
-                        // // return axios.post('/api/solicitud/file', formData, {
-                        //     headers: {
-                        //         'Content-Type': 'multipart/form-data',
-                        //         'Authorization': 'Bearer ' + store.state._token
-                        //     }
-                        // }
-                        // ).then(response => {
-                        //     this.$router.push({ name: 'pages-solicitudes' })
-                        // })
+                        // console.log(response);
+                        // console.log(this.justificante[0].name);
+                        // console.log(this.justificante[0]);
+                        this.$router.push({ name: 'pages-solicitudes' })
                     })
                     .catch(error => {
                         console.log(error);
