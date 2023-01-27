@@ -95,14 +95,14 @@ export default {
             }
         },
         deleteCategory(id){
-            console.log(id)
+            //console.log(id)
             axios.delete('/api/categorias/' + id,{
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token
                     }
                 })
                 .then(async response => {
-                    console.log(response);
+                    //console.log(response);
                     await this.$store.dispatch('fetchCategorias')
                     this.categorias = this.$store.state.categorias
 
