@@ -32,7 +32,7 @@ class UserController extends Controller
 
     public function getUser(Request $request) {
 
-        $user = User::select('users.id', 'users.name', 'users.email', 'users.fecha_nacimiento', 'users.admin', 'users.image_url')->whereId($request->user)->first();
+        $user = User::select('users.id', 'users.name', 'users.email', 'users.formacion', 'users.fecha_nacimiento', 'users.admin', 'users.supervisor', 'users.image_url')->whereId($request->user)->first();
         $user->convenio = Convenio::whereUserId($user->id)->first();
         $user->category = Category::whereId($user->category_id)->first();
         return response()->json([
@@ -364,7 +364,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->fecha_nacimiento = $request->birthday;
         $user->image_url = $fileName;
-        $user->formacion = $request->formacion;
+        $user->formacion = $request->formation;
     
         $user->save();
 
@@ -417,6 +417,45 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Usuario eliminado',
+        ]);
+    }
+
+    public function editUser(Request $request){
+        $user = User::whereId($request->user)->first();
+
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+        if ($request->has('category')) {
+            $user->category_id = $request->category;
+        }
+        if ($request->has('supervisor')){
+            $user->supervisor = $request->supervisor;
+        }
+        if ($request->has('supervisado')) {
+            $user->supervisado = $request->supervisado;
+        }
+        if ($request->has('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        if ($request->has('birthday')) {
+            $user->fecha_nacimiento = $request->birthday;
+        }
+        if ($request->has('formation')) {
+            $user->formacion = $request->formation;
+        }
+        if ($request->has('password')) {
+            $user->password = $request->password;
+        }
+
+        $user->save();
+
+        return response()->json([
+            'message' => 'Usuario editado',
+            'data' => $user
         ]);
     }
 

@@ -74,6 +74,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::post('/users', [UserController::class, 'createUser'])->middleware(AdminAuth::class);
     // ruta para obtener un usuario
     Route::get('/users/{user}', [UserController::class, 'getUser']);
+    //ruta para editar un usuario
+    Route::post('/users/{user}', [UserController::class, 'editUser'])->middleware(AdminAuth::class);
     // ruta para borrar un usuario
     Route::delete('/users/{user}', [UserController::class, 'deleteUser'])->middleware(AdminAuth::class);
     // ruta para obtener las horas trabajadas de un usuario

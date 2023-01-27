@@ -62,10 +62,6 @@
                   </div>
                   <div class="botones"> 
                     <v-btn
-                    color="warning">
-                        Reestablecer
-                    </v-btn>
-                    <v-btn
                     color="primary"
                     class="mr-4"
                     @click="validate">
@@ -124,10 +120,6 @@
           ></v-select>
 
           <div class="botones"> 
-              <v-btn
-              color="warning">
-                  Reestablecer
-              </v-btn>
               <v-btn
               color="primary"
               class="mr-4"
@@ -203,10 +195,6 @@
 
         <div class="botones"> 
               <v-btn
-              color="warning">
-                  Reestablecer
-              </v-btn>
-              <v-btn
               color="primary"
               class="mr-4"
               @click="validate3">
@@ -225,7 +213,7 @@
           <v-text-field
             v-model="password"
             :type="isPasswordVisible ? 'text' : 'password'"
-            label="Password"
+            label="Nueva contraseña"
             placeholder="············"
             :append-icon="isPasswordVisible ? icons.mdiEyeOffOutline : icons.mdiEyeOutline"
             hide-details
@@ -233,21 +221,7 @@
             style="margin-bottom: 30px; display: inline-block"
             @click:append="isPasswordVisible = !isPasswordVisible"
           ></v-text-field>
-          <!-- Foto perfil -->
-          <div style="display:inline-block">
-          <v-file-input
-            placeholder="Foto de perfil"
-            chips
-            truncate-length="15"
-            v-model="profile_img"
-            class="form-text-input"
-          ></v-file-input>
-          </div>
           <div class="botones"> 
-              <v-btn
-              color="warning">
-                  Reestablecer
-              </v-btn>
               <v-btn
               color="primary"
               class="mr-4"
@@ -274,7 +248,7 @@
           <v-btn
           color="error"
           class="mr-4"
-          @click="dialog = true"  v-if="this.admin == false "
+          @click="dialog = true"  v-if="this.es_admin == false "
           >
               Borrar empleado
           </v-btn>
@@ -336,11 +310,16 @@
             this.email = response.data.data.email;
             this.category = response.data.data.category;
             this.fecha_nacimiento = response.data.data.fecha_nacimiento;
-            this.formation = response.data.data.formation;
+            this.formation = response.data.data.formacion;
+
+
             this.es_supervisor = response.data.data.supervisor;
             this.es_admin = response.data.data.admin;
-            this.formacion = response.data.data.formacion;
             this.image_url = response.data.data.image_url;
+
+            console.log("este usuairo es admin? " + this.es_admin)
+            console.log("este usuairo es supervisor? " + this.es_supervisor)
+
             this.sueldo_base = response.data.data.convenio.sueldo;
             this.convenio_id = response.data.data.convenio.id;
             this.horas_diarias = response.data.data.convenio.horas_diarias;
@@ -407,10 +386,40 @@
       },
 
       editarDatosPersonales(){
-
-      },
+        const formData = new FormData();
+        formData.append('name', this.name)
+        formData.append('email', this.email)
+        formData.append('birthday', this.fecha_nacimiento)
+        
+        axios.post('/api/users/' + this.user_id,formData, 
+        {headers: {
+          'Authorization': 'Bearer ' + this.$store.state._token
+        }}
+      )
+        .then((response) => {
+          this.$router.push({ name: 'pages-empleados-detalles', params: {id: this.user_id}})
+        })
+        .catch(error => console.log('ERROR: ' + error))
+    },
       editarDatosProfesionales(){
+        const formData = new FormData();
 
+        this.role = this.role == 'Empleado' ? 0 : 1
+        
+        formData.append('formation', this.formation)
+        formData.append('supervisor', this.role)
+        formData.append('category', this.category)
+        formData.append('supervisado', this.supervisor)
+        
+        axios.post('/api/users/' + this.user_id,formData, 
+        {headers: {
+          'Authorization': 'Bearer ' + this.$store.state._token
+        }}
+      )
+        .then((response) => {
+          this.$router.push({ name: 'pages-empleados-detalles', params: {id: this.user_id}})
+        })
+        .catch(error => console.log('ERROR: ' + error))
       },
       editarDatosLaborales(){
         // llamada a metodo post para actualizar los datos en bbdd
@@ -430,6 +439,17 @@
         })
       },
       editarDatosCuenta(){
+        const formData = new FormData();
+        formData.append('password', this.password)
+        axios.post('/api/users/' + this.user_id,formData, 
+        {headers: {
+          'Authorization': 'Bearer ' + this.$store.state._token
+        }}
+      )
+        .then((response) => {
+          this.$router.push({ name: 'pages-empleados-detalles', params: {id: this.user_id}})
+        })
+        .catch(error => console.log('ERROR: ' + error))
 
       },
       deleteUser(){

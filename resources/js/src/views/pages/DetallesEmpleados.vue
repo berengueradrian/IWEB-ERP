@@ -208,7 +208,7 @@ export default {
             this.user.email = response.data.data.email;
             this.user.category = response.data.data.category;
             this.user.fecha_nacimiento = response.data.data.fecha_nacimiento;
-            this.user.formation = response.data.data.formation;
+            this.user.formation = response.data.data.formacion;
             this.user.es_supervisor = response.data.data.supervisor;
             this.user.es_admin = response.data.data.admin;
             this.user.image_url = response.data.data.image_url;

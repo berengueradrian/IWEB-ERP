@@ -11,7 +11,7 @@
       <div class="pb-3 pt-2">
         <v-badge bottom color="success" overlap offset-x="12" offset-y="12" class="ms-4" dot>
           <v-avatar size="40px">
-            <v-img :src="profileImage"></v-img>
+            <v-img src="/images/1.png"></v-img>
           </v-avatar>
         </v-badge>
         <div class="d-inline-flex flex-column justify-center ms-3" style="vertical-align: middle">
