@@ -33,6 +33,12 @@
       <nav-menu-link v-if="!this.$store.state.user.admin && !this.$store.state.user.supervisor" title="Inicio" to="/empleado/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
       <nav-menu-link v-if="this.$store.state.user.admin || this.$store.state.user.supervisor" title="Inicio" to="/superole/dashboard" :icon="icons.mdiHomeOutline"></nav-menu-link>
       <nav-menu-link
+        v-if="this.$store.state.user.supervisor"
+        title="Gestión vacaciones"
+        :to="{ name: 'pages-solicitudes-vacaciones' }"
+        :icon="icons.mdiFileClockOutline"
+      ></nav-menu-link>
+      <nav-menu-link
         title="Solicitudes"
         :to="{ name: 'pages-solicitudes' }"
         :icon="icons.mdiBookArrowUpOutline"
@@ -79,7 +85,8 @@ import {
   mdiFormSelect,
   mdiAccountCogOutline,
   mdiFileChartOutline,
-  mdiBookArrowUpOutline
+  mdiBookArrowUpOutline,
+  mdiFileClockOutline
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -110,7 +117,8 @@ export default {
         mdiAccountCogOutline,
         mdiFileChartOutline,
         mdiBookArrowUpOutline,
-        mdiShapeOutline
+        mdiShapeOutline,
+        mdiFileClockOutline
       },
     }
   },

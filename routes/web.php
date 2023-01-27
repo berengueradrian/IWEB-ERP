@@ -68,6 +68,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::delete('/categorias/{id}', [CategoryController::class, 'deleteCategoria']);
     // Ruta para coger solo una categoria
     Route::get('/categorias/{id}', [CategoryController::class, 'getCategoria']);
+    // Ruta para descargar justificantes
+    Route::get('/solicitudes/{solicitud}/file', [UserController::class, 'downloadJustificante']);
 });
 
 // Routes accesible from API KEY auth

@@ -26,7 +26,7 @@
           <v-card>
             <v-card-title class="align-start">
               <v-avatar
-                color="error"
+                color="warning"
                 size="38"
                 class="elevation-3"
               >
@@ -136,7 +136,7 @@
           <v-card>
             <v-card-title class="align-start">
               <v-avatar
-                color="success"
+                color="info"
                 size="38"
                 class="elevation-3"
               >
