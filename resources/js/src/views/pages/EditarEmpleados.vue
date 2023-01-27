@@ -1,7 +1,7 @@
 <template>
 
   <section>
-      <h2 class="mb-10">Detalles del empleado</h2>
+      <h2 class="mb-10">Editar empleado</h2>
       <v-form ref="form" v-model="valid" lazy-validation>
           <div class="section-top">
               <div class="section-container">
@@ -60,10 +60,22 @@
                       ></v-date-picker>
                       </v-menu>
                   </div>
+                  <div class="botones"> 
+                    <v-btn
+                    color="warning"
+                    @click="reset">
+                        Reestablecer
+                    </v-btn>
+                    <v-btn
+                    color="primary"
+                    class="mr-4"
+                    @click="validate">
+                      Guardar cambios
+                    </v-btn>
+                  </div>
                   </div>
               </div>
           </div>
-  
   
   
         <div class="section-data-form">
@@ -111,8 +123,88 @@
             class="form-text-input mb-5"
             style="display: inline-block"
           ></v-select>
+
+          <div class="botones"> 
+              <v-btn
+              color="warning"
+              @click="reset">
+                  Reestablecer
+              </v-btn>
+              <v-btn
+              color="primary"
+              class="mr-4"
+              @click="validate">
+                Guardar cambios
+              </v-btn>
+            </div>
+
           </div>
         </div>
+
+        <div class="section-data-form">
+          <div class="section-container">
+          <h3 class="mb-5 mt-5">Datos laborales</h3>
+
+          <v-text-field
+          v-model="sueldo_base"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo base"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block;"
+        ></v-text-field>
+        <v-text-field
+          v-model="horas_diarias"
+          type="number"
+          :rules="numericRules"
+          label="Horas diarias"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+        
+          <v-text-field
+          v-model="sueldo_horas_extra"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo horas extra"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block"
+        ></v-text-field>
+        <v-text-field
+          v-model="tope_horas_extra"
+          type="number"
+          :rules="numericRules"
+          label="Tope horas extra"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+
+          <v-text-field
+          v-model="sueldo_extraordinario"
+          type="number"
+          :rules="numericRules"
+          label="Sueldo extraordinario"
+          required
+          class="form-text-input mr-10"
+          style="display: inline-block"
+        ></v-text-field>
+        <v-text-field
+          v-model="dias_vacaciones"
+          type="number"
+          :rules="numericRules"
+          label="Dias de vacaciones"
+          required
+          class="form-text-input"
+          style="display: inline-block"
+        ></v-text-field>
+          </div>
+        </div>
+
+
         <div class="section-data-form">
           <div class="section-container">
           <h3 class="mb-5 mt-5">Información de la cuenta</h3>
@@ -138,35 +230,42 @@
             class="form-text-input"
           ></v-file-input>
           </div>
+          <div class="botones"> 
+              <v-btn
+              color="warning"
+              @click="reset">
+                  Reestablecer
+              </v-btn>
+              <v-btn
+              color="primary"
+              class="mr-4"
+              @click="validate">
+                Guardar cambios
+              </v-btn>
+            </div>
           </div>
         </div>
         
         
         <!-- Botones -->
         <div class="mt-10">
-          <v-btn
-          :disabled="!valid"
-          color="primary"
-          class="mr-4"
-          @click="validate">
-            Añadir empleado
-          </v-btn>
   
           <v-btn
-          color="error"
+          color="warning"
           class="mr-4"
           :to="{ name: 'superole-dashboard' }"
           @click="reset"
           >
-              Cancelar
+              Volver
           </v-btn>
-  
+
           <v-btn
-          color="warning"
-          @click="reset"
+          color="error"
+          class="mr-4"
           >
-              Reestablecer
+              Borrar empleado
           </v-btn>
+
         </div>
       </v-form>        
     </section>
@@ -292,5 +391,11 @@
       width: 250px;
       height: 250px;
       border-radius: 50%;
+  }
+
+  .botones{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
   }
   </style>

@@ -305,17 +305,19 @@ v-card-text{
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 .section-container{
   margin-left: 20px;
   margin-bottom: 20px;
 }
 
 .top{
-    min-width: 900px;
+    width: 700px;
 }
+
 .section-top{
     display:flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-flow: row wrap;
 }
 
