@@ -31,7 +31,7 @@
         :headers="headers"
         :items="usreList"
         :search="search"
-        item-key="descripcion"
+        item-key="id"
         class="table-rounded"
         hide-default-footer
         disable-sort
@@ -151,13 +151,41 @@ export default {
                 return this.usuarios_solicitudes[id].name;
             },
             async approve(id){
-
+                try {
+                await axios.post('/api/solicitudesAdmin/' + id + '/aprobar', {},{
+                    headers: {
+                    'Authorization': 'Bearer ' + store.state._token
+                    },
+                    params: {
+                        'api_key' : 'secreto'
+                    }
+                }).
+                then(response => {
+                    console.log(response)
+                    this.actualizar()
+                    //this.solicitudes = JSON.parse(JSON.stringify(this.$store.state.solicitudesVacaciones))
+                })
+                } catch (error) {
+                console.log(error)
+                }
             },
             async deny(id){
-
+                try {
+                    await axios.post('/api/solicitudesAdmin/' + id + '/denegar', {}, {
+                    headers: {
+                        'Authorization': 'Bearer ' + store.state._token
+                    }
+                    }).
+                    then(response => {
+                        this.actualizar()
+                    })
+                    } catch (error) {
+                        console.log(error)
+                    }
             },
             async actualizar(){
-
+                await this.$store.dispatch('fetchSolicitudesAdmin')
+                this.usreList = this.$store.state.solicitudesAdmin
             },
             filterEstado() {
 

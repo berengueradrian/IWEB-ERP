@@ -89,6 +89,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::get('/solicitudesAdmin', [SolicitudController::class, 'getSolicitudesAdmin'])->middleware(AdminAuth::class);;
     Route::get('/upload', [FileController::class, 'index']);
     Route::post('/upload', [FileController::class, 'upload'])->name('upload');
+    // ruta para aprobar una solicitud de vacaciones
+    Route::post('/solicitudesAdmin/{solicitud}/aprobar', [UserController::class, 'aprobarSolicitudAdmin']);
+    // ruta para rechazar una solicitud de vacaciones
+    Route::post('/solicitudesAdmin/{solicitud}/denegar', [UserController::class, 'denegarSolicitudAdmin']);
 
 });
 

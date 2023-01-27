@@ -138,7 +138,7 @@
       <!-- Botones -->
       <div style="display:flex; flex-flow:row; justify-content: center; gap: 20px;">
         <v-btn v-if="this.$store.state.user.admin"
-        color="primary" >
+        color="primary" :to="{name: 'pages-empleados-editar', params: {id: user.id}}" >
           Editar datos
         </v-btn>
 

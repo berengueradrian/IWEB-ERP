@@ -275,6 +275,47 @@ class UserController extends Controller
         ]);
     }
 
+
+    // aprobar una solicitud de administrador (otras y bajas)
+    public function aprobarSolicitudAdmin(Request $request) {
+        if (!Auth::guard('api')->user()->admin) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 1;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud aprobada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+        // denegar una solicitud de admin
+    public function denegarSolicitudAdmin(Request $request) {
+        if (!Auth::guard('api')->user()->admin) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 2;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud denegada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+
+
     public function createUser(Request $request) {
 
         $fileName = 'image-' . time();
