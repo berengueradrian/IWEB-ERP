@@ -21,7 +21,7 @@
         item-key="id"
         class="table-rounded"
         hide-default-footer
-        disable-sort
+        :items-per-page="50"
       >
         <template #[`item.tipo`]="{item}">
           <div class="d-flex flex-column">
@@ -29,7 +29,11 @@
           </div>
           </template>
           <template #[`item.descripcion`]="{item}">
-          {{ `${item.descripcion}` }}
+            {{ `${item.descripcion}` }}
+          </template>
+          <template #[`item.justificante`]="{item}">
+            {{ `${item.justificante}` }}
+            <v-icon v-if="item.justificante != 'No consta'" @click="descargar(item.id, item.justificante)">{{ mdiDownload }}</v-icon>
           </template>
           <template #[`item.estado`]="{item}">
           <v-chip
@@ -59,7 +63,7 @@
   
 <script>
   import store from '../../store/index.js';
-  import { mdiMagnify } from '@mdi/js';
+  import { mdiMagnify, mdiDownload } from '@mdi/js';
   import axios from 'axios';
   
   export default {
@@ -71,6 +75,7 @@
     data() {
       return {
         mdiMagnify,
+        mdiDownload,
         search: '',
         headers: [
           { text: 'Tipo', value: 'tipo' },
@@ -97,7 +102,6 @@
         Denegada: 'error',
         /* eslint-enable key-spacing */
       }
-  
       return {
         store,
         statusColor,
@@ -116,7 +120,54 @@
       async actualizar() {
         await this.$store.dispatch('fetchSolicitudes')
         this.$set(this, 'usreList', JSON.parse(JSON.stringify(this.$store.state.solicitudes)))
-      }
+      },
+      async descargar(id, nombre) {
+        await axios.get('http://localhost:8000/api/solicitudes/' + id + '/file',
+        {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        }, {responseType: 'arraybuffer'})
+        .then(response => {
+          //this.descargar2(response, nombre)
+          let encoder = new TextEncoder();
+          let data = encoder.encode(response.data);
+          let blob = new Blob([data], {type: response.headers['content-type']})
+          let link = document.createElement('a')
+          link.href = window.URL.createObjectURL(blob)
+          link.download = nombre//'justificante' + '.' + response.headers['content-type'].split('/')[1] 
+          link.click()
+        })
+        // .then(response => {
+        //   var filename = nombre//response.headers.get('content-disposition').split('=')[1].replace(/^\"+|\"+$/g, '')
+        //   var url = window.URL.createObjectURL(new Blob([response.data],{type:response.headers['content-type']}))
+        //   var link = document.createElement('a')
+        //   link.href = url
+        //   link.setAttribute('download', filename)
+        //   document.body.appendChild(link)
+        //   link.click()
+        // });
+      },
+      descargar2(response, nombre) {
+        var newBlob = new Blob([response.body], {type: response.headers['content-type']})
+        // IE doesn't allow using a blob object directly as link href
+        // instead it is necessary to use msSaveOrOpenBlob
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(newBlob)
+          return
+        }
+        // For other browsers:
+        // Create a link pointing to the ObjectURL containing the blob.
+        const data = window.URL.createObjectURL(newBlob)
+        var link = document.createElement('a')
+        link.href = data
+        link.download = nombre
+        link.click()
+        setTimeout(function () {
+          // For Firefox it is necessary to delay revoking the ObjectURL
+          window.URL.revokeObjectURL(data)
+        }, 100)
+      },
     }
   }
 </script>
