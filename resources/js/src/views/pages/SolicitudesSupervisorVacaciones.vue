@@ -27,6 +27,10 @@
         <template #[`item.descripcion`]="{item}">
           {{ `${item.descripcion}` }}
         </template>
+        <template #[`item.justificante`]="{item}">
+            {{ `${item.justificante}` }}
+            <v-icon v-if="item.justificante != 'No consta'" @click="descargar(item.id, item.justificante)">{{ mdiDownload }}</v-icon>
+          </template>
         <template #[`item.estado`]="{item}">
           <v-chip
             small
@@ -149,7 +153,7 @@
 <script>
   import store from '../../store/index.js';
   import axios from 'axios';
-  import { mdiMagnify } from '@mdi/js';
+  import { mdiMagnify, mdiDownload } from '@mdi/js';
 
   export default {
     async created() {
@@ -229,6 +233,7 @@
         store,
         statusColor,
         mdiMagnify,
+        mdiDownload,
       }
     },
     methods: {
@@ -325,6 +330,55 @@
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
+      },
+      async descargar(id, nombre) {
+        console.log(id)
+        console.log(nombre)
+        await axios.get('/api/solicitudes/' + id + '/file',
+        {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        }, {responseType: 'arraybuffer'})
+        .then(response => {
+          //this.descargar2(response, nombre)
+          let encoder = new TextEncoder();
+          let data = encoder.encode(response.data);
+          let blob = new Blob([data], {type: response.headers['content-type']})
+          let link = document.createElement('a')
+          link.href = window.URL.createObjectURL(blob)
+          link.download = nombre//'justificante' + '.' + response.headers['content-type'].split('/')[1] 
+          link.click()
+        })
+        // .then(response => {
+        //   var filename = nombre//response.headers.get('content-disposition').split('=')[1].replace(/^\"+|\"+$/g, '')
+        //   var url = window.URL.createObjectURL(new Blob([response.data],{type:response.headers['content-type']}))
+        //   var link = document.createElement('a')
+        //   link.href = url
+        //   link.setAttribute('download', filename)
+        //   document.body.appendChild(link)
+        //   link.click()
+        // });
+      },
+      descargar2(response, nombre) {
+        var newBlob = new Blob([response.body], {type: response.headers['content-type']})
+        // IE doesn't allow using a blob object directly as link href
+        // instead it is necessary to use msSaveOrOpenBlob
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(newBlob)
+          return
+        }
+        // For other browsers:
+        // Create a link pointing to the ObjectURL containing the blob.
+        const data = window.URL.createObjectURL(newBlob)
+        var link = document.createElement('a')
+        link.href = data
+        link.download = nombre
+        link.click()
+        setTimeout(function () {
+          // For Firefox it is necessary to delay revoking the ObjectURL
+          window.URL.revokeObjectURL(data)
+        }, 100)
       },
     },
     mounted() {
