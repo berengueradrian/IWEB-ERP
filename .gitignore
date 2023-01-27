@@ -7,3 +7,4 @@ package-lock.json
 yarn.lock
 composer.lock
 /public/mix-manifest.json
+/public/storage
