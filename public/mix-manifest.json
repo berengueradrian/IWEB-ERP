@@ -35,6 +35,7 @@
     "/images/logos/master.png": "/images/logos/master.png",
     "/images/logos/slack.png": "/images/logos/slack.png",
     "/images/logos/stripe-account.png": "/images/logos/stripe-account.png",
+    "/images/logos/ua-logo.png": "/images/logos/ua-logo.png",
     "/images/logos/zipcar.png": "/images/logos/zipcar.png",
     "/images/mask-dark.png": "/images/mask-dark.png",
     "/images/mask-light.png": "/images/mask-light.png",
@@ -70,10 +71,9 @@
     "/images/triangle-dark.png": "/images/triangle-dark.png",
     "/images/triangle-light.png": "/images/triangle-light.png",
     "/images/trophy.png": "/images/trophy.png",
+    "/images/ua-logo.png": "/images/ua-logo.png",
     "/images/upgrade-banner-dark.png": "/images/upgrade-banner-dark.png",
     "/images/upgrade-banner-light.png": "/images/upgrade-banner-light.png",
     "/images/users/default.jpg": "/images/users/default.jpg",
-    "/images/zipcar.png": "/images/zipcar.png",
-    "/images/logos/ua-logo.png": "/images/logos/ua-logo.png",
-    "/images/ua-logo.png": "/images/ua-logo.png"
+    "/images/zipcar.png": "/images/zipcar.png"
 }
