@@ -25,15 +25,6 @@ class JornadasTableSeeder extends Seeder
             [
             'hora_entrada' => 8,
             'hora_salida' => 16,
-            'fecha' => Carbon::parse('2023-01-02'),
-            'user_id' => $usersId[0],
-            'completada' => true
-            ]);
-
-        DB::table('jornadas')->insert(
-            [
-            'hora_entrada' => 8,
-            'hora_salida' => 16,
             'fecha' => Carbon::parse('2023-01-03'),
             'user_id' => $usersId[0],
             'completada' => true
