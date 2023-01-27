@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card class="overflow-hidden">
       <v-card-title>
         <h2 style="margin-bottom: 10px;">Solicitudes recibidas </h2>
         <v-spacer></v-spacer>
@@ -240,7 +240,11 @@ export default {
 .v-data-table{
   height: min-content!important;
   max-height: 600px!important;
-  overflow:auto;
+}
+
+.v-data-table__wrapper{
+    height: min-content!important;
+    max-height: 600px!important;
 }
 
 

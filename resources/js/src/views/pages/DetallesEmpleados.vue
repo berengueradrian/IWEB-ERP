@@ -126,7 +126,7 @@
                 </div>
                 <div style="display:flex; flex-flow: row;  justify-content:center; gap: 20px;">
                     <v-btn
-                        color="info" v-if="this.user.es_admin == false">
+                        color="info" v-if="this.user.es_admin == false" :to="{ name: 'pages-solicitudes-usuario-administrador', params: {id:this.user.id} }" >
                         Ver historial de solicitudes 
                     </v-btn>
                 </div>
