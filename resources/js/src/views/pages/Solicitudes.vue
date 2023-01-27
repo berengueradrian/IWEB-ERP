@@ -107,6 +107,21 @@
         statusColor,
       }
     },
+    watch: {
+      search(val) {
+        val = val.toLowerCase()
+        this.usreList = this.$store.state.solicitudes.filter((d) => {
+          return (
+            d.tipo.toLowerCase().includes(val) ||
+            d.descripcion.toLowerCase().includes(val) ||
+            d.fecha_inicio.toLowerCase().includes(val) ||
+            d.fecha_fin.toLowerCase().includes(val) ||
+            d.justificante.toLowerCase().includes(val) ||
+            this.status[d.estado].toLowerCase().includes(val)
+          )
+        })
+      },
+    },
     methods: {
       async borrar(id) {
         await axios.delete('/api/solicitudes/' + id ,{
