@@ -127,7 +127,7 @@ var store = new Vuex.Store({
             'Authorization': 'Bearer ' + store.state._token
           }
         })
-        commit('setSupervisor', response.data.supervisor)
+        commit('setSupervisor', response.data.data)
       }
       catch (error) {
         throw error

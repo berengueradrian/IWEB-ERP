@@ -28,7 +28,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     // ruta para finalizar una jornada
     Route::post('/endJornada/{user}', [UserController::class, 'endJornada']);
     // ruta para obtener los usuarios supervisores
-    Route::get('/supervisores', [UserController::class, 'getSupervisors'])->middleware(SupervisorAuth::class);
+    Route::get('/supervisores', [UserController::class, 'getSupervisors']);
     // ruta para obtener si hay alguna jornada abierta
     Route::get('/jornada/{user}', [UserController::class, 'getJornada']);
     // ruta para obtener la categoria de un usuario
