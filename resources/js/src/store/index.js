@@ -174,7 +174,7 @@ var store = new Vuex.Store({
     },
     async fetchAllNominas({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/nominas/', {
+        const response = await axios.get('/api/nominas/', {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -308,7 +308,7 @@ var store = new Vuex.Store({
           anyoNominas -= 1
         }
 
-        const response = await axios.post('http://localhost:8000/api/nominas/generadas', {
+        const response = await axios.post('/api/nominas/generadas', {
           mes: mesNominas,
           anyo: anyoNominas
         }, {
@@ -318,7 +318,7 @@ var store = new Vuex.Store({
         })
 
         if (!response.data.nominasGeneradas) {
-          const response = await axios.post('http://localhost:8000/api/nominas/generar', {
+          const response = await axios.post('/api/nominas/generar', {
             mes: mesNominas,
             anyo: anyoNominas
           }, {
@@ -337,7 +337,7 @@ var store = new Vuex.Store({
     },
     async cambiarEstadoNominaPagada({commit}, idNomina) {
       try {
-        const response = await axios.post('http://localhost:8000/api/nominas/' + idNomina + '/pagada', {
+        const response = await axios.post('/api/nominas/' + idNomina + '/pagada', {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }

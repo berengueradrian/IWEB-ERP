@@ -269,7 +269,7 @@ export default {
     methods: {
         deleteUser(){
             this.dialog = false;
-            axios.delete('http://localhost:8000/api/users/' + this.$route.params.id,{
+            axios.delete('/api/users/' + this.$route.params.id,{
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token
                     }
