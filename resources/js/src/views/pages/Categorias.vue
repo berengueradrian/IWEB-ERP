@@ -96,7 +96,7 @@ export default {
         },
         deleteCategory(id){
             console.log(id)
-            axios.delete('http://localhost:8000/api/categorias/' + id,{
+            axios.delete('/api/categorias/' + id,{
                     headers: {
                     'Authorization': 'Bearer ' + store.state._token
                     }
@@ -121,6 +121,6 @@ export default {
 <style lang="scss">
 .v-data-table__wrapper{
   height: min-content!important;
-  max-height: 350px!important;
+  max-height: 600px !important;
 }
 </style>

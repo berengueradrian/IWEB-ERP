@@ -67,7 +67,7 @@ class UsersTableSeeder extends Seeder
             'category_id' => $categoriesId[2]
         ]);
 
-        for ($i = 0, $j = 3; $i < 5; $i++, $j++) {
+        for ($i = 0, $j = 3; $i < 5; $i++, $j++) {  
             DB::table('users')->insert(
             [
                 'name' => $faker->name,

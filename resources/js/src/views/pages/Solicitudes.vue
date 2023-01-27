@@ -109,7 +109,7 @@
     },
     methods: {
       async borrar(id) {
-        await axios.delete('http://localhost:8000/api/solicitudes/' + id ,{
+        await axios.delete('/api/solicitudes/' + id ,{
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }

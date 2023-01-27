@@ -115,6 +115,11 @@ const routes = [
     component: () => import('@/views/pages/EditarCategoria.vue'),
   },
   {
+    path: '/pages/nominas',
+    name: 'pages-nominas',
+    component: () => import('@/views/nomina/Nominas.vue'),
+  },
+  {
     path: '/pages/superole/dashboard/editar/:id',
     name: 'pages-empleados-editar',
     component: () => import('@/views/pages/EditarEmpleados.vue'),
@@ -123,6 +128,11 @@ const routes = [
     path: '/pages/superole/dashboard/:id',
     name: 'pages-empleados-detalles',
     component: () => import('@/views/pages/DetallesEmpleados.vue'),
+  },
+  {
+    path: '/pages/superole/solicitudes/',
+    name: 'pages-solicitudes-administrador',
+    component: () => import('@/views/pages/SolicitudesAdministrador.vue'),
   },
   {
     path: '/pages/register',

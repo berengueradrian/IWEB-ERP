@@ -13,15 +13,19 @@ var store = new Vuex.Store({
       supervisor: {},
       categoria: null,
       jornadas: null,
-      nominas: null,
+      nominas: [],
+      nominas_usuario: [],
       solicitudes: null,
       solicitudesVacaciones: null,
       empleados: [],
       categorias: [],
       supervisores: [],
+      generadasNominas: false,
       usuariosSolicitudes: null,
       numeroCompaneros: null,
       horasTotales: null,
+      solicitudesAdmin: null,
+      usuariosSolicitudesAdmin: null,
     }
   },
   mutations: {
@@ -33,6 +37,9 @@ var store = new Vuex.Store({
     },
     setSupervisors(state, supervisors) {
       state.supervisores = supervisors
+    },
+    setGeneradasNominas(state, generadasNominas) {
+      state.generadasNominas = generadasNominas
     },
     setToken(state) {
       state.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
@@ -51,6 +58,9 @@ var store = new Vuex.Store({
     },
     setNominas(state, nominas) {
       state.nominas = nominas
+    },
+    setNominasUsuario(state, nominas_usuario) {
+      state.nominas_usuario = nominas_usuario
     },
     setSolicitudes(state, solicitudes) {
       state.solicitudes = solicitudes
@@ -72,6 +82,12 @@ var store = new Vuex.Store({
     },
     setNumeroCompaneros(state, numeroCompaneros) {
       state.numeroCompaneros = numeroCompaneros
+    },
+    setSolicitudesAdmin(state, solicitudesAdmin) {
+      state.solicitudesAdmin = solicitudesAdmin
+    },
+    setUsuariosSolicitudesAdmin(state, usuariosSolicitudesAdmin) {
+      state.usuariosSolicitudesAdmin = usuariosSolicitudesAdmin
     }
   },
   actions: {
@@ -83,7 +99,7 @@ var store = new Vuex.Store({
     },
     async fetchUser({commit}) {
       /* try {
-        const response = await axios.get('http://localhost:8000/api/users/' + this.state.user.id)
+        const response = await axios.get('/api/users/' + this.state.user.id)
         commit('setUser', response.data) 
       }
       catch (error) {
@@ -93,7 +109,7 @@ var store = new Vuex.Store({
     },
     async fetchCompletada({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/jornada/' + this.state.user.id, {
+        const response = await axios.get('/api/jornada/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -106,7 +122,7 @@ var store = new Vuex.Store({
     },
     async fetchSupervisor({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/supervisor/' + this.state.user.id, {
+        const response = await axios.get('/api/supervisor/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -119,7 +135,7 @@ var store = new Vuex.Store({
     },
     async fetchCategoria({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/categoria/' + this.state.user.id, {
+        const response = await axios.get('/api/categoria/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -132,7 +148,7 @@ var store = new Vuex.Store({
     },
     async fetchJornadas({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/jornadas/' + this.state.user.id, {
+        const response = await axios.get('/api/jornadas/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -145,7 +161,20 @@ var store = new Vuex.Store({
     },
     async fetchNominas({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/nominas/' + this.state.user.id, {
+        const response = await axios.get('/api/nominas/' + this.state.user.id, {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+        commit('setNominasUsuario', response.data.nominas)
+      }
+      catch (error) {
+        throw error
+      }
+    },
+    async fetchAllNominas({commit}) {
+      try {
+        const response = await axios.get('http://localhost:8000/api/nominas/', {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -158,7 +187,7 @@ var store = new Vuex.Store({
     },
     async fetchSolicitudes({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/solicitudes/' + this.state.user.id, {
+        const response = await axios.get('/api/solicitudes/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -172,7 +201,7 @@ var store = new Vuex.Store({
     // sólo para admins
     async fetchSolicitudesVacaciones({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/solicitudesVacaciones/' + this.state.user.id, {
+        const response = await axios.get('/api/solicitudesVacaciones/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -184,10 +213,25 @@ var store = new Vuex.Store({
         throw error
       }
     },
+    //solo para admins
+    async fetchSolicitudesAdmin({commit}) {
+      try {
+        const response = await axios.get('/api/solicitudesAdmin/', {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+        commit('setSolicitudesAdmin', response.data.solicitudes)
+        commit('setUsuariosSolicitudesAdmin', response.data.usuarios)
+      }
+      catch (error) {
+        throw error
+      }
+    },
     async fetchEmpleados({commit}) {
       const response = await axios.get('/api/users', {
         params: {
-          'api_key': 'tmrgmbhyfvdbuxkiive'
+          'api_key': 'secreto'
         }
       });
       let empleados = response.data.data
@@ -226,7 +270,7 @@ var store = new Vuex.Store({
     },
     async fetchHorasTotales({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/horas/count/' + this.state.user.id, {
+        const response = await axios.get('/api/horas/count/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -239,7 +283,7 @@ var store = new Vuex.Store({
     },
     async fetchNumeroCompaneros({commit}) {
       try {
-        const response = await axios.get('http://localhost:8000/api/companeros/count/' + this.state.user.id, {
+        const response = await axios.get('/api/companeros/count/' + this.state.user.id, {
           headers: {
             'Authorization': 'Bearer ' + store.state._token
           }
@@ -247,6 +291,58 @@ var store = new Vuex.Store({
         commit('setNumeroCompaneros', response.data.numeroCompaneros)
       }
       catch (error) {
+        throw error
+      }
+    },
+    async generarNominasMesAnterior({commit}) {
+      try {
+        // Si es el dia uno del mes, se generan las nominas del mes anterior
+        let fecha = new Date()
+        let mesNominas = fecha.getMonth()
+        let anyoNominas = fecha.getFullYear()
+
+        mesNominas -= 1
+
+        if (mesNominas === -1) {
+          mesNominas = 11
+          anyoNominas -= 1
+        }
+
+        const response = await axios.post('http://localhost:8000/api/nominas/generadas', {
+          mes: mesNominas,
+          anyo: anyoNominas
+        }, {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+
+        if (!response.data.nominasGeneradas) {
+          const response = await axios.post('http://localhost:8000/api/nominas/generar', {
+            mes: mesNominas,
+            anyo: anyoNominas
+          }, {
+            headers: {
+              'Authorization': 'Bearer ' + store.state._token
+            }
+          })
+          commit('setGeneradasNominas', true)
+        } else {
+          console.log('Las nominas para el mes ' + mesNominas + ' del año ' + anyoNominas + ' ya se han generado correctamente')
+          commit('setGeneradasNominas', true)
+        }
+      } catch (error) {
+        throw error
+      }
+    },
+    async cambiarEstadoNominaPagada({commit}, idNomina) {
+      try {
+        const response = await axios.post('http://localhost:8000/api/nominas/' + idNomina + '/pagada', {
+          headers: {
+            'Authorization': 'Bearer ' + store.state._token
+          }
+        })
+      } catch (error) {
         throw error
       }
     },

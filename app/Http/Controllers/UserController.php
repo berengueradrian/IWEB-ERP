@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 class UserController extends Controller
 {
     public function getUsers() {
-        $users = User::select('users.id', 'users.name', 'users.email', 'users.admin', 'users.supervisor', 'categories.name as category', 'users.supervisado')
+        $users = User::select('users.id', 'users.name', 'users.email', 'users.fecha_nacimiento', 'users.admin', 'users.image_url', 'users.supervisor', 'categories.name as category', 'users.supervisado')
         ->join('categories', 'users.category_id', '=', 'categories.id')
         ->get();
         return response()->json([
@@ -31,9 +31,11 @@ class UserController extends Controller
     }
 
     public function getUser(Request $request) {
-        $newUser = User::whereId($request->user)->first();
+
+        $user = User::select('users.id', 'users.name', 'users.email', 'users.fecha_nacimiento', 'users.admin', 'users.image_url')->whereId($request->user)->first();
+        $user->convenio = Convenio::whereUserId($user->id)->first();
         return response()->json([
-            'user' => $newUser,
+            'data' => $user,
         ]);
     }
 
@@ -83,7 +85,7 @@ class UserController extends Controller
         $user = User::whereId($request->user)->first();
         $supervisor = User::whereId($user->supervisado)->first();
         return response()->json([
-            'supervisor' => $supervisor,
+            'data' => $supervisor,
         ]);
     }
 
@@ -109,15 +111,6 @@ class UserController extends Controller
 
         return response()->json([
             'jornadas' => $jornadas,
-        ]);
-    }
-
-    // obtener las nominas de un usuario
-    public function getNominas(Request $request) {
-        $user = User::whereId($request->user)->first();
-        $nominas = $user->nominas()->get();
-        return response()->json([
-            'nominas' => $nominas,
         ]);
     }
 
@@ -236,7 +229,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized',
-            ], 401);
+           ], 401);
         }
 
         $user = User::whereId($request->user)->first();
@@ -304,6 +297,47 @@ class UserController extends Controller
         ]);
     }
 
+
+    // aprobar una solicitud de administrador (otras y bajas)
+    public function aprobarSolicitudAdmin(Request $request) {
+        if (!Auth::guard('api')->user()->admin) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 1;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud aprobada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+        // denegar una solicitud de admin
+    public function denegarSolicitudAdmin(Request $request) {
+        if (!Auth::guard('api')->user()->admin) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        
+        $solicitud = Solicitud::whereId($request->solicitud)->first();
+        $solicitud->estado = 2;
+        $solicitud->save();
+
+        return response()->json([
+            'message' => 'Solicitud denegada',
+            'solicitud' => $solicitud,
+        ]);
+    }
+
+
+
     public function createUser(Request $request) {
 
         $fileName = 'image-' . time();
@@ -365,6 +399,16 @@ class UserController extends Controller
 
         return response()->json([
             'numeroCompaneros' => $numeroCompaneros,
+        ]);
+    }
+
+    // borrar un usuario
+    public function deleteUser(Request $request) {
+        $user = User::whereId($request->user)->first();
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Usuario eliminado',
         ]);
     }
 

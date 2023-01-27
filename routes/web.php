@@ -5,7 +5,10 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\NominaController;
 use App\Http\Middleware\AdminAuth;
+use App\Http\Middleware\SupervisorAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +28,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     // ruta para finalizar una jornada
     Route::post('/endJornada/{user}', [UserController::class, 'endJornada']);
     // ruta para obtener los usuarios supervisores
-    Route::get('/supervisores', [UserController::class, 'getSupervisors'])->middleware(AdminAuth::class);
+    Route::get('/supervisores', [UserController::class, 'getSupervisors'])->middleware(SupervisorAuth::class);
     // ruta para obtener si hay alguna jornada abierta
     Route::get('/jornada/{user}', [UserController::class, 'getJornada']);
     // ruta para obtener la categoria de un usuario
@@ -41,7 +44,17 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     // ruta para obtener las jornadas de un usuario
     Route::get('/jornadas/{user}', [UserController::class, 'getJornadas']);
     // ruta para obtener las nominas de un usuario
-    Route::get('/nominas/{user}', [UserController::class, 'getNominas']);
+    Route::get('/nominas/users/{user}', [NominaController::class, 'getNominasUsuario']);
+    // ruta para obtener una nomina
+    Route::get('/nominas/{nomina}', [NominaController::class, 'getNomina']);
+    // ruta para obtener todas las nominas
+    Route::get('/nominas', [NominaController::class, 'getAllNominas']);
+    // ruta para comprobar si se han generado nominas o no
+    Route::post('/nominas/generadas', [NominaController::class, 'checkNominasGeneradas']);
+    // ruta para generar nominas
+    Route::post('/nominas/generar', [NominaController::class, 'generarNominas']);
+    // ruta para cambiar estado de una nomina
+    Route::post('/nominas/{nomina}/pagada', [NominaController::class, 'changeEstadoPagado']);
     // ruta para obtener las solicitudes de un usuario
     Route::get('/solicitudes/{user}', [UserController::class, 'getSolicitudes']);
     // ruta para crear una solicitud de un usuario
@@ -56,6 +69,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::post('/solicitudes/{solicitud}/denegar', [UserController::class, 'denegarSolicitudVacaciones']);
     // ruta para crear un nuevo usuario
     Route::post('/users', [UserController::class, 'createUser'])->middleware(AdminAuth::class);
+    // ruta para obtener un usuario
+    Route::get('/users/{user}', [UserController::class, 'getUser']);
+    // ruta para borrar un usuario
+    Route::delete('/users/{user}', [UserController::class, 'deleteUser'])->middleware(AdminAuth::class);
     // ruta para obtener las horas trabajadas de un usuario
     Route::get('/horas/count/{user}', [UserController::class, 'getNumeroHoras']);
     // ruta para obtener el numero de compañeros de un usuario
@@ -70,6 +87,15 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     Route::get('/categorias/{id}', [CategoryController::class, 'getCategoria']);
     // Ruta para descargar justificantes
     Route::get('/solicitudes/{solicitud}/file', [UserController::class, 'downloadJustificante']);
+    //Ruta para obtener las solicitudes enviadas al administrador
+    Route::get('/solicitudesAdmin', [SolicitudController::class, 'getSolicitudesAdmin'])->middleware(AdminAuth::class);;
+    Route::get('/upload', [FileController::class, 'index']);
+    Route::post('/upload', [FileController::class, 'upload'])->name('upload');
+    // ruta para aprobar una solicitud de vacaciones
+    Route::post('/solicitudesAdmin/{solicitud}/aprobar', [UserController::class, 'aprobarSolicitudAdmin']);
+    // ruta para rechazar una solicitud de vacaciones
+    Route::post('/solicitudesAdmin/{solicitud}/denegar', [UserController::class, 'denegarSolicitudAdmin']);
+
 });
 
 // Routes accesible from API KEY auth

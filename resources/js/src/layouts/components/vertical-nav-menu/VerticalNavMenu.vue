@@ -39,11 +39,15 @@
         :icon="icons.mdiFileClockOutline"
       ></nav-menu-link>
       <nav-menu-link
+      <!-- solicitudes que alguien envía al admin o su supervisor -->
+      <nav-menu-link v-if="!this.$store.state.user.admin"
         title="Solicitudes"
         :to="{ name: 'pages-solicitudes' }"
         :icon="icons.mdiBookArrowUpOutline"
       ></nav-menu-link>
-      <nav-menu-link title="Nóminas" :to="{ name: 'typography' }" :icon="icons.mdiFileChartOutline"></nav-menu-link> 
+      <!-- solicitudes que recibe el administrador -->
+      <nav-menu-link v-if="this.$store.state.user.admin" title="Solicitudes" :to="{ name: 'pages-solicitudes-administrador' }" :icon="icons.mdiBookArrowUpOutline"></nav-menu-link>
+      <nav-menu-link title="Nóminas" :to="{ name: 'pages-nominas' }" :icon="icons.mdiFileChartOutline"></nav-menu-link> 
       <nav-menu-link v-if="this.$store.state.user.admin" title="Categorías" to="/pages/categorias" :icon="icons.mdiShapeOutline" ></nav-menu-link>
       <!-- <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">
         <nav-menu-link title="Login" :to="{ name: 'login' }" target="_blank"></nav-menu-link>

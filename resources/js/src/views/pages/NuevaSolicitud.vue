@@ -95,6 +95,7 @@
         color="primary"
         class="mr-4"
         @click="validate"
+        to="/pages/solicitudes"
         >
             Enviar solicitud
         </v-btn>
@@ -185,7 +186,7 @@
                 formData.append('user_id', this.user.id);
 
                 try {
-                    await axios.post('http://localhost:8000/api/solicitudes/' + this.user.id, formData, {
+                    await axios.post('/api/solicitudes/' + this.user.id, formData, {
                             headers: {
                                 'Authorization': 'Bearer ' + store.state._token
                             }
